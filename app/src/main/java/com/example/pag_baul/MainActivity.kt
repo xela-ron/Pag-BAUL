@@ -1,36 +1,34 @@
 package com.example.pag_baul
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // When any book card is clicked, go to stations screen
-        findViewById<CardView>(R.id.book1_card).setOnClickListener {
-            goToStationsScreen("BOOK 1")
-        }
-        findViewById<CardView>(R.id.book2_card).setOnClickListener {
-            goToStationsScreen("BOOK 2")
-        }
-        findViewById<CardView>(R.id.book3_card).setOnClickListener {
-            goToStationsScreen("BOOK 3")
-        }
-        findViewById<CardView>(R.id.book4_card).setOnClickListener {
-            goToStationsScreen("BOOK 4")
-        }
-        findViewById<CardView>(R.id.book5_card).setOnClickListener {
-            goToStationsScreen("BOOK 5")
+        // Only load the HomeFragment if the activity is just starting
+        if (savedInstanceState == null) {
+            loadFragment(HomeFragment())
         }
     }
 
-    private fun goToStationsScreen(bookTitle: String) {
-        val intent = Intent(this, StationsActivity::class.java)
-        intent.putExtra("SELECTED_BOOK", bookTitle)
-        startActivity(intent)
+    // This helper function switches the screens
+    fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    // Handles the back button correctly so you don't get stuck on empty screens
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 1) {
+            supportFragmentManager.popBackStack()
+        } else {
+            super.onBackPressed()
+        }
     }
 }
