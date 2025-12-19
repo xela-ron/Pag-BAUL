@@ -16,16 +16,41 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        // Setup Book 1 Button
+        // Setup Book 1
         val btnBook1 = view.findViewById<Button>(R.id.btnBook1)
         btnBook1.setOnClickListener {
-            // Navigate to BookFragment
-            // Note: BookFragment will show in red until you create it in Step 3.
-            (activity as MainActivity).loadFragment(BookFragment())
+            openBook()
         }
 
-        // You can add listeners for other books here later (btnBook2, btnBook3, etc.)
+        // Setup Book 2
+        val btnBook2 = view.findViewById<Button>(R.id.btnBook2)
+        btnBook2.setOnClickListener {
+            openBook()
+        }
+
+        // Setup Book 3
+        val btnBook3 = view.findViewById<Button>(R.id.btnBook3)
+        btnBook3.setOnClickListener {
+            openBook()
+        }
+
+        // Setup Book 4
+        val btnBook4 = view.findViewById<Button>(R.id.btnBook4)
+        btnBook4.setOnClickListener {
+            openBook()
+        }
+
+        // Setup Book 5
+        val btnBook5 = view.findViewById<Button>(R.id.btnBook5)
+        btnBook5.setOnClickListener {
+            openBook()
+        }
 
         return view
+    }
+
+    // Helper function to avoid repeating the navigation code 5 times
+    private fun openBook() {
+        (activity as MainActivity).loadFragment(BookFragment())
     }
 }

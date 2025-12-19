@@ -34,7 +34,70 @@
             android:text="Station 2"
             android:layout_marginBottom="10dp"/>
 
-        <!-- Add more buttons for Stations 3-10 here if you want -->
+        <!-- Station 3 -->
+        <Button
+            android:id="@+id/btnStation3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Station 3"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Station 4 -->
+        <Button
+            android:id="@+id/btnStation4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Station 4"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Station 5 -->
+        <Button
+            android:id="@+id/btnStation5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Station 5"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Station 6 -->
+        <Button
+            android:id="@+id/btnStation6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Station 6"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Station 7 -->
+        <Button
+            android:id="@+id/btnStation7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Station 7"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Station 8 -->
+        <Button
+            android:id="@+id/btnStation8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Station 8"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Station 9 -->
+        <Button
+            android:id="@+id/btnStation9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Station 9"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Station 10 -->
+        <Button
+            android:id="@+id/btnStation10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Station 10"
+            android:layout_marginBottom="10dp"/>
+
 
     </LinearLayout>
 </ScrollView>

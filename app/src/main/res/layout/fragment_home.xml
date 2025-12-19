@@ -19,7 +19,7 @@
         android:id="@+id/btnBook1"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="Book 1: The Beginning"
+        android:text="Book 1: ANG YAMAN NG MAGULANG"
         android:layout_marginBottom="16dp"/>
 
     <!-- Book 2 Button (Placeholder) -->
@@ -27,7 +27,32 @@
         android:id="@+id/btnBook2"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="Book 2: The Journey"
+        android:text="Book 2: SI TAGAK AT SI KALABAW"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Book 3 -->
+    <Button
+        android:id="@+id/btnBook3"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Book 3: ANG MABAIT NA JEEP"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Book 4 -->
+    <Button
+        android:id="@+id/btnBook4"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Book 4: ANG ISINUMPANG ISDA"
+        android:layout_marginBottom="16dp"/>
+
+
+    <!-- Book 5 -->
+    <Button
+        android:id="@+id/btnBook5"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Book 5: ANG KABAYO AT ANG LEON"
         android:layout_marginBottom="16dp"/>
 
 </LinearLayout>
