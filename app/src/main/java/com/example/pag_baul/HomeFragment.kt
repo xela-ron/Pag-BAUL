@@ -13,44 +13,31 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         // Setup Book 1
-        val btnBook1 = view.findViewById<Button>(R.id.btnBook1)
-        btnBook1.setOnClickListener {
-            openBook()
+        view.findViewById<Button>(R.id.btnBook1).setOnClickListener {
+            openBook(1) // Pass ID 1
         }
 
         // Setup Book 2
-        val btnBook2 = view.findViewById<Button>(R.id.btnBook2)
-        btnBook2.setOnClickListener {
-            openBook()
+        view.findViewById<Button>(R.id.btnBook2).setOnClickListener {
+            openBook(2) // Pass ID 2
         }
 
-        // Setup Book 3
-        val btnBook3 = view.findViewById<Button>(R.id.btnBook3)
-        btnBook3.setOnClickListener {
-            openBook()
-        }
-
-        // Setup Book 4
-        val btnBook4 = view.findViewById<Button>(R.id.btnBook4)
-        btnBook4.setOnClickListener {
-            openBook()
-        }
-
-        // Setup Book 5
-        val btnBook5 = view.findViewById<Button>(R.id.btnBook5)
-        btnBook5.setOnClickListener {
-            openBook()
-        }
+        // Setup other books (3, 4, 5...)
+        view.findViewById<Button>(R.id.btnBook3).setOnClickListener { openBook(3) }
+        view.findViewById<Button>(R.id.btnBook4).setOnClickListener { openBook(4) }
+        view.findViewById<Button>(R.id.btnBook5).setOnClickListener { openBook(5) }
 
         return view
     }
 
-    // Helper function to avoid repeating the navigation code 5 times
-    private fun openBook() {
-        (activity as MainActivity).loadFragment(BookFragment())
+    private fun openBook(bookId: Int) {
+        val bookFragment = BookFragment()
+        val bundle = Bundle()
+        bundle.putInt("BOOK_ID", bookId) // Pass the Book ID here
+        bookFragment.arguments = bundle
+        (activity as MainActivity).loadFragment(bookFragment)
     }
 }
