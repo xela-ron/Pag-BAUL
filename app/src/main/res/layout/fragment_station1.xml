@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#D0F0C0">
@@ -66,53 +67,34 @@
 
             <!-- BIG DICE IMAGE -->
             <ImageView
-                android:id="@+id/ivDice"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:id="@+id/diceImageView"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="24dp"
                 android:src="@drawable/dice1"
-                app:layout_constraintBottom_toTopOf="@id/ivStoryResult"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle"
-                app:layout_constraintVertical_chainStyle="packed" />
 
-            <!-- STORY RESULT IMAGE (Hidden initially) -->
-            <!-- This is where dice1story, dice2story, etc. will appear -->
-            <ImageView
-                android:id="@+id/ivStoryResult"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/ic_launcher_foreground"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@id/btnRoll"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/black_border_thin"
+                android:padding="4dp"
+
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                app:layout_constraintBottom_toTopOf="@id/rollButton"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivDice" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <!-- ROLL BUTTON -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/btnRoll"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+            <Button
+                android:id="@+id/rollButton"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_marginBottom="20dp"
-                app:cardCornerRadius="40dp"
-                app:cardElevation="6dp"
+                android:background="@drawable/circle_button_background"
+                android:text="Roll"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="15dp"
-                    android:src="@drawable/dice1" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?attr/selectableItemBackground"/>
-            </androidx.cardview.widget.CardView>
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

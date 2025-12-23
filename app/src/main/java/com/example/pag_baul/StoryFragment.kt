@@ -26,39 +26,52 @@ class StoryFragment : Fragment() {
         val tvDots = view.findViewById<TextView>(R.id.tvDots)
         val btnBackIcon = view.findViewById<ImageView>(R.id.btnBackIcon)
 
+        // --- KEY FIX: FIND THE TEXT VIEWS AND UPDATE THEM ---
+        val tvPage1 = view.findViewById<TextView>(R.id.tvStoryPage1)
+        val tvPage2 = view.findViewById<TextView>(R.id.tvStoryPage2)
+
+        // 1. Get text passed from BookFragment
+        val text1 = arguments?.getString("STORY_PAGE1")
+        val text2 = arguments?.getString("STORY_PAGE2")
+
+        // 2. If text was passed (like for Book 2), use it.
+        if (text1 != null) {
+            tvPage1.text = text1
+        }
+        if (text2 != null) {
+            tvPage2.text = text2
+        }
+        // ----------------------------------------------------
+
         // Initial State (Page 1)
         page1.visibility = View.VISIBLE
         page2.visibility = View.GONE
         btnNext.visibility = View.VISIBLE
         btnDone.visibility = View.GONE
         btnPrev.visibility = View.INVISIBLE
-        tvDots.text = "● ○" // First dot filled
+        tvDots.text = "● ○"
 
-        // Handle Next Click -> Go to Page 2
+        // Handle Next Click
         btnNext.setOnClickListener {
             page1.visibility = View.GONE
             page2.visibility = View.VISIBLE
-
-            // Switch buttons
             btnNext.visibility = View.GONE
             btnDone.visibility = View.VISIBLE
-            btnPrev.visibility = View.VISIBLE // Show back arrow
-            tvDots.text = "○ ●" // Second dot filled
+            btnPrev.visibility = View.VISIBLE
+            tvDots.text = "○ ●"
         }
 
-        // Handle Previous Click -> Go back to Page 1
+        // Handle Previous Click
         btnPrev.setOnClickListener {
             page2.visibility = View.GONE
             page1.visibility = View.VISIBLE
-
-            // Switch buttons back
             btnNext.visibility = View.VISIBLE
             btnDone.visibility = View.GONE
             btnPrev.visibility = View.INVISIBLE
             tvDots.text = "● ○"
         }
 
-        // Handle Done or Back Icon Click -> Exit
+        // Handle Close
         val closeAction = View.OnClickListener {
             parentFragmentManager.popBackStack()
         }

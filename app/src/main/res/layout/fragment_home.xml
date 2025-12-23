@@ -1,58 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center_horizontal">
+    android:background="#FFF9C4"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="16dp"
+    android:paddingTop="80dp"> <!-- INCREASED TO 100dp to force it down -->
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select a Book"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="32dp"/>
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
-    <!-- Book 1 Button -->
-    <Button
-        android:id="@+id/btnBook1"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Book 1: ANG YAMAN NG MAGULANG"
-        android:layout_marginBottom="16dp"/>
+        <!-- ROW 1 (Books 1 & 2) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="24dp">
 
-    <!-- Book 2 Button (Placeholder) -->
-    <Button
-        android:id="@+id/btnBook2"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Book 2: SI TAGAK AT SI KALABAW"
-        android:layout_marginBottom="16dp"/>
+            <!-- BOOK 1 -->
+            <LinearLayout
+                android:id="@+id/btnBook1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginEnd="8dp">
 
-    <!-- Book 3 -->
-    <Button
-        android:id="@+id/btnBook3"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Book 3: ANG MABAIT NA JEEP"
-        android:layout_marginBottom="16dp"/>
+                <ImageView
+                    android:layout_width="140dp"
+                    android:layout_height="180dp"
+                    android:src="@drawable/book1cover"
+                    android:scaleType="centerCrop"
+                    android:background="#FFFFFF"
+                    android:elevation="4dp"/>
 
-    <!-- Book 4 -->
-    <Button
-        android:id="@+id/btnBook4"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Book 4: ANG ISINUMPANG ISDA"
-        android:layout_marginBottom="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BOOK 1"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="YAMAN NG PAMILYA"
+                    android:gravity="center"
+                    android:textColor="#000000"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
+            <!-- BOOK 2 -->
+            <LinearLayout
+                android:id="@+id/btnBook2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginStart="8dp">
 
-    <!-- Book 5 -->
-    <Button
-        android:id="@+id/btnBook5"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Book 5: ANG KABAYO AT ANG LEON"
-        android:layout_marginBottom="16dp"/>
+                <ImageView
+                    android:layout_width="140dp"
+                    android:layout_height="180dp"
+                    android:src="@drawable/book2cover"
+                    android:scaleType="centerCrop"
+                    android:background="#FFFFFF"
+                    android:elevation="4dp"/>
 
-</LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BOOK 2"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SI TAGAK AT KALABAW"
+                    android:gravity="center"
+                    android:textColor="#000000"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ROW 2 (Books 3 & 4) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="24dp">
+
+            <!-- BOOK 3 -->
+            <LinearLayout
+                android:id="@+id/btnBook3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginEnd="8dp">
+
+                <ImageView
+                    android:layout_width="140dp"
+                    android:layout_height="180dp"
+                    android:src="@drawable/book3cover"
+                    android:scaleType="centerCrop"
+                    android:background="#FFFFFF"
+                    android:elevation="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BOOK 3"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ANG MABAIT NA JEEP"
+                    android:gravity="center"
+                    android:textColor="#000000"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- BOOK 4 -->
+            <LinearLayout
+                android:id="@+id/btnBook4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginStart="8dp">
+
+                <ImageView
+                    android:layout_width="140dp"
+                    android:layout_height="180dp"
+                    android:src="@drawable/book4cover"
+                    android:scaleType="centerCrop"
+                    android:background="#FFFFFF"
+                    android:elevation="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BOOK 4"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ANG ISINUMPANG ISDA"
+                    android:gravity="center"
+                    android:textColor="#000000"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ROW 3 (Book 5) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!-- BOOK 5 -->
+            <LinearLayout
+                android:id="@+id/btnBook5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="140dp"
+                    android:layout_height="180dp"
+                    android:src="@drawable/book5cover"
+                    android:scaleType="centerCrop"
+                    android:background="#FFFFFF"
+                    android:elevation="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BOOK 5"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ANG KABAYO AT ANG LEON"
+                    android:gravity="center"
+                    android:textColor="#000000"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -43,12 +44,11 @@
                 android:id="@+id/btnBackIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/abc_vector_test"
+                android:background="@drawable/rounded_border"
                 android:padding="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="#000000" />
-            <!-- Note: Ideally use a proper back icon drawable here -->
 
             <!-- Title -->
             <TextView
@@ -73,7 +73,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
+                <!-- ADDED ID HERE: tvStoryPage1 -->
                 <TextView
+                    android:id="@+id/tvStoryPage1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="4dp"
@@ -94,7 +96,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
+                <!-- ADDED ID HERE: tvStoryPage2 -->
                 <TextView
+                    android:id="@+id/tvStoryPage2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="4dp"
@@ -112,7 +116,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent">
 
-                <!-- Previous Arrow (Only visible on page 2) -->
+                <!-- Previous Arrow -->
                 <Button
                     android:id="@+id/btnPrev"
                     android:layout_width="40dp"
@@ -146,7 +150,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"/>
 
-                <!-- DONE Button (Only visible on page 2) -->
+                <!-- DONE Button -->
                 <Button
                     android:id="@+id/btnDoneStory"
                     android:layout_width="wrap_content"

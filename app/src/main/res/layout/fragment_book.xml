@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#D0F0C0">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,94 +11,101 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- HEADER WITH BACK BUTTON -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select a Station"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="24dp"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="24dp">
 
-        <!-- Station 1 Button -->
+            <Button
+                android:id="@+id/btnBackToBooks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                android:backgroundTint="#FF5722"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select a Station"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#000000"/>
+        </LinearLayout>
+
         <Button
             android:id="@+id/btnStation1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Station 1"
+            android:text="Station 1: Story Dice"
             android:layout_marginBottom="10dp"/>
 
-        <!-- Station 2 Button -->
         <Button
             android:id="@+id/btnStation2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Station 2"
+            android:text="Station 2: Story Reading"
             android:layout_marginBottom="10dp"/>
 
-        <!-- Station 3 -->
         <Button
             android:id="@+id/btnStation3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Station 3"
+            android:text="Station 3: Quiz"
             android:layout_marginBottom="10dp"/>
 
-        <!-- Station 4 -->
         <Button
             android:id="@+id/btnStation4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Station 4"
+            android:text="Station 4: Games"
             android:layout_marginBottom="10dp"/>
 
-        <!-- Station 5 -->
         <Button
             android:id="@+id/btnStation5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Station 5"
+            android:text="Station 5: Emotion Chart"
             android:layout_marginBottom="10dp"/>
 
-        <!-- Station 6 -->
         <Button
             android:id="@+id/btnStation6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Station 6"
+            android:text="Station 6: Essay 1"
             android:layout_marginBottom="10dp"/>
 
-        <!-- Station 7 -->
         <Button
             android:id="@+id/btnStation7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Station 7"
+            android:text="Station 7: Essay 2"
             android:layout_marginBottom="10dp"/>
 
-        <!-- Station 8 -->
         <Button
             android:id="@+id/btnStation8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Station 8"
+            android:text="Station 8: Essay 3"
             android:layout_marginBottom="10dp"/>
 
-        <!-- Station 9 -->
         <Button
             android:id="@+id/btnStation9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Station 9"
+            android:text="Station 9: Essay 4"
             android:layout_marginBottom="10dp"/>
 
-        <!-- Station 10 -->
         <Button
             android:id="@+id/btnStation10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Station 10"
+            android:text="Station 10: Essay 5"
             android:layout_marginBottom="10dp"/>
-
 
     </LinearLayout>
 </ScrollView>
