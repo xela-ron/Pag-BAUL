@@ -28,11 +28,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="24dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -44,8 +47,9 @@
                 android:id="@+id/btnBackIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/abc_vector_test"
+                android:background="@drawable/rounded_border"
                 android:padding="8dp"
+                android:src="@drawable/ic_arrow_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="#000000" />
@@ -249,8 +253,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="DONE"
-                android:backgroundTint="#2196F3"
-                android:textColor="#FFFFFF"
+                android:backgroundTint="#FFEB3B"
+                android:textColor="#333333"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>

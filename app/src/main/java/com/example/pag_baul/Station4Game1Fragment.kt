@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 
@@ -25,6 +26,18 @@ class Station4Game1Fragment : Fragment() {
         // Navigate to Game 2
         view.findViewById<Button>(R.id.btnNextGame).setOnClickListener {
             (activity as MainActivity).loadFragment(Station4Game2Fragment())
+        }
+
+        // Handle Back Button
+        val btnBack = view.findViewById<ImageView>(R.id.btnBackIcon)
+        btnBack.setOnClickListener {
+            // Using activity's onBackPressed or popping stack directly
+            if (parentFragmentManager.backStackEntryCount > 0) {
+                parentFragmentManager.popBackStack()
+            } else {
+                // Fallback if stack is empty, though unlikely given your flow
+                requireActivity().onBackPressed()
+            }
         }
 
         return view

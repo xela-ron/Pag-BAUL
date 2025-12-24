@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D0F0C0"> <!-- Light Green Background -->
+    android:background="#D0F0C0">
 
     <!-- Header / LOGO -->
     <LinearLayout
@@ -24,31 +25,35 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- The White Card Container -->
+    <!-- White Card Container -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="24dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="20dp">
 
-            <!-- Top Back Button (Icon) -->
+            <!-- Back Icon -->
             <ImageView
                 android:id="@+id/btnBackIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/rounded_border"
                 android:padding="8dp"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="#000000"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="#000000" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <!-- Title -->
             <TextView
@@ -63,106 +68,61 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- PAGE 1 CONTENT -->
-            <ScrollView
-                android:id="@+id/layoutPage1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="60dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle">
-
-                <!-- ADDED ID HERE: tvStoryPage1 -->
-                <TextView
-                    android:id="@+id/tvStoryPage1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lineSpacingExtra="4dp"
-                    android:justificationMode="inter_word"
-                    android:text="Sabado ng umaga, ang lahat ay abalang abala sa kanilang Gawain. Karaniwang tanawin din sa araw na ito ang mga batang masayang naglalaro.\n\nNgunit kaiba sa bahay nila Gng. Ferrer. Madilim pa lamang ay gising na ang magkapatid na sina Willy at Arlyn. Nilinis ni Willy ang kanilang maliit na bahay, samantalang nilabhan naman ni Arlyn ang kanilang maruruming damit.\n\nNang maluto ang kanilang almusal, hinatiran ng pagkain ng magkapatid ang kanilang ina.\n\nIlang araw ng maysakit si Gng. Ferrer, kaya't hindi siya makapagtrabaho. Nang umagang iyon inutusan niya ang kanyang mga anak na pumunta sa palengke..."
-                    android:textColor="#333333"
-                    android:textSize="18sp" />
-            </ScrollView>
-
-            <!-- PAGE 2 CONTENT (Initially Hidden) -->
-            <ScrollView
-                android:id="@+id/layoutPage2"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="60dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle">
-
-                <!-- ADDED ID HERE: tvStoryPage2 -->
-                <TextView
-                    android:id="@+id/tvStoryPage2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lineSpacingExtra="4dp"
-                    android:justificationMode="inter_word"
-                    android:text="Hayaan po ninyo, Nanay, pag nakatapos po ako ng pag aaral, ibibili ko po kayo ng mga itlog at sariwang prutas at hindi na po kayo magtra trabaho para hindi na po kayo magkasakit, sabi ni Willy.\n\n'Salamat mga anak napakapalad ko sa inyo masipag na ay mababait pa. Salat man tayo sa materyal na bagay ay mayaman naman tayo sa pagmamahal.' Naluluhang wika ni Gng. Ferrer."
-                    android:textColor="#333333"
-                    android:textSize="18sp" />
-            </ScrollView>
-
-            <!-- BOTTOM CONTROLS -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- Page Number -->
+            <TextView
+                android:id="@+id/tvPageNumber"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent">
+                android:layout_marginTop="16dp"
+                android:textColor="#555"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                tools:text="Page 1 of 2" />
 
-                <!-- Previous Arrow -->
-                <Button
-                    android:id="@+id/btnPrev"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:text="&lt;"
-                    android:background="@android:color/transparent"
-                    android:textColor="#000000"
-                    android:textSize="20sp"
-                    android:visibility="invisible"/>
+            <!-- Story Text -->
+            <TextView
+                android:id="@+id/tvStoryText"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:lineSpacingMultiplier="1.2"
+                android:textColor="#333"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@id/btnNext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPageNumber"
+                tools:text="Ito ang unang pahina ng kwento..." />
 
-                <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1"/>
+            <!-- Next Button -->
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#2196F3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-                <!-- Dots Indicator -->
-                <TextView
-                    android:id="@+id/tvDots"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="● ○"
-                    android:textSize="20sp"
-                    android:textColor="#555555" />
-
-                <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1"/>
-
-                <!-- Next Arrow -->
-                <Button
-                    android:id="@+id/btnNext"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:text="&gt;"
-                    android:background="@drawable/circle_button"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp"/>
-
-                <!-- DONE Button -->
-                <Button
-                    android:id="@+id/btnDoneStory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="DONE"
-                    android:visibility="gone"
-                    android:backgroundTint="#2196F3"
-                    android:textColor="#FFFFFF"/>
-
-            </LinearLayout>
+            <!-- Done Button -->
+            <Button
+                android:id="@+id/btnDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Done"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:textColor="#FFFFFF"
+                android:visibility="gone"
+                android:backgroundTint="#2196F3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

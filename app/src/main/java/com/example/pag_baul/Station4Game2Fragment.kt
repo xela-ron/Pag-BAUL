@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -33,6 +34,7 @@ class Station4Game2Fragment : Fragment() {
         val target3 = view.findViewById<TextView>(R.id.target3)
         val target4 = view.findViewById<TextView>(R.id.target4)
         val btnDone = view.findViewById<Button>(R.id.btnDone)
+        val btnBackIcon = view.findViewById<ImageView>(R.id.btnBackIcon)
 
         // 1. SETUP SELECTION LOGIC
         // Only run this if the drag items actually exist
@@ -82,6 +84,15 @@ class Station4Game2Fragment : Fragment() {
         btnDone?.setOnClickListener {
             // Go back to the Book list
             (activity as MainActivity).loadFragment(BookFragment())
+        }
+
+        // 4. SETUP BACK BUTTON
+        btnBackIcon?.setOnClickListener {
+            if (parentFragmentManager.backStackEntryCount > 0) {
+                parentFragmentManager.popBackStack()
+            } else {
+                requireActivity().onBackPressed()
+            }
         }
 
         return view

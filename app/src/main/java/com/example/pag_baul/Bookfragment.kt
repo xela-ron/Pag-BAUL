@@ -26,17 +26,13 @@ class BookFragment : Fragment() {
             (activity as MainActivity).loadFragment(HomeFragment())
         }
 
-        // 3. Setup ALL 10 station buttons
-        setupStationButton(view, R.id.btnStation1, 1)
-        setupStationButton(view, R.id.btnStation2, 2)
-        setupStationButton(view, R.id.btnStation3, 3)
-        setupStationButton(view, R.id.btnStation4, 4)
-        setupStationButton(view, R.id.btnStation5, 5)
-        setupStationButton(view, R.id.btnStation6, 6)
-        setupStationButton(view, R.id.btnStation7, 7)
-        setupStationButton(view, R.id.btnStation8, 8)
-        setupStationButton(view, R.id.btnStation9, 9)
-        setupStationButton(view, R.id.btnStation10, 10)
+        // Setup ALL 10 station buttons
+        for (i in 1..10) {
+            val buttonId = resources.getIdentifier("btnStation$i", "id", requireActivity().packageName)
+            if (buttonId != 0) {
+                setupStationButton(view, buttonId, i)
+            }
+        }
 
         return view
     }
@@ -52,24 +48,32 @@ class BookFragment : Fragment() {
             if (currentBookId == 1) {
                 when (stationNumber) {
                     1 -> openGenericFragment(Station1Fragment())
-                    2 -> openGenericFragment(StoryFragment()) // Uses default XML text for Book 1
+                    2 -> openStory(
+                        "Sabado ng umaga. Naglalaro ang magkapatid na sina Willy at Arlyn sa bahay. Si Gng. Ferrer ay nakahiga sa kama, mainit ang katawan at masakit ang ulo kaya’t hindi siya makapagtrabaho. Inutusan niya ang kanyang mga anak, “Arlyn, Willy pumunta kayo sa palengke at bumili kayo ng itlog at prutas. “Opo, Nanay!” sabay na sagot ng magkapatid. “At Willy, huwag mong kalilimutan ang pangako mo ha, na hindi mo gagawin ang anuman kung hindi mo ito pinag-isipang mabuti.” “Opo nanay, pangako po”. Masayang umalis ang dalawang bata upang pumunta sa palengke.Habang naglalakad, may nakita silang nagtitinda ng mga laruan. ",
+                        "Namangha si Willy sa ganda ng mga laruan kaya’t naisipan niyang bumili nito. “Huwag Willy, ibilin iyon ni nanay ng itlog at prutas dahil may sakit siya,” pigil ni Arlyn. Ngunit hindi nakinig si Willy, bumili pa rin siya ng laruan. Tuwang-tuwa si Willy sa kanyang nabiling laruan.Nakalimutan na niya ang bilin ng kanyang ina. Pag-uwi sa bahay, hinanap ni Gng. Ferrer ang itlog at prutas. “Nasaan na ang itlog at prutas, mga anak?” tanong ni Gng. Ferrer. Yumuko si Willy at dahan-dahang inabot ang laruan. “Willy, hindi ba nangako ka sa akin na hindi mo gagawin ang anuman kung hindi mo pinag-isipan? Paano na tayo kakain ngayon?” malungkot na tanong ni Gng. Ferrer. Naluha si Willy at nagsisi sa kanyang ginawa. Mula noon, lagi na niyang tinatandaan ang bilin ng kanyang ina at pinag-iisipan munang mabuti ang gagawin bago kumilos.\n"
+                    )
 
                     // BOOK 1 STATION 3 - NOW WITH QUESTIONS!
                     3 -> openQuiz(ArrayList<QuestionData>().apply {
-                        add(QuestionData("Ano ang ginagawa ng magkapatid na sina Willy at Arlyn sa bahay?", "Naglalaro sila", "Nag-aaral sila", "Naglilinis sila at naglalaba", "Nag-aaway sila", "Naglilinis sila at naglalaba"))
-                        add(QuestionData("Bakit hindi makapagtrabaho si Gng. Ferrer?", "Kasi may sakit siya", "Kasi walang trabaho", "Kasi ayaw niya", "Kasi may lakad siya", "Kasi may sakit siya"))
-                        add(QuestionData("Ano ang inutos ni Gng. Ferrer sa kanyang mga anak?", "Pumunta sa sinehan", "Pumunta sa palengke", "Pumunta sa paaralan", "Pumunta sa parke", "Pumunta sa palengke"))
-                        add(QuestionData("Ano ang pangako ni Willy sa kanyang ina?", "Ibibili niya ng itlog at prutas", "Ibibili niya ng damit", "Ibibili niya ng laruan", "Hindi niya gagawin ang anuman", "Ibibili niya ng itlog at prutas"))
-                        add(QuestionData("Sino ang gumawa ng listahan ng mga bagay na kailangan sa araw na iyon?", "Willy", "Arlyn", "Gng. Ferrer", "Walang nabanggit", "Gng. Ferrer"))
-                        add(QuestionData("Ano ang reaksyon ni Arlyn nang makita ang listahan?", "Masaya siya", "Malungkot siya", "Nag-alala siya", "Walang reaksyon", "Nag-alala siya"))
-                        add(QuestionData("Ano ang sinabi ni Gng. Ferrer tungkol sa pera?", "May sapat sila", "Wala silang pera", "Hindi sapat ang pera para sa itlog at prutas", "Hindi niya sinabi", "Hindi sapat ang pera para sa itlog at prutas"))
-                        add(QuestionData("Ano ang damdamin ni Gng. Ferrer sa kanyang mga anak?", "Proud", "Galit", "Malungkot", "Walang damdamin", "Proud"))
-                        add(QuestionData("Ano ang pangarap ni Willy para sa kanyang ina?", "Makapag-aral siya", "Makapagtrabaho siya", "Mabigyan ng itlog at prutas", "Walang nabanggit", "Mabigyan ng itlog at prutas"))
-                        add(QuestionData("Ano ang tema ng kwento?", "Pagmamahal at sakripisyo", "Pag-aaral at edukasyon", "Pagtutulungan at kooperasyon", "Walang tema", "Pagmamahal at sakripisyo"))
+                        add(QuestionData("1. Ano ang ginagawa ng magkapatid na sina Willy at Arlyn sa bahay?", "Naglalaro sila", "Nag-aaral sila", "Naglilinis sila at naglalaba", "Nag-aaway sila", "Naglilinis sila at naglalaba"))
+                        add(QuestionData("2. Bakit hindi makapagtrabaho si Gng. Ferrer?", "Kasi may sakit siya", "Kasi walang trabaho", "Kasi ayaw niya", "Kasi may lakad siya", "Kasi may sakit siya"))
+                        add(QuestionData("3. Ano ang inutos ni Gng. Ferrer sa kanyang mga anak?", "Pumunta sa sinehan", "Pumunta sa palengke", "Pumunta sa paaralan", "Pumunta sa parke", "Pumunta sa palengke"))
+                        add(QuestionData("4. Ano ang pangako ni Willy sa kanyang ina?", "Ibibili niya ng itlog at prutas", "Ibibili niya ng damit", "Ibibili niya ng laruan", "Hindi niya gagawin ang anuman", "Ibibili niya ng itlog at prutas"))
+                        add(QuestionData("5. Sino ang gumawa ng listahan ng mga bagay na kailangan sa araw na iyon?", "Willy", "Arlyn", "Gng. Ferrer", "Walang nabanggit", "Gng. Ferrer"))
+                        add(QuestionData("6. Ano ang reaksyon ni Arlyn nang makita ang listahan?", "Masaya siya", "Malungkot siya", "Nag-alala siya", "Walang reaksyon", "Nag-alala siya"))
+                        add(QuestionData("7. Ano ang sinabi ni Gng. Ferrer tungkol sa pera?", "May sapat sila", "Wala silang pera", "Hindi sapat ang pera para sa itlog at prutas", "Hindi niya sinabi", "Hindi sapat ang pera para sa itlog at prutas"))
+                        add(QuestionData("8. Ano ang damdamin ni Gng. Ferrer sa kanyang mga anak?", "Proud", "Galit", "Malungkot", "Walang damdamin", "Proud"))
+                        add(QuestionData("9. Ano ang pangarap ni Willy para sa kanyang ina?", "Makapag-aral siya", "Makapagtrabaho siya", "Mabigyan ng itlog at prutas", "Walang nabanggit", "Mabigyan ng itlog at prutas"))
+                        add(QuestionData("10. Ano ang tema ng kwento?", "Pagmamahal at sakripisyo", "Pag-aaral at edukasyon", "Pagtutulungan at kooperasyon", "Walang tema", "Pagmamahal at sakripisyo"))
                     })
 
                     4 -> openGenericFragment(Station4Game1Fragment())
-                    5 -> openGenericFragment(Station5Fragment()) // Uses default XML text for Book 1
+                    // BOOK 1, STATION 5 - UPDATED WITH 3 QUESTIONS
+                    5 -> openStation5WithQuestions(ArrayList<String>().apply {
+                        add("Ano ang nararamdaman ni Gng. Ferrer nang makitang nagkukusang naglilinis ang kaniyang mga anak?")
+                        add("Ano ang nararamdaman nila Arlyn at Willy habang sinasabi ng kanilang ina ang katagang “Hindi sapat ang pera para sa itlog at prutas anak”")
+                        add("Ano ang nararamdaman ni Gng. Ferrer habang binibigkas ng kaniyang anak ang katagang “Hayaan po ninyo, Nanay, pag nakatapos po ako ng pag aaral, ibibili ko po kayo ng mga itlog at sariwang prutas at hindi na po kayo magtratrabaho para hindi na po kayo magkasakit”")
+                    })
 
                     // Essay Stations
                     6 -> openEssay("Station 6", "Kung ikaw si Willy, ano ang gagawin mo upang matulungan ang iyong ina?")
