@@ -97,7 +97,7 @@ class Book4Station1Fragment : Fragment() {
             params.height = 180
             params.setMargins(16, 16, 16, 16)
             button.layoutParams = params
-            button.setBackgroundColor(Color.parseColor("#0288D1"))
+            button.setBackgroundResource(R.drawable.button_background_blue)
             button.setTextColor(Color.WHITE)
 
             button.setOnClickListener {
@@ -132,7 +132,7 @@ class Book4Station1Fragment : Fragment() {
         textView.textSize = 18f
         textView.setTextColor(Color.BLACK)
         textView.setPadding(32, 24, 32, 24)
-        textView.setBackgroundColor(Color.WHITE)
+        textView.setBackgroundResource(R.drawable.draggable_item_background)
 
         val params = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -176,11 +176,11 @@ class Book4Station1Fragment : Fragment() {
                 true
             }
             DragEvent.ACTION_DRAG_EXITED -> {
-                v.setBackgroundColor(Color.WHITE) // Reset color
+                v.setBackgroundResource(R.drawable.draggable_item_background) // Reset color
                 true
             }
             DragEvent.ACTION_DROP -> {
-                v.setBackgroundColor(Color.WHITE)
+                v.setBackgroundResource(R.drawable.draggable_item_background)
 
                 if (droppedView != null && receiverView != null && droppedView != receiverView) {
                     val owner = droppedView.parent as LinearLayout
@@ -203,7 +203,7 @@ class Book4Station1Fragment : Fragment() {
             }
             DragEvent.ACTION_DRAG_ENDED -> {
                 droppedView?.visibility = View.VISIBLE // Show original again
-                v.setBackgroundColor(Color.WHITE)
+                v.setBackgroundResource(R.drawable.draggable_item_background)
                 true
             }
             else -> false

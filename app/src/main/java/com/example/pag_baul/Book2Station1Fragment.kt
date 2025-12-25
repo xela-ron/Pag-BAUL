@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -21,6 +22,12 @@ class Book2Station1Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_book2_station1, container, false)
+
+        // --- Find Back Button and Set Listener ---
+        val btnBackIcon = view.findViewById<ImageView>(R.id.btnBackIcon)
+        btnBackIcon.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
 
         // 1. Collect Answer Slots
         answerSlots.add(view.findViewById(R.id.slot1))
@@ -79,14 +86,14 @@ class Book2Station1Fragment : Fragment() {
             }
 
             if (userAnswer.toString() == correctAnswer) {
-                Toast.makeText(context, "CORRECT! Ang sagot ay KALABAW.", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "CORRECT! Ang sagot ay KALABAW.", Toast.LENGTH_LONG).show()
                 // Mark letters green
                 for (slot in answerSlots) slot.setTextColor(Color.GREEN)
 
                 // Navigate back after a delay or just close
                 // (activity as MainActivity).loadFragment(BookFragment())
             } else {
-                Toast.makeText(context, "Wrong Answer. Try again!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Wrong Answer. Try again!", Toast.LENGTH_SHORT).show()
                 // Mark letters red
                 for (slot in answerSlots) slot.setTextColor(Color.RED)
             }

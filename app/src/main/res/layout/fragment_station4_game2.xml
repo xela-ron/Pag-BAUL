@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D0F0C0"> <!-- Light Green Background -->
+    android:background="#D0F0C0">
 
     <!-- Header / LOGO -->
     <LinearLayout
@@ -28,11 +28,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="24dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -59,9 +62,8 @@
                         android:layout_height="40dp"
                         android:background="@drawable/rounded_border"
                         android:padding="8dp"
-                        android:src="@drawable/ic_launcher_foreground"
+                        android:src="@drawable/ic_arrow_back"
                         app:tint="#000000" />
-                    <!-- Note: Replace src with your back arrow icon if you have one -->
 
                     <TextView
                         android:layout_width="0dp"
@@ -73,7 +75,6 @@
                         android:gravity="center"
                         android:textColor="#000000"/>
 
-                    <!-- Spacer to balance the back button -->
                     <View android:layout_width="40dp" android:layout_height="40dp"/>
                 </LinearLayout>
 
@@ -82,6 +83,7 @@
                     android:text="Ibigay ang mga larawan o ilustrasion ng mga eksena sa kwento. Hilingin sa mga estudyante na ayusin ang mga ito sa tamang pagkakasunod-sunod."
                     android:textSize="16sp"
                     android:gravity="center"
+                    android:justificationMode="inter_word"
                     android:textColor="#333333"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -95,27 +97,27 @@
                     android:layout_marginBottom="16dp"
                     android:weightSum="2">
 
-                    <!-- Left: Picture Placeholder (Black Box) -->
-                    <View
-                        android:id="@+id/drag1"
+                    <FrameLayout
                         android:layout_width="0dp"
                         android:layout_height="100dp"
                         android:layout_weight="1"
-                        android:background="#000000"
-                        android:layout_marginEnd="8dp"/>
+                        android:background="@drawable/game_drop_target_border"
+                        android:layout_marginEnd="8dp">
+                        <ImageView
+                            android:id="@+id/drag1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/b1s4game2_3"
+                            android:scaleType="fitCenter"
+                            android:padding="4dp"/>
+                    </FrameLayout>
 
-                    <!-- Right: Drop Zone 1 -->
-                    <TextView
+                    <ImageView
                         android:id="@+id/target1"
                         android:layout_width="0dp"
                         android:layout_height="100dp"
                         android:layout_weight="1"
-                        android:text="1"
-                        android:textSize="32sp"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:background="@drawable/rounded_border"
-                        android:textColor="#000000"
+                        android:background="@drawable/game_drop_target_border"
                         android:layout_marginStart="8dp"/>
                 </LinearLayout>
 
@@ -127,27 +129,27 @@
                     android:layout_marginBottom="16dp"
                     android:weightSum="2">
 
-                    <!-- Left: Picture Placeholder -->
-                    <View
-                        android:id="@+id/drag2"
+                    <FrameLayout
                         android:layout_width="0dp"
                         android:layout_height="100dp"
                         android:layout_weight="1"
-                        android:background="#000000"
-                        android:layout_marginEnd="8dp"/>
+                        android:background="@drawable/game_drop_target_border"
+                        android:layout_marginEnd="8dp">
+                        <ImageView
+                            android:id="@+id/drag2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/b1s4game2_1"
+                            android:scaleType="fitCenter"
+                            android:padding="4dp"/>
+                    </FrameLayout>
 
-                    <!-- Right: Drop Zone 2 -->
-                    <TextView
+                    <ImageView
                         android:id="@+id/target2"
                         android:layout_width="0dp"
                         android:layout_height="100dp"
                         android:layout_weight="1"
-                        android:text="2"
-                        android:textSize="32sp"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:background="@drawable/rounded_border"
-                        android:textColor="#000000"
+                        android:background="@drawable/game_drop_target_border"
                         android:layout_marginStart="8dp"/>
                 </LinearLayout>
 
@@ -159,27 +161,27 @@
                     android:layout_marginBottom="16dp"
                     android:weightSum="2">
 
-                    <!-- Left: Picture Placeholder -->
-                    <View
-                        android:id="@+id/drag3"
+                    <FrameLayout
                         android:layout_width="0dp"
                         android:layout_height="100dp"
                         android:layout_weight="1"
-                        android:background="#000000"
-                        android:layout_marginEnd="8dp"/>
+                        android:background="@drawable/game_drop_target_border"
+                        android:layout_marginEnd="8dp">
+                        <ImageView
+                            android:id="@+id/drag3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/b1s4game2_4"
+                            android:scaleType="fitCenter"
+                            android:padding="4dp"/>
+                    </FrameLayout>
 
-                    <!-- Right: Drop Zone 3 -->
-                    <TextView
+                    <ImageView
                         android:id="@+id/target3"
                         android:layout_width="0dp"
                         android:layout_height="100dp"
                         android:layout_weight="1"
-                        android:text="3"
-                        android:textSize="32sp"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:background="@drawable/rounded_border"
-                        android:textColor="#000000"
+                        android:background="@drawable/game_drop_target_border"
                         android:layout_marginStart="8dp"/>
                 </LinearLayout>
 
@@ -191,39 +193,53 @@
                     android:layout_marginBottom="24dp"
                     android:weightSum="2">
 
-                    <!-- Left: Picture Placeholder -->
-                    <View
-                        android:id="@+id/drag4"
+                    <FrameLayout
                         android:layout_width="0dp"
                         android:layout_height="100dp"
                         android:layout_weight="1"
-                        android:background="#000000"
-                        android:layout_marginEnd="8dp"/>
+                        android:background="@drawable/game_drop_target_border"
+                        android:layout_marginEnd="8dp">
+                        <ImageView
+                            android:id="@+id/drag4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/b1s4game2_2"
+                            android:scaleType="fitCenter"
+                            android:padding="4dp"/>
+                    </FrameLayout>
 
-                    <!-- Right: Drop Zone 4 -->
-                    <TextView
+                    <ImageView
                         android:id="@+id/target4"
                         android:layout_width="0dp"
                         android:layout_height="100dp"
                         android:layout_weight="1"
-                        android:text="4"
-                        android:textSize="32sp"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:background="@drawable/rounded_border"
-                        android:textColor="#000000"
+                        android:background="@drawable/game_drop_target_border"
                         android:layout_marginStart="8dp"/>
                 </LinearLayout>
 
-                <!-- DONE BUTTON -->
-                <Button
-                    android:id="@+id/btnDone"
-                    android:layout_width="wrap_content"
+                <!-- Button Container -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="DONE"
-                    android:backgroundTint="#FFEB3B"
-                    android:textColor="#333333"
-                    android:layout_gravity="end"/>
+                    android:orientation="horizontal"
+                    android:gravity="end">
+
+                    <Button
+                        android:id="@+id/btnReset"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reset"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnDone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DONE"
+                        android:backgroundTint="#2196F3"
+                        android:textColor="#FFFFFF"/>
+                </LinearLayout>
 
             </LinearLayout>
         </ScrollView>

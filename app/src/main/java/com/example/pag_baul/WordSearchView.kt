@@ -32,16 +32,31 @@ class WordSearchView @JvmOverloads constructor(
     }
 
     private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.STROKE
         color = Color.GREEN
-        strokeWidth = 20f
+        strokeWidth = 40f
         strokeCap = Paint.Cap.ROUND
-        alpha = 100
+        strokeJoin = Paint.Join.ROUND
+        alpha = 150
     }
 
-    private val foundPaths = mutableListOf<Path>()
+    // Store found words as (StartCell, EndCell, Color) to handle resizing
+    private val foundWordEntries = mutableListOf<Triple<Pair<Int, Int>, Pair<Int, Int>, Int>>()
+    
     private val currentPath = Path()
     private var startCell: Pair<Int, Int>? = null
     private var currentCell: Pair<Int, Int>? = null
+
+    private val highlightColors = listOf(
+        Color.RED,
+        Color.BLUE,
+        Color.CYAN,
+        Color.MAGENTA,
+        Color.YELLOW,
+        Color.parseColor("#FFA500"), // Orange
+        Color.parseColor("#800080"), // Purple
+        Color.parseColor("#006400")  // Dark Green
+    )
 
     var onWordFound: ((String) -> Unit)? = null
 
@@ -58,8 +73,8 @@ class WordSearchView @JvmOverloads constructor(
         allWords.clear()
         allWords.addAll(words.map { it.uppercase() })
         foundWords.clear()
-        foundPaths.clear()
-        invalidate() // Redraw the view
+        foundWordEntries.clear()
+        invalidate()
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -68,16 +83,39 @@ class WordSearchView @JvmOverloads constructor(
             val size = w.coerceAtMost(h)
             cellSize = (size / numColumns).toFloat()
             textPaint.textSize = cellSize * 0.6f
+            // Update stroke width relative to cell size
+            linePaint.strokeWidth = cellSize * 0.7f
         }
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        // Add this check to prevent drawing before the cell size is calculated
         if (letters.isEmpty() || cellSize == 0f) return
 
+        // 1. Draw HIGHLIGHTS (Background) first
+        // Reconstruct paths on draw to ensure they match current cellSize
+        foundWordEntries.forEach { (start, end, color) ->
+            val path = Path()
+            val startX = start.second * cellSize + cellSize / 2
+            val startY = start.first * cellSize + cellSize / 2
+            val endX = end.second * cellSize + cellSize / 2
+            val endY = end.first * cellSize + cellSize / 2
+            path.moveTo(startX, startY)
+            path.lineTo(endX, endY)
+            
+            linePaint.color = color
+            linePaint.alpha = 100 // Semi-transparent
+            canvas.drawPath(path, linePaint)
+        }
 
-        // Draw letters
+        // Draw current dragging line
+        if (!currentPath.isEmpty) {
+            linePaint.color = Color.GREEN
+            linePaint.alpha = 100
+            canvas.drawPath(currentPath, linePaint)
+        }
+
+        // 2. Draw TEXT (Foreground) on top
         for (row in 0 until numRows) {
             for (col in 0 until numColumns) {
                 val index = row * numColumns + col
@@ -89,10 +127,6 @@ class WordSearchView @JvmOverloads constructor(
                 }
             }
         }
-
-        // Draw lines for found words and the current selection
-        foundPaths.forEach { canvas.drawPath(it, linePaint) }
-        canvas.drawPath(currentPath, linePaint)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -105,21 +139,13 @@ class WordSearchView @JvmOverloads constructor(
             MotionEvent.ACTION_DOWN -> {
                 startCell = Pair(row, col)
                 currentPath.reset()
-                val startX = col * cellSize + cellSize / 2
-                val startY = row * cellSize + cellSize / 2
-                currentPath.moveTo(startX, startY)
+                updateCurrentPath(startCell!!, startCell!!)
                 return true
             }
             MotionEvent.ACTION_MOVE -> {
                 currentCell = Pair(row, col)
-                currentPath.reset()
                 startCell?.let {
-                    val startX = it.second * cellSize + cellSize / 2
-                    val startY = it.first * cellSize + cellSize / 2
-                    val currentX = col * cellSize + cellSize / 2
-                    val currentY = row * cellSize + cellSize / 2
-                    currentPath.moveTo(startX, startY)
-                    currentPath.lineTo(currentX, currentY)
+                    updateCurrentPath(it, currentCell!!)
                 }
                 invalidate()
             }
@@ -130,8 +156,17 @@ class WordSearchView @JvmOverloads constructor(
                 invalidate()
             }
         }
-        // FIXED: Return true to ensure we keep receiving touch events (dragging)
         return true
+    }
+
+    private fun updateCurrentPath(start: Pair<Int, Int>, end: Pair<Int, Int>) {
+        currentPath.reset()
+        val startX = start.second * cellSize + cellSize / 2
+        val startY = start.first * cellSize + cellSize / 2
+        val currentX = end.second * cellSize + cellSize / 2
+        val currentY = end.first * cellSize + cellSize / 2
+        currentPath.moveTo(startX, startY)
+        currentPath.lineTo(currentX, currentY)
     }
 
     private fun checkWord(start: Pair<Int, Int>?, end: Pair<Int, Int>?) {
@@ -140,7 +175,7 @@ class WordSearchView @JvmOverloads constructor(
         val (startRow, startCol) = start
         val (endRow, endCol) = end
 
-        // Only check for straight lines (horizontal, vertical, diagonal)
+        // Only check for straight lines
         val isStraightLine = startRow == endRow || startCol == endCol || (kotlin.math.abs(startRow - endRow) == kotlin.math.abs(startCol - endCol))
         if (!isStraightLine) return
 
@@ -152,12 +187,10 @@ class WordSearchView @JvmOverloads constructor(
 
             val wordToAdd = if (allWords.contains(selectedWord)) selectedWord else reversedWord
             foundWords.add(wordToAdd)
-
-            // Make the path permanent
-            val path = Path()
-            path.moveTo(startCol * cellSize + cellSize / 2, startRow * cellSize + cellSize / 2)
-            path.lineTo(endCol * cellSize + cellSize / 2, endRow * cellSize + cellSize / 2)
-            foundPaths.add(path)
+            
+            val color = highlightColors[foundWordEntries.size % highlightColors.size]
+            // Store indices instead of path so it scales properly
+            foundWordEntries.add(Triple(start, end, color))
 
             onWordFound?.invoke(wordToAdd)
         }

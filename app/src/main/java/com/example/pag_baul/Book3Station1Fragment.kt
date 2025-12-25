@@ -22,20 +22,20 @@ class Book3Station1Fragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_book3_station1, container, false)
 
         val wordSearchView = view.findViewById<WordSearchView>(R.id.wordSearchView)
-        // UPDATED: Find the GridLayout
         val wordsContainer = view.findViewById<GridLayout>(R.id.words_to_find_container)
         val btnBack = view.findViewById<ImageView>(R.id.btnBack)
 
         btnBack.setOnClickListener { parentFragmentManager.popBackStack() }
 
+        // Grid matching the 12x12 screenshot exactly
         val grid = listOf(
-            "JEFFMABAITLKS",
+            "JEFFMABAITLK",
             "APQRTYUIOPAS",
             "SAROBARUMBAD",
             "ASDFGHJKLZXC",
             "HELIGTASWQER",
             "EBATAMATANMN",
-            "RPOLICEKALSAA",
+            "RPOLICEKALSA",
             "OSRESPONSABL",
             "JEEPBATASTRA",
             "UMALINISQWER",
@@ -51,14 +51,13 @@ class Book3Station1Fragment : Fragment() {
         // Populate the "Words to Find" list
         wordsToFind.forEach { word ->
             val textView = TextView(context).apply {
-                text = "• $word" // Add a bullet point
+                text = "• $word"
                 textSize = 16f
                 setTextColor(resources.getColor(android.R.color.black))
-                // Set layout params for GridLayout
                 layoutParams = GridLayout.LayoutParams().apply {
                     width = 0
                     height = GridLayout.LayoutParams.WRAP_CONTENT
-                    columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f) // Make columns equal width
+                    columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
                 }
             }
             wordsContainer.addView(textView)

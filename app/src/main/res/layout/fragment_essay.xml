@@ -99,9 +99,9 @@
                 android:id="@+id/btnDoneEssay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FFEB3B"
+                android:backgroundTint="#2196F3"
                 android:text="DONE"
-                android:textColor="#333333"
+                android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 

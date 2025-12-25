@@ -78,7 +78,6 @@ class Station5Fragment : Fragment() {
                 // Go to the next question
                 currentQuestionIndex++
                 showCurrentQuestion()
-                Toast.makeText(context, "Sagot naitala! Susunod na tanong...", Toast.LENGTH_SHORT).show()
             } else {
                 // This was the last question, so finish.
                 Toast.makeText(context, "Magaling! Natapos mo na ang station na ito.", Toast.LENGTH_LONG).show()
