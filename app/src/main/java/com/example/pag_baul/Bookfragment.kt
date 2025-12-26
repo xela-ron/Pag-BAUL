@@ -55,24 +55,24 @@ class BookFragment : Fragment() {
 
                     // BOOK 1 STATION 3 - NOW WITH QUESTIONS!
                     3 -> openQuiz(ArrayList<QuestionData>().apply {
-                        add(QuestionData("1. Ano ang ginagawa ng magkapatid na sina Willy at Arlyn sa bahay?", "Naglalaro sila", "Nag-aaral sila", "Naglilinis sila at naglalaba", "Nag-aaway sila", "Naglilinis sila at naglalaba"))
-                        add(QuestionData("2. Bakit hindi makapagtrabaho si Gng. Ferrer?", "Kasi may sakit siya", "Kasi walang trabaho", "Kasi ayaw niya", "Kasi may lakad siya", "Kasi may sakit siya"))
-                        add(QuestionData("3. Ano ang inutos ni Gng. Ferrer sa kanyang mga anak?", "Pumunta sa sinehan", "Pumunta sa palengke", "Pumunta sa paaralan", "Pumunta sa parke", "Pumunta sa palengke"))
-                        add(QuestionData("4. Ano ang pangako ni Willy sa kanyang ina?", "Ibibili niya ng itlog at prutas", "Ibibili niya ng damit", "Ibibili niya ng laruan", "Hindi niya gagawin ang anuman", "Ibibili niya ng itlog at prutas"))
-                        add(QuestionData("5. Sino ang gumawa ng listahan ng mga bagay na kailangan sa araw na iyon?", "Willy", "Arlyn", "Gng. Ferrer", "Walang nabanggit", "Gng. Ferrer"))
-                        add(QuestionData("6. Ano ang reaksyon ni Arlyn nang makita ang listahan?", "Masaya siya", "Malungkot siya", "Nag-alala siya", "Walang reaksyon", "Nag-alala siya"))
-                        add(QuestionData("7. Ano ang sinabi ni Gng. Ferrer tungkol sa pera?", "May sapat sila", "Wala silang pera", "Hindi sapat ang pera para sa itlog at prutas", "Hindi niya sinabi", "Hindi sapat ang pera para sa itlog at prutas"))
-                        add(QuestionData("8. Ano ang damdamin ni Gng. Ferrer sa kanyang mga anak?", "Proud", "Galit", "Malungkot", "Walang damdamin", "Proud"))
-                        add(QuestionData("9. Ano ang pangarap ni Willy para sa kanyang ina?", "Makapag-aral siya", "Makapagtrabaho siya", "Mabigyan ng itlog at prutas", "Walang nabanggit", "Mabigyan ng itlog at prutas"))
-                        add(QuestionData("10. Ano ang tema ng kwento?", "Pagmamahal at sakripisyo", "Pag-aaral at edukasyon", "Pagtutulungan at kooperasyon", "Walang tema", "Pagmamahal at sakripisyo"))
+                        add(QuestionData("Ano ang ginagawa ng magkapatid na sina Willy at Arlyn sa bahay?", "Naglalaro sila", "Nag-aaral sila", "Naglilinis sila at naglalaba", "Nag-aaway sila", "Naglilinis sila at naglalaba"))
+                        add(QuestionData("Bakit hindi makapagtrabaho si Gng. Ferrer?", "Kasi may sakit siya", "Kasi walang trabaho", "Kasi ayaw niya", "Kasi may lakad siya", "Kasi may sakit siya"))
+                        add(QuestionData("Ano ang inutos ni Gng. Ferrer sa kanyang mga anak?", "Pumunta sa sinehan", "Pumunta sa palengke", "Pumunta sa paaralan", "Pumunta sa parke", "Pumunta sa palengke"))
+                        add(QuestionData("Ano ang pangako ni Willy sa kanyang ina?", "Ibibili niya ng itlog at prutas", "Ibibili niya ng damit", "Ibibili niya ng laruan", "Hindi niya gagawin ang anuman", "Ibibili niya ng itlog at prutas"))
+                        add(QuestionData("Sino ang gumawa ng listahan ng mga bagay na kailangan sa araw na iyon?", "Willy", "Arlyn", "Gng. Ferrer", "Walang nabanggit", "Gng. Ferrer"))
+                        add(QuestionData("Ano ang reaksyon ni Arlyn nang makita ang listahan?", "Masaya siya", "Malungkot siya", "Nag-alala siya", "Walang reaksyon", "Nag-alala siya"))
+                        add(QuestionData("Ano ang sinabi ni Gng. Ferrer tungkol sa pera?", "May sapat sila", "Wala silang pera", "Hindi sapat ang pera para sa itlog at prutas", "Hindi niya sinabi", "Hindi sapat ang pera para sa itlog at prutas"))
+                        add(QuestionData("Ano ang damdamin ni Gng. Ferrer sa kanyang mga anak?", "Proud", "Galit", "Malungkot", "Walang damdamin", "Proud"))
+                        add(QuestionData("Ano ang pangarap ni Willy para sa kanyang ina?", "Makapag-aral siya", "Makapagtrabaho siya", "Mabigyan ng itlog at prutas", "Walang nabanggit", "Mabigyan ng itlog at prutas"))
+                        add(QuestionData("Ano ang tema ng kwento?", "Pagmamahal at sakripisyo", "Pag-aaral at edukasyon", "Pagtutulungan at kooperasyon", "Walang tema", "Pagmamahal at sakripisyo"))
                     })
 
                     4 -> openGenericFragment(Station4Game1Fragment())
                     // BOOK 1, STATION 5 - UPDATED WITH 3 QUESTIONS
                     5 -> openStation5WithQuestions(ArrayList<String>().apply {
-                        add("Ano ang nararamdaman ni Gng. Ferrer nang makitang nagkukusang naglilinis ang kaniyang mga anak?")
-                        add("Ano ang nararamdaman nila Arlyn at Willy habang sinasabi ng kanilang ina ang katagang “Hindi sapat ang pera para sa itlog at prutas anak”")
-                        add("Ano ang nararamdaman ni Gng. Ferrer habang binibigkas ng kaniyang anak ang katagang “Hayaan po ninyo, Nanay, pag nakatapos po ako ng pag aaral, ibibili ko po kayo ng mga itlog at sariwang prutas at hindi na po kayo magtratrabaho para hindi na po kayo magkasakit”")
+                        add("1. Ano ang nararamdaman ni Gng. Ferrer nang makitang nagkukusang naglilinis ang kaniyang mga anak?")
+                        add("2. Ano ang nararamdaman nila Arlyn at Willy habang sinasabi ng kanilang ina ang katagang “Hindi sapat ang pera para sa itlog at prutas anak”")
+                        add("3. Ano ang nararamdaman ni Gng. Ferrer habang binibigkas ng kaniyang anak ang katagang “Hayaan po ninyo, Nanay, pag nakatapos po ako ng pag aaral, ibibili ko po kayo ng mga itlog at sariwang prutas at hindi na po kayo magtratrabaho para hindi na po kayo magkasakit”")
                     })
 
                     // Essay Stations
@@ -128,7 +128,7 @@ class BookFragment : Fragment() {
                     7 -> openEssay("Station 7", "Kung ikaw si Kalabaw, ano ang gagawin mong iba sa sitwasyon? Bakit?  \n")
                     8 -> openEssay("Station 8", "Sa anong mga sitwasyon sa iyong buhay mo naranasan ang pagiging tuso o pagkapanalo sa pamamagitan ng hindi inaasahang paraan?\n")
                     9 -> openEssay("Station 9", "Paano mo maiuugnay ang karakter ni Tagak o Kalabaw sa mga taong nakilala mo sa iyong buhay? Magbigay ng halimbawa. \n")
-                    10 -> openEssay("Station 10", " Nakatulong ba ang paggamit mo ng Pag-BAUL app upang mas maunawaan niyong mabuti ang kwento?\n")
+                    10 -> openEssay("Station 10", "Nakatulong ba ang paggamit mo ng Pag-BAUL app upang mas maunawaan niyong mabuti ang kwento?\n")
                     else -> openGenericStation(stationNumber)
                 }
             }
@@ -142,7 +142,7 @@ class BookFragment : Fragment() {
 
                     2 -> openStory(
                         "Si Jeff ay isang mabait na jeep. Magalang siya sa mga pasahero, bata man o matanda. Marami ang natutuwa sa kanya. \"Ligtas ang pakiramdam ko kapag kay Jeff ako nakasakay,\" anang isang nanay. Siyempre ang mga bata ay gusting gusto ring kay Jeff sumakay. \"Ingat kayo sa pag-akyat, mga bata!\" Sino ba naman ang hindi gustong sumakay sa isang mabait na jeep? Kaya naman lagging maraming pasahero si Jeff.Ito ang dahilan kaya asar sa kanya si Saro, ang jeep na barumbado. \"Umalis ka sa daraanan ko!\" sigaw niya kay Jeff. \"Ano ka ba naman Saro? Hindi iyo ang kalsada,\" sabi ni Jeff. \"Bakit, kakasa ka ba sa akin? Karera nalang tayo!\" ang hamon ni Saro. ",
-                        "\"Alam mong hindi kita papatulan,\" ani Jeff. Responsableng sasakyan si Jeff. Ang lahat ng mga batas trapiko ay sinusunod niya. Hindi siya nakikipag-unahan kapag pula na ang ilaw. Tinitiyak din niyang nakatawid na ang lahat bago siya umandar. Bago mamasada ay naliligo pa siya at lagi siyang malinis. Lalong nainis at nainggit si Saro. Minsan ay nagyabang na mabuti si Saro. Uminom pa ito ng alak bago namasada. Napakabilis ng takbo nito. Iskriiits! Braaang! Ang malakas na pagsalpok ng dyip ni Saro sa puno. Marami ang tumulong para madala si Saro sa pagawaan ng sasakyan. Masakit ang lahat ng piyesa niya. Dinalaw siya ni Jeff. \"Magpagaling kang mabuti. Sana ay maging aral sa iyo iyan para hindi ka na muling mapahamak. Mula noon ay nagging responsable ng jeep si Saro.\n")
+                        "\"Alam mong hindi kita papatulan,\" ani Jeff.Responsableng sasakyan si Jeff. Ang lahat ng mga batas trapiko ay sinusunod niya. Hindi siya nakikipag-unahan kapag pula na ang ilaw. Tinitiyak din niyang nakatawid na ang lahat bago siya umandar. Bago mamasada ay naliligo pa siya at lagi siyang malinis. Lalong nainis at nainggit si Saro. Minsan ay nagyabang na mabuti si Saro. Uminom pa ito ng alak bago namasada. Napakabilis ng takbo nito. Iskriiits! Braaang! Ang malakas na pagsalpok ng dyip ni Saro sa puno. Marami ang tumulong para madala si Saro sa pagawaan ng sasakyan. Masakit ang lahat ng piyesa niya. Dinalaw siya ni Jeff. \"Magpagaling kang mabuti. Sana ay maging aral sa iyo iyan para hindi ka na muling mapahamak. Mula noon ay nagging responsable ng jeep si Saro.\n")
 
                     3 -> openQuiz(ArrayList<QuestionData>().apply {
                         add(QuestionData("Sino si Jeff sa kuwento?", "Isang drayber", "Isang bata", "Isang mabait na jeep", "Isang pulis", "Isang mabait na jeep"))
@@ -190,7 +190,7 @@ class BookFragment : Fragment() {
                         add(QuestionData("Bakit masaya ang pamumuhay ng mga isda sa simula ngkuwento?", "Dahil marami silang pagkain", "Dahil sila ay nagtutulungan at nagmamahalan ", "Dahil walangtrabaho", "Dahil takot sila sa Diyosa", "Dahil sila ay nagtutulungan at nagmamahalan "))
                         add(QuestionData("Bakit kailangang maglinis ang lahat ng isda bago dumatingang Diyosa?", "Dahil may paligsahan", "Dahil may darating na bisita", "Dahil gusto nilang umalis ", "Dahil utos ng mga janitor fish", "Dahil may darating na bisita"))
                         add(QuestionData("Sino ang Diyosa ng karagatan? ", "Isang karaniwang isda", "Tagapagbalita ng kaharian", "Tagapangalaga ng karagatan", "Kaibigan ni Lucia ", "Tagapangalaga ng karagatan"))
-                        add(QuestionData("Ano ang iniisip ni Lucia tungkol sa paglilinis?", "Mahalaga ito", "Masaya itong gawin", "Nakakapagod at hindi mahalaga", "Nakakatulong sa lahat", "Nakakapagod at hindi mahalaga"))
+                        add(QuestionData("Ano ang iniisip ni Lucia tungkol sa paglilinis?", "Mahalaga ito", "Masaya itong gawin", "Nakakapagod at hindi mahalaga", "Nakakapagod at hindi mahalaga", "Nakakapagod at hindi mahalaga"))
                         add(QuestionData("Ano ang ginawa ng ibang isda bilang paghahanda sa pagbisitang Diyosa? ", "Nagtago sa bato", "Naglaro sa karagatan", "Naglinis at nag-ayos ng paligid", "Natulog buong araw", "Naglinis at nag-ayos ng paligid "))
                         add(QuestionData("Bakit nagalit ang Diyosa kay Lucia? ", "Dahil siya ay nawala ", "Dahil hindi siya tumulong at naging tamad", "Dahil siya ay nagkasakit", "Dahil siya ay umalis sa kaharian", "Dahil hindi siya tumulong at naging tamad"))
                         add(QuestionData("Ano ang parusang ibinigay ng Diyosa kay Lucia? ", "Pinalayas siya", "Ginawang pinakapangit na isda", "Inalis ang kanyang kapangyarihan", "Ikinulong siya", "Ginawang pinakapangit na isda"))

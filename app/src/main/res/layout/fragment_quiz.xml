@@ -86,162 +86,172 @@
 
                     <!-- Question 1 -->
                     <TextView
-                        android:text="1: Ano ang ginagawa ng magkapatid na sina Willy at Arlyn sa bahay?"
+                        android:text="1. Ano ang ginagawa ng magkapatid na sina Willy at Arlyn sa bahay?"
                         android:textStyle="bold"
+                        android:textColor="#000000"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp">
-                        <RadioButton android:text="A. Naglalaro sila" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="B. Nag-aaral sila" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="C. Naglilinis sila at naglalaba" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="D. Nag-aaway sila" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="A. Naglalaro sila" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="B. Nag-aaral sila" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="C. Naglilinis sila at naglalaba" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="D. Nag-aaway sila" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
                     </RadioGroup>
 
                     <!-- Question 2 -->
                     <TextView
-                        android:text="2: Bakit hindi makapagtrabaho si Gng. Ferrer?"
+                        android:text="2. Bakit hindi makapagtrabaho si Gng. Ferrer?"
                         android:textStyle="bold"
+                        android:textColor="#000000"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp">
-                        <RadioButton android:text="A. Kasi may sakit siya" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="B. Kasi walang trabaho" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="C. Kasi ayaw niya" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="D. Kasi may lakad siya" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="A. Kasi may sakit siya" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="B. Kasi walang trabaho" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="C. Kasi ayaw niya" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="D. Kasi may lakad siya" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
                     </RadioGroup>
 
                     <!-- Question 3 -->
                     <TextView
-                        android:text="3: Ano ang inutos ni Gng. Ferrer sa kanyang mga anak?"
+                        android:text="3. Ano ang inutos ni Gng. Ferrer sa kanyang mga anak?"
                         android:textStyle="bold"
+                        android:textColor="#000000"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp">
-                        <RadioButton android:text="A. Pumunta sa sinehan" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="B. Pumunta sa palengke" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="C. Pumunta sa paaralan" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="D. Pumunta sa parke" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="A. Pumunta sa sinehan" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="B. Pumunta sa palengke" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="C. Pumunta sa paaralan" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="D. Pumunta sa parke" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
                     </RadioGroup>
 
                     <!-- Question 4 -->
                     <TextView
-                        android:text="4: Ano ang pangako ni Willy sa kanyang ina?"
+                        android:text="4. Ano ang pangako ni Willy sa kanyang ina?"
                         android:textStyle="bold"
+                        android:textColor="#000000"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp">
-                        <RadioButton android:text="A. Ibibili niya ng itlog at prutas" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="B. Ibibili niya ng damit" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="C. Ibibili niya ng laruan" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="D. Hindi niya gagawin ang anuman" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="A. Ibibili niya ng itlog at prutas" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="B. Ibibili niya ng damit" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="C. Ibibili niya ng laruan" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="D. Hindi niya gagawin ang anuman" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
                     </RadioGroup>
 
                     <!-- Question 5 -->
                     <TextView
-                        android:text="5: Sino ang gumawa ng listahan ng mga bagay na kailangan?"
+                        android:text="5. Sino ang gumawa ng listahan ng mga bagay na kailangan?"
                         android:textStyle="bold"
+                        android:textColor="#000000"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp">
-                        <RadioButton android:text="A. Willy" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="B. Arlyn" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="C. Gng. Ferrer" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="D. Walang nabanggit" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="A. Willy" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="B. Arlyn" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="C. Gng. Ferrer" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="D. Walang nabanggit" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
                     </RadioGroup>
 
                     <!-- Question 6 -->
                     <TextView
-                        android:text="6: Ano ang reaksyon ni Arlyn nang makita ang listahan?"
+                        android:text="6. Ano ang reaksyon ni Arlyn nang makita ang listahan?"
                         android:textStyle="bold"
+                        android:textColor="#000000"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp">
-                        <RadioButton android:text="A. Masaya siya" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="B. Malungkot siya" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="C. Nag-alala siya" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="D. Walang reaksyon" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="A. Masaya siya" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="B. Malungkot siya" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="C. Nag-alala siya" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="D. Walang reaksyon" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
                     </RadioGroup>
 
                     <!-- Question 7 -->
                     <TextView
-                        android:text="7: Ano ang sinabi ni Gng. Ferrer tungkol sa pera?"
+                        android:text="7. Ano ang sinabi ni Gng. Ferrer tungkol sa pera?"
                         android:textStyle="bold"
+                        android:textColor="#000000"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp">
-                        <RadioButton android:text="A. May sapat sila" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="B. Wala silang pera" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="C. Hindi sapat ang pera para sa itlog" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="D. Hindi niya sinabi" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="A. May sapat sila" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="B. Wala silang pera" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="C. Hindi sapat ang pera para sa itlog" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="D. Hindi niya sinabi" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
                     </RadioGroup>
 
                     <!-- Question 8 -->
                     <TextView
-                        android:text="8: Ano ang damdamin ni Gng. Ferrer sa kanyang mga anak?"
+                        android:text="8. Ano ang damdamin ni Gng. Ferrer sa kanyang mga anak?"
                         android:textStyle="bold"
+                        android:textColor="#000000"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp">
-                        <RadioButton android:text="A. Proud" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="B. Galit" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="C. Malungkot" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="D. Walang damdamin" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="A. Proud" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="B. Galit" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="C. Malungkot" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="D. Walang damdamin" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
                     </RadioGroup>
 
                     <!-- Question 9 -->
                     <TextView
-                        android:text="9: Ano ang pangarap ni Willy para sa kanyang ina?"
+                        android:text="9. Ano ang pangarap ni Willy para sa kanyang ina?"
                         android:textStyle="bold"
+                        android:textColor="#000000"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp">
-                        <RadioButton android:text="A. Makapag-aral siya" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="B. Makapagtrabaho siya" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="C. Mabigyan ng itlog at prutas" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="D. Walang nabanggit" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="A. Makapag-aral siya" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="B. Makapagtrabaho siya" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="C. Mabigyan ng itlog at prutas" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="D. Walang nabanggit" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
                     </RadioGroup>
 
                     <!-- Question 10 -->
                     <TextView
-                        android:text="10: Ano ang tema ng kwento?"
+                        android:text="10. Ano ang tema ng kwento?"
                         android:textStyle="bold"
+                        android:textColor="#000000"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp">
-                        <RadioButton android:text="A. Pagmamahal at sakripisyo" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="B. Pag-aaral at edukasyon" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="C. Pagtutulungan at kooperasyon" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <RadioButton android:text="D. Walang tema" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="A. Pagmamahal at sakripisyo" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="B. Pag-aaral at edukasyon" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="C. Pagtutulungan at kooperasyon" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <RadioButton android:text="D. Walang tema" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
                     </RadioGroup>
 
                 </LinearLayout>

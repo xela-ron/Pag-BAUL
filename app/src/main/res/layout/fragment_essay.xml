@@ -73,11 +73,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
-                android:gravity="center"
+                android:gravity="start"
                 android:text="Kung ikaw si Willy, ano ang gagawin mo upang matulungan ang iyong ina?"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:justificationMode="inter_word"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
             <!-- Text Input Box (The "Type here" area) -->
@@ -87,7 +88,7 @@
                 android:layout_height="200dp"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/rounded_border"
-                android:gravity="center"
+                android:gravity="top|start"
                 android:hint="Type here."
                 android:padding="16dp"
                 android:textColor="#000000"

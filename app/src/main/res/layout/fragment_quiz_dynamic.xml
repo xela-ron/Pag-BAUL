@@ -84,6 +84,7 @@
                     android:text="Question will be loaded here..."
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:textColor="#000000"
                     android:gravity="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

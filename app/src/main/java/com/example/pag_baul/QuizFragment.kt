@@ -1,5 +1,6 @@
 package com.example.pag_baul
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -83,6 +84,7 @@ class QuizFragment : Fragment() {
             val rb = RadioButton(context)
             rb.text = option
             rb.textSize = 16f
+            rb.setTextColor(Color.BLACK) // Set text color to BLACK
             rb.setPadding(16, 16, 16, 16)
             radioGroup.addView(rb)
         }
