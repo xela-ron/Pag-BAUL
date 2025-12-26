@@ -157,7 +157,7 @@ class BookFragment : Fragment() {
                         add(QuestionData("Ano ang aral ng kuwento?\n", "Maging mabilis sa daan", "Maging mayabang", "Maging responsable at mabait", " Maging palaaway", "Maging responsable at mabait"))
                     })
 
-                    4 -> openGenericFragment(StationFragment())
+                    4 -> openGenericFragment(Book3Station4Fragment())
 
                     5 -> openStation5WithQuestions(ArrayList<String>().apply {
                         add("1. Ano ang naramdaman mo nang makita mong tinulungan ni Jeff si Saro pagkatapos ng aksidente?")
