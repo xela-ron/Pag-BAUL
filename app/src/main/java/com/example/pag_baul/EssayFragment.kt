@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 
 class EssayFragment : Fragment() {
@@ -19,27 +21,37 @@ class EssayFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_essay, container, false)
 
         // 1. Get the data passed from BookFragment
-        // If no data is passed, use default text
-        val titleText = arguments?.getString("ESSAY_TITLE") ?: "Station 6."
-        val questionText = arguments?.getString("ESSAY_QUESTION") ?: "Kung ikaw si Willy, ano ang gagawin mo upang matulungan ang iyong ina?"
+        val titleText = arguments?.getString("ESSAY_TITLE") ?: "Station"
+        val questionText = arguments?.getString("ESSAY_QUESTION") ?: "Question goes here."
 
-        // 2. Find Views
-        val tvTitle = view.findViewById<TextView>(R.id.tvTitle)
-        val tvQuestion = view.findViewById<TextView>(R.id.tvQuestion)
+        // 2. Find Views (USING THE NEW IDs FROM XML)
+        val tvTitle = view.findViewById<TextView>(R.id.tvEssayTitle)       // Changed from tvTitle
+        val tvQuestion = view.findViewById<TextView>(R.id.tvEssayQuestion) // Changed from tvQuestion
+        val etAnswer = view.findViewById<EditText>(R.id.etEssayAnswer)     // Added EditText
         val btnBackIcon = view.findViewById<ImageView>(R.id.btnBackIcon)
-        val btnDone = view.findViewById<Button>(R.id.btnDoneEssay)
+        val btnDone = view.findViewById<Button>(R.id.btnSubmitEssay)       // Changed from btnDoneEssay
 
         // 3. Set the text dynamically
         tvTitle.text = titleText
         tvQuestion.text = questionText
 
-        // Close logic
-        val closeAction = View.OnClickListener {
+        // 4. Back Button Logic
+        btnBackIcon.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
 
-        btnBackIcon.setOnClickListener(closeAction)
-        btnDone.setOnClickListener(closeAction)
+        // 5. Submit/Done Button Logic
+        btnDone.setOnClickListener {
+            val answer = etAnswer.text.toString()
+
+            if (answer.isNotBlank()) {
+                // In a real app, you would save the answer here
+                Toast.makeText(context, "Mahusay! Ang iyong sagot ay naitala na.", Toast.LENGTH_SHORT).show()
+                parentFragmentManager.popBackStack()
+            } else {
+                Toast.makeText(context, "Mangyaring isulat ang iyong sagot.", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         return view
     }

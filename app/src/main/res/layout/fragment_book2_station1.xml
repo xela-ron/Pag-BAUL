@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D0F0C0"> <!-- Light Green Background -->
+    android:background="#FAD6A5"> <!-- Changed to Cream Background -->
 
     <!-- Header / LOGO -->
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#33691E"
+        android:background="#C19A6B"
         android:gravity="center_vertical"
         android:paddingStart="20dp"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"> <!-- Changed to Brown Header -->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4 Pics 1 Word"
+            android:text="Pag-BAUL"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -27,11 +27,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="16dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,6 +52,15 @@
                 android:padding="8dp"
                 app:tint="#000000"
                 android:layout_gravity="start"
+                android:layout_marginBottom="16dp"/>
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Station 1: 4Pics 1 Word"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#C19A6B"
                 android:layout_marginBottom="16dp"/>
 
             <!-- THE MAIN IMAGE (Updated ID) -->
@@ -123,7 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="DONE"
-                    android:backgroundTint="#2196F3"/>
+                    android:backgroundTint="#C19A6B"/> <!-- Changed to Brown -->
             </LinearLayout>
 
         </LinearLayout>

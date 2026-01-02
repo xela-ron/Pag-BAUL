@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Your New Primary Color (Earthy Brown) -->
+    <color name="primary_brown">#C19A6B</color>
+    <!-- Darker shade for status bar -->
+    <color name="primary_brown_dark">#8D6E42</color>
+
+    <!-- Your New Secondary Color (Cream/Beige) -->
+    <color name="secondary_cream">#FAD6A5</color>
+    <color name="secondary_cream_dark">#C6A475</color>
+
+    <!-- Standard Colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Use the secondary color for general background -->
+    <color name="app_background">#FAD6A5</color>
+
+    <!-- Old defaults (kept just in case you need them later, optional) -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
 </resources>

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAD6A5">
+    android:background="#FAD6A5"> <!-- Cream Background -->
 
-    <!-- Header / LOGO -->
+    <!-- Header -->
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -19,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pag-BAUL"
+            android:text="LOGO"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -29,27 +28,22 @@
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_margin="24dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/header">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                tools:context=".QuizFragment">
+                android:padding="16dp">
 
                 <!-- Back Icon -->
                 <ImageView
@@ -59,62 +53,65 @@
                     android:background="@drawable/rounded_border"
                     android:padding="8dp"
                     android:src="@drawable/ic_arrow_back"
-                    app:tint="#000000"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#000000" />
 
                 <!-- Title -->
                 <TextView
                     android:id="@+id/tvTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Station 3: Q&amp;A"
-                    android:textSize="26sp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Ang Kabayo at ang Leon"
+                    android:textColor="#000000"
+                    android:textSize="24sp"
                     android:textStyle="bold"
-                    android:textColor="#C19A6B"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <!-- Subtitle / Motivation (FIXED) -->
                 <TextView
-                    android:id="@+id/tvQuestion"
-                    android:layout_width="0dp"
+                    android:id="@+id/tvMotivation"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="Question will be loaded here..."
+                    android:layout_marginTop="16dp"
+                    android:text="Station 1: Motivation &quot;Find the way&quot;"
+                    android:textColor="#333333"
                     android:textSize="18sp"
-                    android:textStyle="normal"
-                    android:textColor="#4E342E"
-                    android:gravity="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-                <RadioGroup
-                    android:id="@+id/radioGroup"
+                <!-- Instruction -->
+                <TextView
+                    android:id="@+id/tvInstruction"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Hanapin ang daan patungo sa kweba. Iwasan ang leon upang hindi makain."
+                    android:textColor="#333333"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvMotivation" />
+
+                <!-- Maze Image -->
+                <ImageView
+                    android:id="@+id/ivMaze"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/book5station1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvQuestion">
-
-                    <!-- RadioButtons will be added dynamically -->
-
-                </RadioGroup>
-
-                <Button
-                    android:id="@+id/btnCheck"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="SUBMIT ANSWER"
-                    android:backgroundTint="#C19A6B"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/radioGroup" />
+                    app:layout_constraintTop_toBottomOf="@id/tvInstruction"
+                    app:layout_constraintWidth_max="400dp"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

@@ -1,12 +1,10 @@
 package com.example.pag_baul
 
-import android.content.ClipData
+import android.app.AlertDialog // Use the standard AlertDialog
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.view.DragEvent
+import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -18,8 +16,8 @@ import androidx.fragment.app.Fragment
 
 data class FishChallenge(
     val fishName: String,
-    val items: List<String>, // The scrambled words
-    val correctOrder: List<String> // The correct sequence
+    val items: List<String>,
+    val correctOrder: List<String>
 )
 
 class Book4Station1Fragment : Fragment() {
@@ -31,26 +29,27 @@ class Book4Station1Fragment : Fragment() {
     private lateinit var btnSubmit: Button
 
     private var currentChallenge: FishChallenge? = null
+    private var selectedView: TextView? = null
 
-    // Define the challenges
+    // UPDATED: Corrected data for all challenges as per your instructions
     private val challenges = listOf(
-        FishChallenge("Galit na Isda",
-            listOf("Umiwas", "Sumigaw", "Humingi ng paumanhin", "Nakinig"), // Scrambled
-            listOf("Sumigaw", "Umiwas", "Nakinig", "Humingi ng paumanhin") // Correct: Bad -> Good
+        FishChallenge("GALIT NA ISDA",
+            listOf("Umiwas", "Sumigaw", "Humingi ng paumanhin", "Nakinig"),
+            listOf("Sumigaw", "Umiwas", "Nakinig", "Humingi ng paumanhin")
         ),
-        FishChallenge("Madamot na Isda",
+        FishChallenge("MADAMOT NA ISDA",
             listOf("Nagbahagi", "Inagaw ang pagkain", "Nag-alok sa kaibigan", "Tinago ang pagkain"),
             listOf("Inagaw ang pagkain", "Tinago ang pagkain", "Nagbahagi", "Nag-alok sa kaibigan")
         ),
-        FishChallenge("Isdang Ayaw Makisama",
+        FishChallenge("ISDANG AYAW MAKISAMA",
             listOf("Kinausap nang maayos", "Nang-insulto", "Nakipagkaibigan", "Tinalikuran"),
             listOf("Nang-insulto", "Tinalikuran", "Kinausap nang maayos", "Nakipagkaibigan")
         ),
-        FishChallenge("Isdang Hindi Sumusunod",
+        FishChallenge("ISDANG HINDI SUMUSUNOD",
             listOf("Nagreklamo", "Tumulong sa iba", "Nilabag ang patakaran", "Sumunod"),
             listOf("Nilabag ang patakaran", "Nagreklamo", "Sumunod", "Tumulong sa iba")
         ),
-        FishChallenge("Isdang Naiinggit",
+        FishChallenge("ISDANG NAIINGGIT",
             listOf("Tinanggap ang pagkatalo", "Naiinggit", "Bumati sa nanalo", "Nagalit"),
             listOf("Naiinggit", "Nagalit", "Tinanggap ang pagkatalo", "Bumati sa nanalo")
         )
@@ -62,7 +61,6 @@ class Book4Station1Fragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_book4_station1, container, false)
 
-        // Bind Views
         fishSelectionContainer = view.findViewById(R.id.fishSelectionContainer)
         gameContainer = view.findViewById(R.id.gameContainer)
         slotsContainer = view.findViewById(R.id.slotsContainer)
@@ -71,15 +69,12 @@ class Book4Station1Fragment : Fragment() {
         val btnBack = view.findViewById<View>(R.id.btnBack)
         val btnCancel = view.findViewById<Button>(R.id.btnCancel)
 
+        // Set the new instruction text when the game screen is shown
+        showFishSelection() // Initial setup
+
         btnBack.setOnClickListener { parentFragmentManager.popBackStack() }
-
-        btnCancel.setOnClickListener {
-            showFishSelection()
-        }
-
-        btnSubmit.setOnClickListener {
-            checkAnswer()
-        }
+        btnCancel.setOnClickListener { showFishSelection() }
+        btnSubmit.setOnClickListener { checkAnswer() }
 
         setupFishButtons()
 
@@ -88,45 +83,53 @@ class Book4Station1Fragment : Fragment() {
 
     private fun setupFishButtons() {
         fishSelectionContainer.removeAllViews()
+        fishSelectionContainer.columnCount = 1
+        fishSelectionContainer.alignmentMode = GridLayout.ALIGN_BOUNDS
 
         challenges.forEach { challenge ->
             val button = Button(context)
             button.text = challenge.fishName
+            
             val params = GridLayout.LayoutParams()
-            params.width = 300
-            params.height = 180
-            params.setMargins(16, 16, 16, 16)
+            params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+            params.width = 0 
+            params.height = GridLayout.LayoutParams.WRAP_CONTENT
+            params.setMargins(12, 12, 12, 12)
+            
             button.layoutParams = params
-            button.setBackgroundResource(R.drawable.button_background_blue)
+            button.background.setTint(Color.parseColor("#C19A6B"))
             button.setTextColor(Color.WHITE)
+            button.textSize = 14f
+            button.setSingleLine(false)
+            button.gravity = Gravity.CENTER
+            button.setPadding(16, 24, 16, 24)
 
-            button.setOnClickListener {
-                startChallenge(challenge)
-            }
+            button.setOnClickListener { startChallenge(challenge) }
             fishSelectionContainer.addView(button)
         }
     }
 
     private fun startChallenge(challenge: FishChallenge) {
         currentChallenge = challenge
+        selectedView = null
 
-        // UI Updates
         fishSelectionContainer.visibility = View.GONE
         gameContainer.visibility = View.VISIBLE
+        
+        // Set the detailed instruction text for the game view
         tvInstruction.text = "Ayusin ang pagkakasunod-sunod: ${challenge.fishName}"
 
-        // Populate items
         slotsContainer.removeAllViews()
         val itemsToShow = ArrayList(challenge.items)
         itemsToShow.shuffle()
 
         itemsToShow.forEach { itemText ->
-            val itemView = createDraggableItem(itemText)
+            val itemView = createGameItem(itemText)
             slotsContainer.addView(itemView)
         }
     }
 
-    private fun createDraggableItem(text: String): TextView {
+    private fun createGameItem(text: String): TextView {
         val textView = TextView(context)
         textView.text = text
         textView.textSize = 18f
@@ -134,88 +137,44 @@ class Book4Station1Fragment : Fragment() {
         textView.setPadding(32, 24, 32, 24)
         textView.setBackgroundResource(R.drawable.draggable_item_background)
 
-        val params = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
+        val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         params.setMargins(0, 8, 0, 8)
         textView.layoutParams = params
 
-        // Enable Dragging
-        textView.setOnTouchListener { view, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                val data = ClipData.newPlainText("", "")
-                val shadowBuilder = View.DragShadowBuilder(view)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    view.startDragAndDrop(data, shadowBuilder, view, 0)
-                } else {
-                    @Suppress("DEPRECATION")
-                    view.startDrag(data, shadowBuilder, view, 0)
-                }
-                view.visibility = View.INVISIBLE // Hide original while dragging
-                true
-            } else {
-                false
-            }
-        }
-
-        // Enable Dropping logic (swapping)
-        textView.setOnDragListener(dragListener)
+        textView.setOnClickListener { view -> handleItemClick(view as TextView) }
 
         return textView
     }
 
-    private val dragListener = View.OnDragListener { v, event ->
-        val receiverView = v as? View
-        val droppedView = event.localState as? View
-
-        when (event.action) {
-            DragEvent.ACTION_DRAG_STARTED -> true
-            DragEvent.ACTION_DRAG_ENTERED -> {
-                v.setBackgroundColor(Color.LTGRAY) // Highlight target
-                true
+    private fun handleItemClick(clickedView: TextView) {
+        if (selectedView == null) {
+            selectedView = clickedView
+            clickedView.setBackgroundColor(Color.LTGRAY)
+            Toast.makeText(context, "Select another item to swap", Toast.LENGTH_SHORT).show()
+        } else {
+            val firstView = selectedView!!
+            if (firstView == clickedView) {
+                firstView.setBackgroundResource(R.drawable.draggable_item_background)
+                selectedView = null
+            } else {
+                val tempText = firstView.text.toString()
+                firstView.text = clickedView.text.toString()
+                clickedView.text = tempText
+                firstView.setBackgroundResource(R.drawable.draggable_item_background)
+                selectedView = null
+                Toast.makeText(context, "Swapped!", Toast.LENGTH_SHORT).show()
             }
-            DragEvent.ACTION_DRAG_EXITED -> {
-                v.setBackgroundResource(R.drawable.draggable_item_background) // Reset color
-                true
-            }
-            DragEvent.ACTION_DROP -> {
-                v.setBackgroundResource(R.drawable.draggable_item_background)
-
-                if (droppedView != null && receiverView != null && droppedView != receiverView) {
-                    val owner = droppedView.parent as LinearLayout
-                    val fromIndex = owner.indexOfChild(droppedView)
-                    val toIndex = owner.indexOfChild(receiverView)
-
-                    owner.removeView(droppedView)
-                    owner.removeView(receiverView)
-
-                    if (fromIndex < toIndex) {
-                        owner.addView(receiverView, fromIndex)
-                        owner.addView(droppedView, toIndex)
-                    } else {
-                        owner.addView(droppedView, toIndex)
-                        // FIXED TYPO HERE
-                        owner.addView(receiverView, fromIndex)
-                    }
-                }
-                true
-            }
-            DragEvent.ACTION_DRAG_ENDED -> {
-                droppedView?.visibility = View.VISIBLE // Show original again
-                v.setBackgroundResource(R.drawable.draggable_item_background)
-                true
-            }
-            else -> false
         }
     }
 
     private fun showFishSelection() {
         fishSelectionContainer.visibility = View.VISIBLE
         gameContainer.visibility = View.GONE
-        tvInstruction.text = "Panuto: Pumili ng isang isda sa ibaba."
+        // Set the main instruction text for the selection screen
+        tvInstruction.text = "Panuto: Pumili ng isang isda sa screen, pagkatapos ay i-click at swap ang mga salita upang maayos ang kilos mula sa pinaka-masama hanggang sa pinaka-mabuti. Kapag tapos na, isumite ang iyong sagot upang malaman kung ito ay tama."
     }
 
+    // CRASH FIXED: Replaced MaterialAlertDialogBuilder with standard AlertDialog
     private fun checkAnswer() {
         val current = currentChallenge ?: return
 
@@ -229,7 +188,14 @@ class Book4Station1Fragment : Fragment() {
             Toast.makeText(context, "TAMA! Ang galing mo!", Toast.LENGTH_LONG).show()
             showFishSelection()
         } else {
-            Toast.makeText(context, "Mali ang pagkakasunod-sunod. Subukan muli!", Toast.LENGTH_SHORT).show()
+            // Use standard AlertDialog to prevent crashes
+            AlertDialog.Builder(requireContext())
+                .setTitle("Incorrect")
+                .setMessage("Mali ang pagkakasunod-sunod. Subukan muli!")
+                .setPositiveButton("Try Again") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
         }
     }
 }

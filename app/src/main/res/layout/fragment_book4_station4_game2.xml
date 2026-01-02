@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LOGO"
+            android:text="Pag-BAUL"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -26,7 +26,7 @@
 
     <!-- White Floating Card -->
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="80dp"
         android:layout_marginStart="24dp"
@@ -34,7 +34,6 @@
         android:layout_marginBottom="24dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
-        app:cardBackgroundColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +42,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp">
+            android:padding="20dp">
 
             <!-- Back Button -->
             <ImageView
@@ -62,101 +61,64 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Traffic Light Game"
+                android:text="Station 4: Tama o Mali"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="#000000"
+                android:textColor="#C19A6B"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/btnBack"
-                app:layout_constraintBottom_toBottomOf="@id/btnBack"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Custom Traffic Light View -->
-            <LinearLayout
-                android:id="@+id/trafficLightContainer"
-                android:layout_width="220dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="#333333"
-                android:padding="20dp"
+            <!-- Question Placeholder -->
+            <TextView
+                android:id="@+id/tvQuestionPlaceholder"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="(Question will appear here)"
                 android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@id/btnBack"
-                app:layout_constraintBottom_toTopOf="@id/buttonRow"
+                android:textSize="20sp"
+                android:textStyle="italic"
+                android:textColor="#666666"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                app:layout_constraintBottom_toTopOf="@+id/buttons_container"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-                
-                <!-- RED LIGHT -->
-                <TextView
-                    android:id="@+id/lightRed"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginBottom="24dp"
-                    android:background="@drawable/circle_black"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:textColor="#FFFFFF"
-                    android:padding="12dp"
-                    android:textAlignment="center"/>
-                
-                <!-- YELLOW LIGHT -->
-                <TextView
-                    android:id="@+id/lightYellow"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginBottom="24dp"
-                    android:background="@drawable/circle_black"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:textColor="#FFFFFF"
-                    android:padding="12dp"
-                    android:textAlignment="center"/>
-                
-                <!-- GREEN LIGHT -->
-                <TextView
-                    android:id="@+id/lightGreen"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:background="@drawable/circle_black"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:textColor="#FFFFFF"
-                    android:padding="12dp"
-                    android:textAlignment="center"/>
-                
-            </LinearLayout>
+                app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- Bottom Buttons Container -->
+            <!-- Tama / Mali Buttons Container -->
             <LinearLayout
-                android:id="@+id/buttonRow"
-                android:layout_width="match_parent"
+                android:id="@+id/buttons_container"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
-                <!-- Stop Button -->
+                <!-- TAMA Button -->
                 <Button
-                    android:id="@+id/btnStop"
+                    android:id="@+id/btnTama"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
                     android:layout_weight="1"
-                    android:text="Start"
-                    android:backgroundTint="#D32F2F"
-                    android:textColor="#FFFFFF"
+                    android:text="TAMA"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="#4CAF50" 
                     android:layout_marginEnd="8dp"/>
 
-                <!-- Next Button -->
+                <!-- MALI Button -->
                 <Button
-                    android:id="@+id/btnNext"
+                    android:id="@+id/btnMali"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
                     android:layout_weight="1"
-                    android:text="Next"
-                    android:backgroundTint="#2196F3"
-                    android:textColor="#FFFFFF"
+                    android:text="MALI"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="#F44336" 
                     android:layout_marginStart="8dp"/>
-
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

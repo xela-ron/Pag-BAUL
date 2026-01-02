@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D0F0C0">
+    android:background="#FAD6A5">
 
     <!-- Header / LOGO -->
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#33691E"
+        android:background="#C19A6B"
         android:gravity="center_vertical"
         android:paddingStart="20dp"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LOGO"
+            android:text="Pag-BAUL"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -40,89 +40,142 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="20dp">
+            android:layout_height="match_parent">
 
-            <!-- Back Icon -->
+            <!-- BACKGROUND WATERMARK IMAGE -->
             <ImageView
-                android:id="@+id/btnBackIcon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/rounded_border"
-                android:padding="8dp"
-                android:src="@drawable/ic_arrow_back"
-                app:tint="#000000"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <!-- Title -->
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Story"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <!-- Page Number -->
-            <TextView
-                android:id="@+id/tvPageNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="#555"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle"
-                tools:text="Page 1 of 2" />
-
-            <!-- Story Text (JUSTIFIED HERE) -->
-            <TextView
-                android:id="@+id/tvStoryText"
+                android:id="@+id/ivStoryBackground"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:justificationMode="inter_word"
-                android:lineSpacingMultiplier="1.2"
-                android:textColor="#333"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@id/btnNext"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:alpha="0.25"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPageNumber"
-                tools:text="Ito ang unang pahina ng kwento..." />
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:src="@drawable/ic_launcher_background" />
 
-            <!-- Next Button -->
-            <Button
-                android:id="@+id/btnNext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Next"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#2196F3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+            <!-- Content Container with Padding -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp">
 
-            <!-- Done Button -->
-            <Button
-                android:id="@+id/btnDone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Done"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
-                android:textColor="#FFFFFF"
-                android:visibility="gone"
-                android:backgroundTint="#2196F3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <!-- Back Icon (Fixed at top) -->
+                <ImageView
+                    android:id="@+id/btnBackIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rounded_border"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_arrow_back"
+                    app:tint="#000000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <!-- ============================================ -->
+                <!-- MAZE CONTAINER (Added Here)                  -->
+                <!-- This sits in the same space as the text      -->
+                <!-- ============================================ -->
+                <FrameLayout
+                    android:id="@+id/mazeContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone"
+                    android:background="@android:color/white"
+                    android:elevation="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/btnBackIcon"
+                    app:layout_constraintBottom_toTopOf="@id/btnNext"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- SCROLLVIEW WRAPPER (For Standard Stories) -->
+                <ScrollView
+                    android:id="@+id/scrollViewStory"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:fillViewport="true"
+                    app:layout_constraintTop_toBottomOf="@id/btnBackIcon"
+                    app:layout_constraintBottom_toTopOf="@id/btnNext"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Title -->
+                        <TextView
+                            android:id="@+id/tvTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Story"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textColor="#000000"
+                            android:fontFamily="sans-serif"/>
+
+                        <!-- Page Number -->
+                        <TextView
+                            android:id="@+id/tvPageNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColor="#555"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif"
+                            tools:text="Page 1 of 2" />
+
+                        <!-- Story Text -->
+                        <TextView
+                            android:id="@+id/tvStoryText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:justificationMode="inter_word"
+                            android:lineSpacingMultiplier="1.2"
+                            android:textColor="#000000"
+                            android:textSize="20sp"
+                            android:fontFamily="sans-serif"
+                            tools:text="Ito ang unang pahina ng kwento..." />
+                    </LinearLayout>
+                </ScrollView>
+
+                <!-- Next Button -->
+                <Button
+                    android:id="@+id/btnNext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Next"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#C19A6B"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- Done Button -->
+                <Button
+                    android:id="@+id/btnDone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Done"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:textColor="#FFFFFF"
+                    android:visibility="gone"
+                    android:backgroundTint="#C19A6B"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
