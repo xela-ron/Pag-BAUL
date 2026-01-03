@@ -258,7 +258,7 @@ class BookFragment : Fragment() {
                         add(QuestionData("Ano ang aral na matututunan sa kuwento? ", "Mas mabuting maging bida", "Hindi mahalaga ang tungkulin", "Dapat gampanan ang responsibilidad kahit walangnakakakita", "Mas masaya ang pagiging tamad", "Dapat gampanan ang responsibilidad kahit walangnakakakita "))
                     }, "Station 3: Q&A")
 
-                    4 -> openGenericFragment(StationFragment(), "Station 4: GAMES")
+                    4 -> openGenericFragment(Book4Station4Game1Fragment(), "Station 4: GAMES")
 
                     5 -> openStation5WithQuestions(ArrayList<String>().apply {
                         add("1. Ano ang nararamdaman ni Lucia nang isinumpa siya ng Diyosa?")
@@ -281,8 +281,8 @@ class BookFragment : Fragment() {
             // ============================================================
             else if (currentBookId == 5) {
                 when (stationNumber) {
-                    // CHANGE: OPEN STORY FRAGMENT FOR MAZE (Passing specific title)
-                    1 -> openStory("", "Station 1: Find the way")
+                    // CHANGE: OPEN STATION 1 FRAGMENT DIRECTLY
+                    1 -> openGenericFragment(Book5Station1Fragment(), "Station 1: Find the way")
 
                     // BOOK 5 STORY
                     2 -> openStory(
@@ -304,7 +304,7 @@ class BookFragment : Fragment() {
                         add(QuestionData("Ano ang tema ng kwento?", "Pagkagulat o pagharap sa sorpresa", "Pagkakakibigan ", "Pagtutulungan ", "Pagkakasundo", "Pagkagulat o pagharap sa sorpresa"))
                     }, "Station 3: Q&A")
 
-                    4 -> openGenericFragment(StationFragment(), "Station 4: GAMES")
+                    4 -> openGenericFragment(Book5Station4Game1Fragment(), "Station 4: GAMES")
 
                     5 -> openStation5WithQuestions(ArrayList<String>().apply {
                         add("1. Ano ang nararamdaman ng leon sa pagkatalo?")

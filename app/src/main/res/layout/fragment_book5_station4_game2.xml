@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LOGO"
+            android:text="Pag-BAUL"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -58,79 +58,70 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="Ang Kabayo at ang Leon"
                 android:textColor="#000000"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/btnBackIcon"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Subtitle -->
+            <!-- Question Text -->
             <TextView
-                android:id="@+id/tvMotivation"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvQuestion"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Station 1: Motivation &quot;Find the way&quot;"
-                android:textColor="#333333"
+                android:layout_marginTop="20dp"
+                android:text="1st challenge: Question will appear here"
+                android:textColor="#000000"
                 android:textSize="18sp"
+                android:justificationMode="inter_word"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-            <!-- Instruction -->
-            <TextView
-                android:id="@+id/tvInstruction"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:text="Hanapin ang daan patungo sa kweba. Iwasan ang leon upang hindi makain."
-                android:textColor="#333333"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvMotivation" />
-
-            <!-- Maze Container -->
-            <FrameLayout
-                android:id="@+id/mazeContainer"
+            <!-- Challenge Image -->
+            <ImageView
+                android:id="@+id/ivChallenge"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginVertical="20dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/firstchallenge"
+                app:layout_constraintBottom_toTopOf="@id/btnNext"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvInstruction">
+                app:layout_constraintTop_toBottomOf="@id/tvQuestion" />
 
-                <!-- The Maze Image -->
-                <ImageView
-                    android:id="@+id/ivMaze"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/findtheway" />
+            <!-- Next Button -->
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NEXT"
+                android:backgroundTint="#8D6E63"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-                <!-- Path Drawing View -->
-                <com.example.pag_baul.PathDrawingView
-                    android:id="@+id/pathDrawingView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <!-- The Draggable Player Token -->
-                <ImageView
-                    android:id="@+id/playerToken"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/player_token" />
-
-            </FrameLayout>
+            <!-- Done Button (Initially Hidden) -->
+            <Button
+                android:id="@+id/btnDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DONE"
+                android:backgroundTint="#8D6E63"
+                android:textColor="#FFFFFF"
+                android:visibility="gone"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

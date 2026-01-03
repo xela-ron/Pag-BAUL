@@ -1,7 +1,10 @@
 package com.example.pag_baul
 
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,11 +88,50 @@ class Book2Station4Fragment : Fragment() {
         }
 
         if (userAnswer.toString().equals(correctAnswer, ignoreCase = true)) {
-            Toast.makeText(requireContext(), "TAMA! Ang sagot ay TAGAK.", Toast.LENGTH_LONG).show()
+            showFeedbackDialog(true)
             for (slot in answerSlots) slot.setTextColor(Color.GREEN)
         } else {
-            Toast.makeText(requireContext(), "Mali. Subukan muli!", Toast.LENGTH_SHORT).show()
+            showFeedbackDialog(false)
             for (slot in answerSlots) slot.setTextColor(Color.RED)
+        }
+    }
+
+    private fun showFeedbackDialog(isCorrect: Boolean) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_feedback, null)
+        val ivEmoji = dialogView.findViewById<ImageView>(R.id.ivEmoji)
+        val tvFeedback = dialogView.findViewById<TextView>(R.id.tvFeedback)
+        val btnDialogNext = dialogView.findViewById<Button>(R.id.btnDialogNext)
+
+        // Hide the button (same style as Book 4 Station 4 Game 2)
+        btnDialogNext.visibility = View.GONE
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        if (isCorrect) {
+            ivEmoji.setImageResource(R.drawable.happy)
+            tvFeedback.text = "Magaling!"
+            
+            dialog.show()
+
+            // Auto-advance/complete after 1.5 seconds
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (dialog.isShowing) dialog.dismiss()
+                Toast.makeText(context, "Station Completed!", Toast.LENGTH_SHORT).show()
+                parentFragmentManager.popBackStack() 
+            }, 1500)
+        } else {
+            ivEmoji.setImageResource(R.drawable.sad)
+            tvFeedback.text = "Subukan muli!"
+            
+            dialog.show()
+
+            // Auto-dismiss after 1.5 seconds
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (dialog.isShowing) dialog.dismiss()
+            }, 1500)
         }
     }
 }

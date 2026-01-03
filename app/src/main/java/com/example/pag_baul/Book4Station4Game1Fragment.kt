@@ -2,6 +2,8 @@ package com.example.pag_baul
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +12,6 @@ import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 
 data class ImageQuestion(
@@ -59,6 +60,7 @@ class Book4Station4Game1Fragment : Fragment() {
         ivQuestionImage.setImageResource(imageId)
 
         rgChoices.removeAllViews()
+        rgChoices.clearCheck()
         question.options.forEach { option ->
             val radioButton = RadioButton(context)
             radioButton.text = option
@@ -70,7 +72,10 @@ class Book4Station4Game1Fragment : Fragment() {
     private fun checkAnswer() {
         val selectedRadioButtonId = rgChoices.checkedRadioButtonId
         if (selectedRadioButtonId == -1) {
-            Toast.makeText(context, "Please select an answer", Toast.LENGTH_SHORT).show()
+            AlertDialog.Builder(requireContext())
+                .setMessage("Please choose an answer first.")
+                .setPositiveButton("OK", null)
+                .show()
             return
         }
 
@@ -91,6 +96,9 @@ class Book4Station4Game1Fragment : Fragment() {
         val tvFeedback = dialogView.findViewById<TextView>(R.id.tvFeedback)
         val btnDialogNext = dialogView.findViewById<Button>(R.id.btnDialogNext)
 
+        // Hide the button as requested
+        btnDialogNext.visibility = View.GONE
+
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
             .setCancelable(false)
@@ -99,26 +107,33 @@ class Book4Station4Game1Fragment : Fragment() {
         if (isCorrect) {
             ivEmoji.setImageResource(R.drawable.happy)
             tvFeedback.text = "Magaling!"
-            btnDialogNext.text = "Next"
-            btnDialogNext.setOnClickListener {
-                dialog.dismiss()
+            
+            dialog.show()
+
+            // Auto-advance after 1.5 seconds
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (dialog.isShowing) {
+                    dialog.dismiss()
+                }
                 currentQuestionIndex++
                 if (currentQuestionIndex < questions.size) {
                     loadQuestion(currentQuestionIndex)
                 } else {
-                    // CORRECTED NAVIGATION: Use the MainActivity's helper function
                     (activity as? MainActivity)?.loadFragment(Book4Station4Game2Fragment())
                 }
-            }
+            }, 1500)
         } else {
             ivEmoji.setImageResource(R.drawable.sad)
             tvFeedback.text = "Subukan muli!"
-            btnDialogNext.text = "Try Again"
-            btnDialogNext.setOnClickListener {
-                dialog.dismiss()
-            }
-        }
+            
+            dialog.show()
 
-        dialog.show()
+            // Auto-dismiss after 1.5 seconds
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (dialog.isShowing) {
+                    dialog.dismiss()
+                }
+            }, 1500)
+        }
     }
 }

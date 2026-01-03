@@ -58,7 +58,6 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="Ang Kabayo at ang Leon"
@@ -70,67 +69,88 @@
                 app:layout_constraintStart_toEndOf="@id/btnBackIcon"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Subtitle -->
+             <!-- Game Title -->
             <TextView
-                android:id="@+id/tvMotivation"
+                android:id="@+id/tvGameTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Station 1: Motivation &quot;Find the way&quot;"
+                android:text="Station 4: Game 1 - Picture Game"
                 android:textColor="#333333"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-            <!-- Instruction -->
-            <TextView
-                android:id="@+id/tvInstruction"
+            <!-- Question Text -->
+             <TextView
+                android:id="@+id/tvQuestion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:gravity="center"
-                android:text="Hanapin ang daan patungo sa kweba. Iwasan ang leon upang hindi makain."
-                android:textColor="#333333"
-                android:textSize="16sp"
+                android:text="Piliin ang tamang larawan."
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvMotivation" />
+                app:layout_constraintTop_toBottomOf="@id/tvGameTitle" />
 
-            <!-- Maze Container -->
-            <FrameLayout
-                android:id="@+id/mazeContainer"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="16dp"
+            <!-- Images Container -->
+            <LinearLayout
+                android:id="@+id/imageContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/tvQuestion">
+                
+                <ImageView
+                    android:id="@+id/ivOption1"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:layout_margin="4dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/rounded_border"
+                    android:padding="4dp" />
+
+                <ImageView
+                    android:id="@+id/ivOption2"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:layout_margin="4dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/rounded_border"
+                    android:padding="4dp" />
+
+                <ImageView
+                    android:id="@+id/ivOption3"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:layout_margin="4dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/rounded_border"
+                    android:padding="4dp" />
+            </LinearLayout>
+
+            <!-- Done Button (Initially Hidden) -->
+            <Button
+                android:id="@+id/btnDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:text="NEXT"
+                android:backgroundTint="#8D6E63" 
+                android:textColor="#FFFFFF"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvInstruction">
-
-                <!-- The Maze Image -->
-                <ImageView
-                    android:id="@+id/ivMaze"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/findtheway" />
-
-                <!-- Path Drawing View -->
-                <com.example.pag_baul.PathDrawingView
-                    android:id="@+id/pathDrawingView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <!-- The Draggable Player Token -->
-                <ImageView
-                    android:id="@+id/playerToken"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/player_token" />
-
-            </FrameLayout>
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,14 +1,17 @@
 package com.example.pag_baul
 
-import android.app.AlertDialog // Use the standard AlertDialog
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.GridLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -150,7 +153,7 @@ class Book4Station1Fragment : Fragment() {
         if (selectedView == null) {
             selectedView = clickedView
             clickedView.setBackgroundColor(Color.LTGRAY)
-            Toast.makeText(context, "Select another item to swap", Toast.LENGTH_SHORT).show()
+            // Removed pop up message on select
         } else {
             val firstView = selectedView!!
             if (firstView == clickedView) {
@@ -162,7 +165,7 @@ class Book4Station1Fragment : Fragment() {
                 clickedView.text = tempText
                 firstView.setBackgroundResource(R.drawable.draggable_item_background)
                 selectedView = null
-                Toast.makeText(context, "Swapped!", Toast.LENGTH_SHORT).show()
+                // Removed pop up message on swap
             }
         }
     }
@@ -174,7 +177,6 @@ class Book4Station1Fragment : Fragment() {
         tvInstruction.text = "Panuto: Pumili ng isang isda sa screen, pagkatapos ay i-click at swap ang mga salita upang maayos ang kilos mula sa pinaka-masama hanggang sa pinaka-mabuti. Kapag tapos na, isumite ang iyong sagot upang malaman kung ito ay tama."
     }
 
-    // CRASH FIXED: Replaced MaterialAlertDialogBuilder with standard AlertDialog
     private fun checkAnswer() {
         val current = currentChallenge ?: return
 
@@ -185,17 +187,47 @@ class Book4Station1Fragment : Fragment() {
         }
 
         if (userOrder == current.correctOrder) {
-            Toast.makeText(context, "TAMA! Ang galing mo!", Toast.LENGTH_LONG).show()
-            showFishSelection()
+            showFeedbackDialog(true)
         } else {
-            // Use standard AlertDialog to prevent crashes
-            AlertDialog.Builder(requireContext())
-                .setTitle("Incorrect")
-                .setMessage("Mali ang pagkakasunod-sunod. Subukan muli!")
-                .setPositiveButton("Try Again") { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
+            showFeedbackDialog(false)
+        }
+    }
+
+    private fun showFeedbackDialog(isCorrect: Boolean) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_feedback, null)
+        val ivEmoji = dialogView.findViewById<ImageView>(R.id.ivEmoji)
+        val tvFeedback = dialogView.findViewById<TextView>(R.id.tvFeedback)
+        val btnDialogNext = dialogView.findViewById<Button>(R.id.btnDialogNext)
+
+        // Hide the button
+        btnDialogNext.visibility = View.GONE
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        if (isCorrect) {
+            ivEmoji.setImageResource(R.drawable.happy)
+            tvFeedback.text = "Magaling!"
+            
+            dialog.show()
+
+            // Auto-advance after 1.5 seconds
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (dialog.isShowing) dialog.dismiss()
+                showFishSelection() // Go back to selection menu on success
+            }, 1500)
+        } else {
+            ivEmoji.setImageResource(R.drawable.sad)
+            tvFeedback.text = "Subukan muli!"
+            
+            dialog.show()
+
+            // Auto-dismiss after 1.5 seconds
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (dialog.isShowing) dialog.dismiss()
+            }, 1500)
         }
     }
 }

@@ -1,7 +1,10 @@
 package com.example.pag_baul
 
+import android.app.AlertDialog
 import android.graphics.Paint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,8 +37,7 @@ class Book3Station1Fragment : Fragment() {
         
         // Done button listener
         btnDone.setOnClickListener {
-             Toast.makeText(requireContext(), "Great Job!", Toast.LENGTH_SHORT).show()
-             parentFragmentManager.popBackStack()
+             showFeedbackDialog(true)
         }
 
         // Clear map to avoid duplicates if view is recreated
@@ -94,11 +96,50 @@ class Book3Station1Fragment : Fragment() {
 
     private fun checkIfAllWordsFound(wordSearchView: WordSearchView) {
         if (wordToTextViewMap.keys.all { wordSearchView.foundWords.contains(it.uppercase()) }) {
-            Toast.makeText(requireContext(), "Congratulations! You found all the words!", Toast.LENGTH_LONG).show()
             // Disable back button and enable done button
             btnBack.isEnabled = false
             btnBack.alpha = 0.5f
             btnDone.visibility = View.VISIBLE
+        }
+    }
+
+    private fun showFeedbackDialog(isCorrect: Boolean) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_feedback, null)
+        val ivEmoji = dialogView.findViewById<ImageView>(R.id.ivEmoji)
+        val tvFeedback = dialogView.findViewById<TextView>(R.id.tvFeedback)
+        val btnDialogNext = dialogView.findViewById<Button>(R.id.btnDialogNext)
+
+        // Hide the button (same style as Book 4 Station 4 Game 2)
+        btnDialogNext.visibility = View.GONE
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        if (isCorrect) {
+            ivEmoji.setImageResource(R.drawable.happy)
+            tvFeedback.text = "Magaling!"
+            
+            dialog.show()
+
+            // Auto-advance/complete after 1.5 seconds
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (dialog.isShowing) dialog.dismiss()
+                Toast.makeText(context, "Station Completed!", Toast.LENGTH_SHORT).show()
+                parentFragmentManager.popBackStack() 
+            }, 1500)
+        } else {
+            // Usually not reachable for Word Search "Done" button, but handled just in case
+            ivEmoji.setImageResource(R.drawable.sad)
+            tvFeedback.text = "Subukan muli!"
+            
+            dialog.show()
+
+            // Auto-dismiss after 1.5 seconds
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (dialog.isShowing) dialog.dismiss()
+            }, 1500)
         }
     }
 }
