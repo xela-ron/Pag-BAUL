@@ -1,11 +1,13 @@
 package com.example.pag_baul
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,16 +34,22 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import java.util.Locale
 import java.util.regex.Pattern
 import kotlin.math.abs
 
-class StoryFragment : Fragment() {
+class StoryFragment : Fragment(), TextToSpeech.OnInitListener {
+
+    private var tts: TextToSpeech? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_story, container, false)
+
+        // Initialize TextToSpeech
+        tts = TextToSpeech(context, this)
 
         // 1. Get Arguments
         val storyText = arguments?.getString("STORY_PAGE1") ?: ""
@@ -57,6 +65,7 @@ class StoryFragment : Fragment() {
         val btnDone = view.findViewById<Button>(R.id.btnDone)
         val btnBack = view.findViewById<ImageView>(R.id.btnBackIcon)
         val ivBackground = view.findViewById<ImageView>(R.id.ivStoryBackground)
+        // btnReadAloud Removed from layout as per request, so removing logic here
 
         // Find the Maze Container
         val mazeContainer = view.findViewById<FrameLayout>(R.id.mazeContainer)
@@ -77,7 +86,7 @@ class StoryFragment : Fragment() {
             if (scrollViewStory != null) scrollViewStory.visibility = View.GONE
             if (btnNext != null) btnNext.visibility = View.GONE
             if (btnDone != null) btnDone.visibility = View.GONE
-
+            
             // Hide the background image
             ivBackground.visibility = View.GONE
 
@@ -160,6 +169,9 @@ class StoryFragment : Fragment() {
 
                             val clickableSpan = object : ClickableSpan() {
                                 override fun onClick(widget: View) {
+                                    // SPEAK OUT THE WORD IMMEDIATELY
+                                    speakOut(currentWord)
+                                    
                                     AlertDialog.Builder(requireContext())
                                         .setTitle(currentWord)
                                         .setMessage(currentDef)
@@ -197,6 +209,32 @@ class StoryFragment : Fragment() {
         }
 
         return view
+    }
+
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            // Set Language to Filipino, fallback to default if not available
+            val result = tts?.setLanguage(Locale("fil", "PH"))
+
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS", "The Language Filipino is not supported, trying default.")
+                tts?.language = Locale.getDefault()
+            }
+        } else {
+            Log.e("TTS", "Initialization Failed!")
+        }
+    }
+
+    private fun speakOut(text: String) {
+        tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
+    override fun onDestroy() {
+        if (tts != null) {
+            tts?.stop()
+            tts?.shutdown()
+        }
+        super.onDestroy()
     }
 
     private fun getVocabulary(bookId: Int): Map<String, String> {

@@ -133,6 +133,8 @@
                             android:fontFamily="sans-serif"
                             tools:text="Page 1 of 2" />
 
+                        <!-- READ ALOUD BUTTON REMOVED as per user request (only on click) -->
+
                         <!-- Story Text -->
                         <TextView
                             android:id="@+id/tvStoryText"
