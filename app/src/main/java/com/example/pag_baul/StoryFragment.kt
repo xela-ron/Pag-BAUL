@@ -138,6 +138,7 @@ class StoryFragment : Fragment(), TextToSpeech.OnInitListener {
                 2 -> ivBackground.setImageResource(R.drawable.book2cover)
                 3 -> ivBackground.setImageResource(R.drawable.book3cover)
                 4 -> ivBackground.setImageResource(R.drawable.book4cover)
+                5 -> ivBackground.setImageResource(R.drawable.book5cover)
                 else -> ivBackground.setImageResource(R.drawable.book1cover)
             }
 
@@ -149,8 +150,8 @@ class StoryFragment : Fragment(), TextToSpeech.OnInitListener {
             if (btnDone != null) btnDone.visibility = View.VISIBLE
 
             if (tvStoryText != null) {
-                // Only enable clickable dictionary words for Book 1, 2, 3, and 4
-                if (bookId == 1 || bookId == 2 || bookId == 3 || bookId == 4) {
+                // Only enable clickable dictionary words for Book 1, 2, 3, 4, and 5
+                if (bookId == 1 || bookId == 2 || bookId == 3 || bookId == 4 || bookId == 5) {
                     val vocab = getVocabulary(bookId)
                     val spannable = SpannableString(storyText)
                     var foundAny = false
@@ -499,6 +500,73 @@ class StoryFragment : Fragment(), TextToSpeech.OnInitListener {
                 "Ugali" to "Karakter o pagkatao",
                 "Pinakapangit" to "Pinakamasama sa hitsura o katangian",
                 "Mundo" to "Daigdig o kabuuan ng kalikasan"
+            )
+            5 -> mapOf(
+                "Isang" to "Isa; nag-iisa",
+                "Malaking" to "Malawak o malaki ang sukat",
+                "Kweba" to "Lungga o yungib sa ilalim ng lupa o bato",
+                "May" to "Nagkakaroon; nagtataglay",
+                "Bato" to "Matigas na bahagi ng lupa o bundok",
+                "Leon" to "Uri ng hayop na malakas at mabangis na pusa",
+                "Tagal" to "Mahabang panahon",
+                "Panahon" to "Paglipas ng oras",
+                "Mahina" to "Walang lakas; hindi malakas",
+                "Matanda" to "May edad na; hindi bata",
+                "Nakahiga" to "Humiga o nakapahinga sa lupa",
+                "Aral" to "Panahon; sa konteksto ng kuwento, araw",
+                "Namataan" to "Napansin; nakita",
+                "Kabayo" to "Uri ng hayop na ginagamit sa sakahan o sakay",
+                "Tumatawid" to "Naglalakad o dumadaan sa isang lugar",
+                "Gustong" to "Nais o hinahangad",
+                "Kainin" to "Pagkain; baga o bibig sa pagkain",
+                "Alam" to "May kaalaman",
+                "Mas" to "Higit; mas mataas sa iba",
+                "Mabilis" to "Madali o mabilis ang kilos",
+                "Tumakbo" to "Paggalaw mula isang lugar patungo sa iba",
+                "Umisip" to "Nag-isip o nagplano",
+                "Mabuting" to "Maganda o maayos ang intensyon",
+                "Para" to "Layunin o dahilan",
+                "Makalapit" to "Makalapit o makalapit sa layunin",
+                "Lahat" to "Buong grupo; kabuuan",
+                "Hayop" to "Nilalang na may buhay, hindi tao",
+                "Dito" to "Sa lugar na tinutukoy",
+                "Ako" to "Tumutukoy sa nagsasalita",
+                "Lamang" to "Isa; tanging",
+                "Nakaka-alam" to "May kaalaman o may nalalaman",
+                "Lunas" to "Gamot o paraan upang magaling",
+                "Anumang" to "Kahit ano; anumang uri",
+                "Sakit" to "Karamdaman o kirot",
+                "Wika" to "Sinabi o pahayag",
+                "Talaga" to "Totoo; totoo nga",
+                "Manghang" to "Nagulat o may pagkagulat",
+                "Sagot" to "Tugon o pahayag bilang kasagutan",
+                "Sige" to "Pahintulot o pagpayag",
+                "Subukin" to "Subukan o patunayan",
+                "Muling" to "Ulitin; muli",
+                "Paika-ika" to "Dahan-dahan o maingat na kilos",
+                "Lumapit" to "Naglapit; pumunta malapit sa isang tao",
+                "Nagkunwaring" to "Nagpanggap o nagpakita ng hindi totoo",
+                "Masakit" to "Nagdudulot ng kirot o sakit",
+                "Natinik" to "May tinik; may matulis na bahagi",
+                "Paa" to "Parte ng katawan na ginagamit sa paglakad o pagtayo",
+                "Hiniling" to "Hiningi; nais o ipinag-utos",
+                "Ipakita" to "Iparating o ipakita",
+                "Kanyang" to "Pag-aari o pag-aakibat sa tao o bagay",
+                "Pansin" to "Napansin o napagtanto",
+                "Buong" to "Kabuuan; hindi kulang",
+                "Lakas" to "Kapangyarihan o lakas ng katawan",
+                "Sisilain" to "Sasalain o sasalain ng paa",
+                "Bigla" to "Agad o biglaang kilos",
+                "Itinaas" to "Pinataas o inangat",
+                "Sinipa" to "Tinapakan o sinipa gamit ang paa",
+                "Sabay" to "Kasabay; sabay-sabay",
+                "Takbo" to "Paggalaw mula isang lugar patungo sa iba",
+                "Tumatawang" to "Tumatawa habang gumagalaw; masayang kilos",
+                "Nauwi" to "Naging resulta o nagresulta",
+                "Wala" to "Hindi natuloy; wala o hindi nangyari",
+                "Maiitim" to "Madilim; kulay itim",
+                "Balak" to "Plano o intensyon",
+                "Palalong" to "Mapagmataas o mayabang"
             )
             else -> emptyMap()
         }
