@@ -507,7 +507,7 @@ class StoryFragment : Fragment(), TextToSpeech.OnInitListener {
                 "Kweba" to "Lungga o yungib sa ilalim ng lupa o bato",
                 "May" to "Nagkakaroon; nagtataglay",
                 "Bato" to "Matigas na bahagi ng lupa o bundok",
-                "Leon" to "Uri ng hayop na malakas at mabangis na pusa",
+                "Leon" to "Uri ng hayop na malakas at mabangis na pusa; hayop na tanging pangunahing karakter sa kwento ",
                 "Tagal" to "Mahabang panahon",
                 "Panahon" to "Paglipas ng oras",
                 "Mahina" to "Walang lakas; hindi malakas",
