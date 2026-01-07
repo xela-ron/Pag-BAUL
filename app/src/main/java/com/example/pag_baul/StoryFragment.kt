@@ -216,6 +216,9 @@ class StoryFragment : Fragment(), TextToSpeech.OnInitListener {
         if (status == TextToSpeech.SUCCESS) {
             // Set Language to Filipino, fallback to default if not available
             val result = tts?.setLanguage(Locale("fil", "PH"))
+            
+            // Set Speech Rate to 0.6f (slower) for better clarity
+            tts?.setSpeechRate(0.6f)
 
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("TTS", "The Language Filipino is not supported, trying default.")

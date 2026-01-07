@@ -53,41 +53,33 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="#000000" />
 
-            <!-- Title -->
+            <!-- Title: Station 4: GAMES -->
+            <!-- Updated to match the requested gold style aligned with the back button -->
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Ang Kabayo at ang Leon"
-                android:textColor="#000000"
-                android:textSize="24sp"
+                android:text="Station 4: GAMES"
+                android:textSize="25sp"
                 android:textStyle="bold"
-                android:gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="#C19A6B"
+                android:gravity="center_vertical|start"
+                android:layout_marginStart="16dp"
                 app:layout_constraintStart_toEndOf="@id/btnBackIcon"
-                app:layout_constraintTop_toTopOf="parent" />
-
-             <!-- Game Title -->
-            <TextView
-                android:id="@+id/tvGameTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Station 4: Game 1 - Picture Game"
-                android:textColor="#333333"
-                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+                app:layout_constraintTop_toTopOf="@id/btnBackIcon"
+                app:layout_constraintBottom_toBottomOf="@id/btnBackIcon" />
+
+            <!-- Note: I removed the redundant "Station 4: Game 1" text view
+                 and the old black title to match the clean look of your reference.
+                 The constraints below are updated to point to tvTitle. -->
 
             <!-- Question Text -->
-             <TextView
+            <TextView
                 android:id="@+id/tvQuestion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:gravity="center"
                 android:text="Piliin ang tamang larawan."
                 android:textColor="#000000"
@@ -95,7 +87,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvGameTitle" />
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
             <!-- Images Container -->
             <LinearLayout
@@ -106,7 +98,7 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 app:layout_constraintTop_toBottomOf="@id/tvQuestion">
-                
+
                 <ImageView
                     android:id="@+id/ivOption1"
                     android:layout_width="0dp"
@@ -145,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:text="NEXT"
-                android:backgroundTint="#8D6E63" 
+                android:backgroundTint="#8D6E63"
                 android:textColor="#FFFFFF"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"

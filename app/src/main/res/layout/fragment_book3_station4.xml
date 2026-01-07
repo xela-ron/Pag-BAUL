@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LOGO"
+            android:text="Pag-BAUL"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -58,15 +58,18 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <!-- Title -->
+            <!-- Updated to match Book 1/2 style: Centered, Brown, Station 4. GAMES -->
             <TextView
                 android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Traffic Light Game"
+                android:text="Station 4. GAMES"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="#000000"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="#C19A6B"
+                android:gravity="center"
+                android:layout_marginEnd="40dp"
+                app:layout_constraintStart_toEndOf="@id/btnBack"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/btnBack"
                 app:layout_constraintBottom_toBottomOf="@id/btnBack"/>

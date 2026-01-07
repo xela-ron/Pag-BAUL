@@ -59,14 +59,15 @@
                 android:id="@+id/tvEssayTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Station 6."
+                android:text="Station 6: ESSAY"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 android:textColor="#C19A6B"
                 android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" /> <!-- UPDATED: ID to match logic & Color to Brown -->
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/btnBackIcon" />
 
             <!-- The Question -->
             <TextView

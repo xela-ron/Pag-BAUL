@@ -59,13 +59,13 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Question with a twist"
-                android:textSize="22sp"
+                android:text="Station 3: Q&amp;A"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:textColor="#000000"
+                android:textColor="#C19A6B"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btnBackIcon"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/btnBackIcon"/>
 

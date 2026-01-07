@@ -38,11 +38,8 @@
         app:layout_constraintTop_toBottomOf="@+id/navbar"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <!-- 
-            UPDATED MARGIN: Changed from 80dp to 20dp.
-            Since ScrollView is below the 60dp Navbar, a 20dp margin here
-            puts the CardView at 80dp from the screen top (60 + 20),
-            matching the visual spacing of other fragments.
+        <!--
+            UPDATED MARGIN: 20dp spacing from navbar.
         -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -60,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp">
 
-                <!-- Back Button (Uniform Design) -->
+                <!-- Back Button -->
                 <ImageView
                     android:id="@+id/btnBack"
                     android:layout_width="40dp"
@@ -72,20 +69,27 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-                <!-- Title -->
+                <!--
+                   UPDATED TITLE TEXTVIEW
+                   1. Width is 0dp (match constraints)
+                   2. Start is constrained to End of btnBack (No overlap!)
+                   3. Gravity center
+                   4. Vertically aligned with the button
+                -->
                 <TextView
                     android:id="@+id/tvTitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Station 1: Word Search"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:textColor="#C19A6B"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:gravity="center"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toEndOf="@id/btnBack"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/wordSearchView"/>
+                    app:layout_constraintTop_toTopOf="@id/btnBack"
+                    app:layout_constraintBottom_toBottomOf="@id/btnBack"/>
 
                 <!-- The Word Search Grid -->
                 <view
@@ -93,13 +97,13 @@
                     android:id="@+id/wordSearchView"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
                     android:background="@drawable/blue_border_background"
                     android:padding="8dp"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                    app:layout_constraintTop_toBottomOf="@id/btnBack"
                     app:layout_constraintWidth_max="400dp"/>
 
                 <!-- Words to Find Section -->
@@ -127,7 +131,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvWordsTitle" />
-                    
+
                 <!-- Done Button (Initially Hidden) -->
                 <Button
                     android:id="@+id/btnDone"

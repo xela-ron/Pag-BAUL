@@ -53,21 +53,22 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="#000000" />
 
-            <!-- Title -->
+            <!-- Title: Station 4: GAMES -->
+            <!-- Updated to match requested style -->
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Ang Kabayo at ang Leon"
-                android:textColor="#000000"
-                android:textSize="22sp"
+                android:text="Station 4: GAMES"
+                android:textSize="25sp"
                 android:textStyle="bold"
-                android:gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="#C19A6B"
+                android:gravity="center_vertical|start"
+                android:layout_marginStart="16dp"
                 app:layout_constraintStart_toEndOf="@id/btnBackIcon"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/btnBackIcon"
+                app:layout_constraintBottom_toBottomOf="@id/btnBackIcon" />
 
             <!-- Question Text -->
             <TextView

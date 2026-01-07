@@ -46,43 +46,39 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp">
 
-                <!-- Back Icon (Top Left) -->
+                <!-- Back Icon (Fixed at top) -->
                 <ImageView
                     android:id="@+id/btnBack"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_arrow_back"
                     android:background="@drawable/rounded_border"
                     android:padding="8dp"
+                    android:src="@drawable/ic_arrow_back"
                     app:tint="#000000"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="Back" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-                <!-- 
-                   UPDATED TITLE: Centered and Pushed Down 
-                   - Removed top constraint to parent
-                   - Constrained top to bottom of btnBack
-                   - Increased marginTop to push it down further like Station 1
-                -->
+                <!-- Title (Aligned horizontally with Back Icon, centered in available space) -->
                 <TextView
                     android:id="@+id/tvTitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Station 4: 4Pics 1 Word"
-                    android:textSize="24sp"
+                    android:text="Station 4. 4Pics 1 Word"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     android:textColor="#C19A6B"
-                    android:layout_marginTop="24dp" 
+                    android:gravity="center"
+                    android:layout_marginEnd="40dp"
+                    app:layout_constraintStart_toEndOf="@id/btnBack"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btnBack" />
+                    app:layout_constraintTop_toTopOf="@id/btnBack"
+                    app:layout_constraintBottom_toBottomOf="@id/btnBack" />
 
                 <ImageView
                     android:id="@+id/iv4Pics"
                     android:layout_width="0dp"
                     android:layout_height="250dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/b2s4_4pics"
                     app:layout_constraintEnd_toEndOf="parent"

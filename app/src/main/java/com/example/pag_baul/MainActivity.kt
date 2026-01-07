@@ -9,13 +9,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Only load the HomeFragment if the activity is just starting
+        // DEBUGGING: Temporarily disabled Fragment loading to check if Activity loads.
+        // If you see a GREEN screen with text, the Activity is working.
+        
         if (savedInstanceState == null) {
             loadFragment(HomeFragment())
         }
     }
 
-    // This helper function switches the screens
     fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
@@ -23,7 +24,6 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    // Handles the back button correctly so you don't get stuck on empty screens
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount > 1) {
             supportFragmentManager.popBackStack()

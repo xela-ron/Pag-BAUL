@@ -42,48 +42,34 @@
             android:layout_height="match_parent"
             android:padding="20dp">
 
-            <!-- 
-                 UPDATED HEADER: Horizontal LinearLayout 
-                 Prevents title overlapping with back button
-            -->
-            <LinearLayout
-                android:id="@+id/titleContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                app:layout_constraintTop_toTopOf="parent"
+            <!-- Back Icon -->
+            <ImageView
+                android:id="@+id/btnBackIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:padding="8dp"
+                android:src="@drawable/ic_arrow_back"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#000000" />
 
-                <!-- Back Icon -->
-                <ImageView
-                    android:id="@+id/btnBackIcon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/rounded_border"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_arrow_back"
-                    app:tint="#000000" />
-
-                <!-- Title -->
-                <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Station 5: Emotion Chart"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:textColor="#C19A6B"
-                    android:gravity="center"/>
-
-                <!-- Invisible Spacer to balance the layout (same width as back button) -->
-                <View
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"/>
-
-            </LinearLayout>
+            <!-- Title -->
+            <!-- Flattened hierarchy, size 22sp, marginEnd 40dp for perfect centering -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Station 5. &quot;Emotion Chart&quot;"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#C19A6B"
+                android:gravity="center"
+                android:layout_marginEnd="40dp"
+                app:layout_constraintStart_toEndOf="@id/btnBackIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/btnBackIcon"
+                app:layout_constraintBottom_toBottomOf="@id/btnBackIcon" />
 
             <!-- CENTERED CONTENT CONTAINER (Question + Choices) -->
             <LinearLayout
@@ -91,7 +77,7 @@
                 android:layout_height="0dp"
                 android:orientation="vertical"
                 android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@id/titleContainer"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle"
                 app:layout_constraintBottom_toTopOf="@id/btnDone">
 
                 <!-- The Question Text -->

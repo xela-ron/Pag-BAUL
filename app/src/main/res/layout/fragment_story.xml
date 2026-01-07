@@ -73,10 +73,25 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-                <!-- ============================================ -->
-                <!-- MAZE CONTAINER (Added Here)                  -->
-                <!-- This sits in the same space as the text      -->
-                <!-- ============================================ -->
+                <!-- Title (Fixed at top, centered in parent, vertically aligned with Back Icon) -->
+                <!-- Updated font size to 20sp to prevent wrapping for long title -->
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Station 2: ANG YAMAN NG MAGULANG"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="#C19A6B"
+                    android:fontFamily="sans-serif"
+                    android:layout_marginEnd="40dp"
+                    app:layout_constraintStart_toEndOf="@id/btnBackIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/btnBackIcon"
+                    app:layout_constraintBottom_toBottomOf="@id/btnBackIcon"/>
+
+                <!-- MAZE CONTAINER -->
                 <FrameLayout
                     android:id="@+id/mazeContainer"
                     android:layout_width="0dp"
@@ -91,7 +106,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
-                <!-- SCROLLVIEW WRAPPER (For Standard Stories) -->
+                <!-- SCROLLVIEW WRAPPER -->
                 <ScrollView
                     android:id="@+id/scrollViewStory"
                     android:layout_width="0dp"
@@ -109,18 +124,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <!-- Title -->
-                        <TextView
-                            android:id="@+id/tvTitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Story"
-                            android:textSize="28sp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:textColor="#000000"
-                            android:fontFamily="sans-serif"/>
-
                         <!-- Page Number -->
                         <TextView
                             android:id="@+id/tvPageNumber"
@@ -132,8 +135,6 @@
                             android:gravity="center"
                             android:fontFamily="sans-serif"
                             tools:text="Page 1 of 2" />
-
-                        <!-- READ ALOUD BUTTON REMOVED as per user request (only on click) -->
 
                         <!-- Story Text -->
                         <TextView

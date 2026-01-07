@@ -36,12 +36,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:gravity="center_horizontal">
+            android:padding="16dp">
 
             <ImageView
                 android:id="@+id/btnBackIcon"
@@ -51,35 +49,47 @@
                 android:background="@drawable/rounded_border"
                 android:padding="8dp"
                 app:tint="#000000"
-                android:layout_gravity="start"
-                android:layout_marginBottom="16dp"/>
-            
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Station 1: 4Pics 1 Word"
-                android:textSize="24sp"
+                android:text="Station 1. 4Pics 1 Word"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="#C19A6B"
-                android:layout_marginBottom="16dp"/>
+                android:gravity="center"
+                android:layout_marginEnd="40dp"
+                app:layout_constraintStart_toEndOf="@id/btnBackIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/btnBackIcon"
+                app:layout_constraintBottom_toBottomOf="@id/btnBackIcon"/>
 
-            <!-- THE MAIN IMAGE (Updated ID) -->
+            <!-- THE MAIN IMAGE -->
             <ImageView
                 android:id="@+id/iv4Pics"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:src="@drawable/b2s1_4pics"
                 android:scaleType="fitCenter"
-                android:layout_marginBottom="24dp"/>
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-            <!-- ANSWER BOXES (7 Letters for K-A-L-A-B-A-W) -->
+            <!-- ANSWER BOXES -->
             <LinearLayout
                 android:id="@+id/layoutAnswerSlots"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="32dp">
-                <!-- These will be filled dynamically or we put placeholders -->
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/iv4Pics"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+                
                 <TextView style="@style/AnswerSlot" android:id="@+id/slot1"/>
                 <TextView style="@style/AnswerSlot" android:id="@+id/slot2"/>
                 <TextView style="@style/AnswerSlot" android:id="@+id/slot3"/>
@@ -90,37 +100,52 @@
             </LinearLayout>
 
             <!-- JUMBLED LETTERS (Choices) -->
-            <!-- Row 1 -->
             <LinearLayout
+                android:id="@+id/choicesContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
-                <Button style="@style/LetterButton" android:id="@+id/btnChoice1" android:text="A"/>
-                <Button style="@style/LetterButton" android:id="@+id/btnChoice2" android:text="B"/>
-                <Button style="@style/LetterButton" android:id="@+id/btnChoice3" android:text="L"/>
-                <Button style="@style/LetterButton" android:id="@+id/btnChoice4" android:text="W"/>
-                <Button style="@style/LetterButton" android:id="@+id/btnChoice5" android:text="O"/>
-            </LinearLayout>
+                android:orientation="vertical"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/layoutAnswerSlots"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <!-- Row 2 -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <Button style="@style/LetterButton" android:id="@+id/btnChoice6" android:text="I"/>
-                <Button style="@style/LetterButton" android:id="@+id/btnChoice7" android:text="H"/>
-                <Button style="@style/LetterButton" android:id="@+id/btnChoice8" android:text="K"/>
-                <Button style="@style/LetterButton" android:id="@+id/btnChoice9" android:text="A"/>
-                <Button style="@style/LetterButton" android:id="@+id/btnChoice10" android:text="A"/>
+                <!-- Row 1 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+                    <Button style="@style/LetterButton" android:id="@+id/btnChoice1" android:text="A"/>
+                    <Button style="@style/LetterButton" android:id="@+id/btnChoice2" android:text="B"/>
+                    <Button style="@style/LetterButton" android:id="@+id/btnChoice3" android:text="L"/>
+                    <Button style="@style/LetterButton" android:id="@+id/btnChoice4" android:text="W"/>
+                    <Button style="@style/LetterButton" android:id="@+id/btnChoice5" android:text="O"/>
+                </LinearLayout>
+
+                <!-- Row 2 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <Button style="@style/LetterButton" android:id="@+id/btnChoice6" android:text="I"/>
+                    <Button style="@style/LetterButton" android:id="@+id/btnChoice7" android:text="H"/>
+                    <Button style="@style/LetterButton" android:id="@+id/btnChoice8" android:text="K"/>
+                    <Button style="@style/LetterButton" android:id="@+id/btnChoice9" android:text="A"/>
+                    <Button style="@style/LetterButton" android:id="@+id/btnChoice10" android:text="A"/>
+                </LinearLayout>
             </LinearLayout>
 
             <!-- Reset / Done Buttons -->
             <LinearLayout
+                android:id="@+id/buttonsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/choicesContainer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <Button
                     android:id="@+id/btnReset"
@@ -135,10 +160,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="DONE"
-                    android:backgroundTint="#C19A6B"/> <!-- Changed to Brown -->
+                    android:backgroundTint="#C19A6B"/> 
             </LinearLayout>
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

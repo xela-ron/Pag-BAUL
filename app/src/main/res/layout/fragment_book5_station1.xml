@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#FAD6A5"> <!-- Cream Background -->
 
-    <!-- Header -->
+    <!-- Header / LOGO -->
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -18,121 +18,117 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LOGO"
+            android:text="Pag-BAUL"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- White Card Container -->
-    <androidx.cardview.widget.CardView
-        android:layout_width="0dp"
+    <!-- ScrollView for Content (Matches previous book structure) -->
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="24dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header">
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <!-- White Floating Card with Top Margin -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@android:color/white">
 
-            <!-- Back Icon -->
-            <ImageView
-                android:id="@+id/btnBackIcon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/rounded_border"
-                android:padding="8dp"
-                android:src="@drawable/ic_arrow_back"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="#000000" />
-
-            <!-- Title -->
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Ang Kabayo at ang Leon"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btnBackIcon"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:padding="20dp">
 
-            <!-- Subtitle -->
-            <TextView
-                android:id="@+id/tvMotivation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Station 1: Motivation &quot;Find the way&quot;"
-                android:textColor="#333333"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
-
-            <!-- Instruction -->
-            <TextView
-                android:id="@+id/tvInstruction"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:text="Hanapin ang daan patungo sa kweba. Iwasan ang leon upang hindi makain."
-                android:textColor="#333333"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvMotivation" />
-
-            <!-- Maze Container -->
-            <FrameLayout
-                android:id="@+id/mazeContainer"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvInstruction">
-
-                <!-- The Maze Image -->
+                <!-- Back Button -->
                 <ImageView
-                    android:id="@+id/ivMaze"
+                    android:id="@+id/btnBackIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_arrow_back"
+                    android:padding="8dp"
+                    android:background="@drawable/rounded_border"
+                    app:tint="@android:color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <!-- UPDATED TITLE PLACEMENT -->
+                <!-- Aligned to the right of the back button, centered vertically with it -->
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Station 1: Find the way"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#C19A6B"
+                    android:layout_marginStart="12dp"
+                    app:layout_constraintStart_toEndOf="@id/btnBackIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/btnBackIcon"
+                    app:layout_constraintBottom_toBottomOf="@id/btnBackIcon"/>
+
+                <!-- Instruction -->
+                <TextView
+                    android:id="@+id/tvInstruction"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Hanapin ang daan patungo sa kweba. Iwasan ang leon upang hindi makain."
+                    android:textSize="16sp"
+                    android:textColor="#000"
+                    android:gravity="start"
+                    android:justificationMode="inter_word"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnBackIcon"/>
+
+                <!-- Maze Container (Game Area) -->
+                <!-- Changed height to wrap_content or a fixed height so it fits inside ScrollView/ConstraintLayout -->
+                <FrameLayout
+                    android:id="@+id/mazeContainer"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/findtheway" />
+                    android:layout_height="400dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvInstruction"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
 
-                <!-- Path Drawing View -->
-                <com.example.pag_baul.PathDrawingView
-                    android:id="@+id/pathDrawingView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    <!-- The Maze Image -->
+                    <ImageView
+                        android:id="@+id/ivMaze"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/findtheway" />
 
-                <!-- The Draggable Player Token -->
-                <ImageView
-                    android:id="@+id/playerToken"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/player_token" />
+                    <!-- Path Drawing View -->
+                    <com.example.pag_baul.PathDrawingView
+                        android:id="@+id/pathDrawingView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
-            </FrameLayout>
+                    <!-- The Draggable Player Token -->
+                    <ImageView
+                        android:id="@+id/playerToken"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/player_token" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                </FrameLayout>
 
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

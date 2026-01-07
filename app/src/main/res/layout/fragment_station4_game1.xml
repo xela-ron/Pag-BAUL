@@ -57,15 +57,17 @@
             <!-- Title -->
             <TextView
                 android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Station 4: Game 1"
+                android:text="Station 4. GAMES"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="#C19A6B"
+                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/btnBackIcon"/>
 
             <!-- Instruction -->
             <TextView
