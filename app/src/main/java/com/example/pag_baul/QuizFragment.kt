@@ -2,6 +2,7 @@ package com.example.pag_baul
 
 import android.app.AlertDialog
 import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -20,6 +21,9 @@ class QuizFragment : Fragment() {
 
     // Default questions
     private var questionList = ArrayList<QuestionData>()
+
+    // --- CHANGE 1: Add MediaPlayer variable ---
+    private var mediaPlayer: MediaPlayer? = null
 
     // UI Elements
     private lateinit var tvQuestion: TextView
@@ -131,13 +135,16 @@ class QuizFragment : Fragment() {
         if (isCorrect) {
             ivEmoji.setImageResource(R.drawable.happy)
             tvFeedback.text = "Magaling!"
-            
+            // --- CHANGE 2: Play clapping sound ---
+            playSound(R.raw.clapping)
+
             dialog.show()
 
             // Auto-advance after 1.5 seconds
             Handler(Looper.getMainLooper()).postDelayed({
+                mediaPlayer?.stop()
                 if (dialog.isShowing) dialog.dismiss()
-                
+
                 if (currentQuestionIndex < questionList.size - 1) {
                     currentQuestionIndex++
                     loadQuestion()
@@ -145,22 +152,49 @@ class QuizFragment : Fragment() {
                     Toast.makeText(context, "Quiz Completed!", Toast.LENGTH_LONG).show()
                     parentFragmentManager.popBackStack()
                 }
-            }, 1500)
+            }, 2000)
         } else {
             ivEmoji.setImageResource(R.drawable.sad)
             tvFeedback.text = "Subukan muli!"
-            
+            // --- CHANGE 3: Play "aww" sound ---
+            playSound(R.raw.awww)
+
             dialog.show()
 
             // Auto-dismiss after 1.5 seconds
             Handler(Looper.getMainLooper()).postDelayed({
+                mediaPlayer?.stop()
                 if (dialog.isShowing) dialog.dismiss()
-            }, 1500)
+            }, 2000)
         }
     }
 
     private fun loadBook1Defaults() {
         // Fallback dummy question
         questionList.add(QuestionData("Sample Question?", "Yes", "No", "Maybe", "", "Yes"))
+    }
+
+    // --- CHANGE 4: Add the playSound function ---
+    private fun playSound(soundResId: Int) {
+        // Stop and release any previous media player
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        mediaPlayer = null
+
+        // Create and start a new media player
+        mediaPlayer = MediaPlayer.create(context, soundResId)
+        mediaPlayer?.start()
+        mediaPlayer?.setOnCompletionListener {
+            it.release()
+            mediaPlayer = null
+        }
+    }
+
+    // --- CHANGE 5: Add onStop to release the media player ---
+    override fun onStop() {
+        super.onStop()
+        // Release the media player when the fragment is not visible
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 }

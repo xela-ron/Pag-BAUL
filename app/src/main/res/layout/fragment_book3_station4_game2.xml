@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5D6A6">
@@ -102,32 +103,32 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvInstructions"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.1" />
 
-            <!-- === WINDOW 1: Driver Side (1 Passenger - Old Man) === -->
+            <!-- === WINDOW 1: Driver Side (1 Passenger) === -->
             <LinearLayout
                 android:id="@+id/window1"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
-                app:layout_constraintWidth_percent="0.10"
-                app:layout_constraintHeight_percent="0.12"
+                app:layout_constraintWidth_percent="0.12"
+                app:layout_constraintHeight_percent="0.21"
                 app:layout_constraintStart_toStartOf="@id/ivJeep"
                 app:layout_constraintEnd_toEndOf="@id/ivJeep"
                 app:layout_constraintTop_toTopOf="@id/ivJeep"
                 app:layout_constraintBottom_toBottomOf="@id/ivJeep"
-                app:layout_constraintHorizontal_bias="0.275"
-                app:layout_constraintVertical_bias="0.19">
+                app:layout_constraintHorizontal_bias="0.15"
+                app:layout_constraintVertical_bias="0.44">
 
                 <ImageView
                     android:id="@+id/p_kalsada"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/kalsada"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="fitCenter"/>
             </LinearLayout>
 
-            <!-- === WINDOW 2: Middle (3 Passengers - Agent, Teacher, Nurse) === -->
+            <!-- === WINDOW 2: Middle (3 Passengers) === -->
             <LinearLayout
                 android:id="@+id/window2"
                 android:layout_width="0dp"
@@ -135,44 +136,44 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:weightSum="3"
-                app:layout_constraintWidth_percent="0.28"
-                app:layout_constraintHeight_percent="0.12"
+                app:layout_constraintWidth_percent="0.33"
+                app:layout_constraintHeight_percent="0.24"
                 app:layout_constraintStart_toStartOf="@id/ivJeep"
                 app:layout_constraintEnd_toEndOf="@id/ivJeep"
                 app:layout_constraintTop_toTopOf="@id/ivJeep"
                 app:layout_constraintBottom_toBottomOf="@id/ivJeep"
-                app:layout_constraintHorizontal_bias="0.54"
-                app:layout_constraintVertical_bias="0.19">
+                app:layout_constraintHorizontal_bias="0.48"
+                app:layout_constraintVertical_bias="0.43">
 
-                <!-- Call Center Agent -->
+                <!-- Old Man -->
                 <ImageView
                     android:id="@+id/p_jeef"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/jeef"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="fitCenter"/>
 
-                <!-- Teacher (Yellow) -->
+                <!-- Girl Student -->
                 <ImageView
                     android:id="@+id/p_tulong"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/tulong"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="fitCenter"/>
 
-                <!-- Nurse (Green) -->
+                <!-- Boy Student -->
                 <ImageView
                     android:id="@+id/p_mabait"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/mabait"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="fitCenter"/>
             </LinearLayout>
 
-            <!-- === WINDOW 3: Back (2 Passengers - Girl, Boy) === -->
+            <!-- === WINDOW 3: Back (2 Passengers) === -->
             <LinearLayout
                 android:id="@+id/window3"
                 android:layout_width="0dp"
@@ -180,33 +181,117 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:weightSum="2"
-                app:layout_constraintWidth_percent="0.19"
-                app:layout_constraintHeight_percent="0.12"
+                app:layout_constraintWidth_percent="0.22"
+                app:layout_constraintHeight_percent="0.22"
                 app:layout_constraintStart_toStartOf="@id/ivJeep"
                 app:layout_constraintEnd_toEndOf="@id/ivJeep"
                 app:layout_constraintTop_toTopOf="@id/ivJeep"
                 app:layout_constraintBottom_toBottomOf="@id/ivJeep"
                 app:layout_constraintHorizontal_bias="0.84"
-                app:layout_constraintVertical_bias="0.19">
+                app:layout_constraintVertical_bias="0.44">
 
-                <!-- Girl Student -->
+                <!-- Teacher -->
                 <ImageView
                     android:id="@+id/p_pasahero"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/pasahero"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="fitCenter"/>
 
-                <!-- Boy Student -->
+                <!-- Nurse -->
                 <ImageView
                     android:id="@+id/p_barangay"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/barangay"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="fitCenter"/>
             </LinearLayout>
+
+            <!-- Jumbled Word Game Pop-up -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gamePopup"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#FFFFFF"
+                android:elevation="10dp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/tvJumbledWord"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DRYABANG"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/etAnswer"
+                    app:layout_constraintVertical_chainStyle="packed"/>
+
+                <EditText
+                    android:id="@+id/etAnswer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginTop="16dp"
+                    android:hint="Ayusin ang salita"
+                    android:inputType="textCapCharacters"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    app:layout_constraintTop_toBottomOf="@id/tvJumbledWord"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/btnSubmit"/>
+
+                <Button
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ipasa"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/etAnswer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tvMeaning"/>
+
+                <TextView
+                    android:id="@+id/tvMeaning"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="32dp"
+                    android:text="Meaning: Lugar o komunidad kung saan nakatira ang mga tao."
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:justificationMode="inter_word"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    app:layout_constraintTop_toBottomOf="@id/btnSubmit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/btnClosePopup"
+                    />
+
+                <Button
+                    android:id="@+id/btnClosePopup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Isara"
+                    app:layout_constraintTop_toBottomOf="@id/tvMeaning"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

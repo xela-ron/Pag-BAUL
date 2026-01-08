@@ -1,6 +1,7 @@
 package com.example.pag_baul
 
 import android.app.AlertDialog
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,14 +17,11 @@ import androidx.fragment.app.Fragment
 class Station4Game2Fragment : Fragment() {
 
     private var selectedView: View? = null
-    // Maps Drop Target ID -> Index of Correct Source Image (0-based from draggableViews)
-    // The user said: "the correct placements are already based on the name of the image after the underscore"
-    // b1s4game2_1.png should go to target 1? 
-    // Let's assume draggableViews are initialized with specific drawables. 
-    // We need to track which drawable ended up in which target.
-    // Instead of complex tracking, we can store tags on the ImageViews.
+    private var mediaPlayer: MediaPlayer? = null
+    // New flag to track if the game is successfully completed
+    private var isGameCompleted = false
 
-    private val userAnswers = mutableMapOf<Int, Int>() // TargetViewId -> SourceViewId (or some identifier)
+    private val userAnswers = mutableMapOf<Int, Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,18 +34,6 @@ class Station4Game2Fragment : Fragment() {
         val drag3 = view.findViewById<ImageView>(R.id.drag3)
         val drag4 = view.findViewById<ImageView>(R.id.drag4)
 
-        // Set tags to identify the correct order/content
-        // The user says "correct placements are already based on the name of the image after the underscore".
-        // b1s4game2_1.png -> Should be 1st
-        // b1s4game2_2.png -> Should be 2nd
-        // b1s4game2_3.png -> Should be 3rd
-        // b1s4game2_4.png -> Should be 4th
-        
-        // We need to make sure the "draggableViews" list is shuffled or "jumbled" as the user requested.
-        // But first, let's assign the correct tags based on what they hold initially.
-        // Assuming the layout XML loads them in order, or we set them programmatically.
-        // If the XML has them in order, we should shuffle them here.
-        
         val resources = listOf(
             R.drawable.b1s4game2_1,
             R.drawable.b1s4game2_2,
@@ -56,14 +42,12 @@ class Station4Game2Fragment : Fragment() {
         )
 
         val draggableViews = listOf(drag1, drag2, drag3, drag4)
-        
-        // Jumble the images on the left
         val shuffledResources = resources.shuffled()
-        
+
         draggableViews.forEachIndexed { index, imageView ->
             val resId = shuffledResources[index]
             imageView.setImageResource(resId)
-            imageView.tag = resId // Store the resource ID as the tag to identify it later
+            imageView.tag = resId
             imageView.alpha = 1.0f
         }
 
@@ -72,8 +56,6 @@ class Station4Game2Fragment : Fragment() {
         val target3 = view.findViewById<ImageView>(R.id.target3)
         val target4 = view.findViewById<ImageView>(R.id.target4)
 
-        // Map targets to the expected correct resource ID
-        // Target 1 expects b1s4game2_1, etc.
         target1.tag = R.drawable.b1s4game2_1
         target2.tag = R.drawable.b1s4game2_2
         target3.tag = R.drawable.b1s4game2_3
@@ -85,28 +67,31 @@ class Station4Game2Fragment : Fragment() {
         val btnBackIcon = view.findViewById<ImageView>(R.id.btnBackIcon)
 
         val selectListener = View.OnClickListener { v ->
-            if (v.alpha < 1.0f) { // Already used
+            // If game is won, disable selecting new images.
+            if (isGameCompleted) return@OnClickListener
+
+            if (v.alpha < 1.0f) {
                 Toast.makeText(context, "This item has already been placed.", Toast.LENGTH_SHORT).show()
                 return@OnClickListener
             }
             selectedView = v
-            // Optional: Visual feedback for selection
-             draggableViews.forEach { if (it.alpha == 1.0f) it.alpha = 1.0f } // Reset others
-            v.alpha = 0.5f 
+            draggableViews.forEach { if (it.alpha == 1.0f) it.alpha = 1.0f }
+            v.alpha = 0.5f
         }
 
         draggableViews.forEach { it.setOnClickListener(selectListener) }
 
         val dropListener = View.OnClickListener { v ->
+            // If game is won, disable dropping images.
+            if (isGameCompleted) return@OnClickListener
+
             val targetImageView = v as ImageView
             val selectedImageView = selectedView as? ImageView
 
             if (selectedImageView != null) {
                 targetImageView.setImageDrawable(selectedImageView.drawable)
-                // Store which resource is now in this target (from the source's tag)
-                targetImageView.setTag(R.id.tag_image_res, selectedImageView.tag) 
-                
-                selectedImageView.alpha = 0.2f // Mark as used
+                targetImageView.setTag(R.id.tag_image_res, selectedImageView.tag)
+                selectedImageView.alpha = 0.2f
                 selectedView = null
             } else {
                 Toast.makeText(context, "Tap an image first!", Toast.LENGTH_SHORT).show()
@@ -115,12 +100,24 @@ class Station4Game2Fragment : Fragment() {
 
         dropTargets.forEach { it.setOnClickListener(dropListener) }
 
+        // --- CHANGE 1: The "DONE" button now has two functions ---
+        // --- CHANGE 1: The "DONE" button now has two functions ---
         btnDone.setOnClickListener {
-            checkAnswers(dropTargets)
+            if (isGameCompleted) {
+                // If game is won, navigate back to the stations list.
+                parentFragmentManager.popBackStack() // <-- THIS IS THE LINE TO CHANGE
+            } else {
+                // If game is not won, check the answers.
+                checkAnswers(dropTargets)
+            }
         }
 
+
         btnReset.setOnClickListener {
-            // Re-shuffle and reset
+            // Reset the game completion flag
+            isGameCompleted = false
+            btnDone.isEnabled = true // Ensure the button is enabled again
+
             val newShuffled = resources.shuffled()
             draggableViews.forEachIndexed { index, imageView ->
                 val resId = newShuffled[index]
@@ -128,10 +125,10 @@ class Station4Game2Fragment : Fragment() {
                 imageView.tag = resId
                 imageView.alpha = 1.0f
             }
-            
-            dropTargets.forEach { 
+
+            dropTargets.forEach {
                 it.setImageDrawable(null)
-                it.setTag(R.id.tag_image_res, null) // Clear the answer tag
+                it.setTag(R.id.tag_image_res, null)
             }
         }
 
@@ -148,7 +145,7 @@ class Station4Game2Fragment : Fragment() {
 
         for (target in targets) {
             val currentContentResId = target.getTag(R.id.tag_image_res) as? Int
-            val expectedResId = target.tag as? Int // The correct answer stored in standard tag
+            val expectedResId = target.tag as? Int
 
             if (currentContentResId == null) {
                 allFilled = false
@@ -161,25 +158,43 @@ class Station4Game2Fragment : Fragment() {
         }
 
         if (!allFilled) {
-             Toast.makeText(context, "Please place all images first.", Toast.LENGTH_SHORT).show()
-             return
+            Toast.makeText(context, "Please place all images first.", Toast.LENGTH_SHORT).show()
+            return
         }
 
         if (allCorrect) {
+            // --- CHANGE 2: Set the flag to true when answers are correct ---
+            isGameCompleted = true
             showFeedbackDialog(true)
         } else {
-             showFeedbackDialog(false)
+            showFeedbackDialog(false)
         }
+    }
+
+    private fun playSound(soundResId: Int) {
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        mediaPlayer = null
+
+        mediaPlayer = MediaPlayer.create(context, soundResId)
+        mediaPlayer?.start()
+        mediaPlayer?.setOnCompletionListener {
+            it.release()
+            mediaPlayer = null
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 
     private fun showFeedbackDialog(isCorrect: Boolean) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_feedback, null)
         val ivEmoji = dialogView.findViewById<ImageView>(R.id.ivEmoji)
         val tvFeedback = dialogView.findViewById<TextView>(R.id.tvFeedback)
-        val btnDialogNext = dialogView.findViewById<Button>(R.id.btnDialogNext)
-
-        // Hide the button as per similar behavior in Book 4 Station 4 Game 2
-        btnDialogNext.visibility = View.GONE
+        dialogView.findViewById<Button>(R.id.btnDialogNext).visibility = View.GONE
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
@@ -189,25 +204,35 @@ class Station4Game2Fragment : Fragment() {
         if (isCorrect) {
             ivEmoji.setImageResource(R.drawable.happy)
             tvFeedback.text = "Magaling!"
-            
+            playSound(R.raw.clapping)
             dialog.show()
 
-            // Auto-dismiss/navigate after 1.5 seconds
+            // This handler now ONLY dismisses the dialog and stops the sound.
             Handler(Looper.getMainLooper()).postDelayed({
-                if (dialog.isShowing) dialog.dismiss()
-                Toast.makeText(context, "Game Completed!", Toast.LENGTH_SHORT).show()
-                parentFragmentManager.popBackStack() 
-            }, 1500)
+                // --- THE FIX ---
+                // Stop the sound before dismissing the dialog
+                mediaPlayer?.stop()
+                if (dialog.isShowing) {
+                    dialog.dismiss()
+                    // Optional toast to guide the user
+                    Toast.makeText(context, "Click DONE to continue.", Toast.LENGTH_SHORT).show()
+                }
+            }, 3000) // Using 3 seconds to give the clap sound enough time
+
         } else {
             ivEmoji.setImageResource(R.drawable.sad)
             tvFeedback.text = "Subukan muli!"
-            
+            playSound(R.raw.awww)
             dialog.show()
 
-            // Auto-dismiss after 1.5 seconds
+            // Auto-dismiss after 1.5 seconds for the "try again" case.
             Handler(Looper.getMainLooper()).postDelayed({
+                // --- THE FIX ---
+                // Stop the sound before dismissing the dialog
+                mediaPlayer?.stop()
                 if (dialog.isShowing) dialog.dismiss()
             }, 1500)
         }
     }
+
 }
