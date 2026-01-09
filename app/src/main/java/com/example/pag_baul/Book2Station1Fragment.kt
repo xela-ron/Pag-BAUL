@@ -133,7 +133,7 @@ class Book2Station1Fragment : Fragment() {
                 if (dialog.isShowing) dialog.dismiss()
                 Toast.makeText(context, "Station Completed!", Toast.LENGTH_SHORT).show()
                 parentFragmentManager.popBackStack()
-            }, 2000)
+            }, 3000)
         } else {
             ivEmoji.setImageResource(R.drawable.sad)
             tvFeedback.text = "Subukan muli!"
@@ -146,7 +146,7 @@ class Book2Station1Fragment : Fragment() {
                 // --- THE FIX: Stop the sound first ---
                 mediaPlayer?.stop()
                 if (dialog.isShowing) dialog.dismiss()
-            }, 2000)
+            }, 3000)
         }
     }
 

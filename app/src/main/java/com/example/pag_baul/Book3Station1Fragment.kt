@@ -2,6 +2,7 @@ package com.example.pag_baul
 
 import android.app.AlertDialog
 import android.graphics.Paint
+import android.media.MediaPlayer // Import MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -22,6 +23,9 @@ class Book3Station1Fragment : Fragment() {
     private lateinit var btnDone: Button
     private lateinit var btnBack: ImageView
 
+    // --- CHANGE 1: Add MediaPlayer variable ---
+    private var mediaPlayer: MediaPlayer? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,10 +38,10 @@ class Book3Station1Fragment : Fragment() {
         btnDone = view.findViewById(R.id.btnDone)
 
         btnBack.setOnClickListener { parentFragmentManager.popBackStack() }
-        
+
         // Done button listener
         btnDone.setOnClickListener {
-             showFeedbackDialog(true)
+            showFeedbackDialog(true)
         }
 
         // Clear map to avoid duplicates if view is recreated
@@ -120,26 +124,58 @@ class Book3Station1Fragment : Fragment() {
         if (isCorrect) {
             ivEmoji.setImageResource(R.drawable.happy)
             tvFeedback.text = "Magaling!"
-            
+            // --- CHANGE 2: Play clapping sound ---
+            playSound(R.raw.clapping)
+
             dialog.show()
 
             // Auto-advance/complete after 1.5 seconds
             Handler(Looper.getMainLooper()).postDelayed({
+                // --- THE FIX: Stop the sound first ---
+                mediaPlayer?.stop()
                 if (dialog.isShowing) dialog.dismiss()
                 Toast.makeText(context, "Station Completed!", Toast.LENGTH_SHORT).show()
-                parentFragmentManager.popBackStack() 
-            }, 1500)
+                parentFragmentManager.popBackStack()
+            }, 2000)
         } else {
             // Usually not reachable for Word Search "Done" button, but handled just in case
             ivEmoji.setImageResource(R.drawable.sad)
             tvFeedback.text = "Subukan muli!"
-            
+            // --- CHANGE 3: Play "aww" sound ---
+            playSound(R.raw.awww)
+
             dialog.show()
 
             // Auto-dismiss after 1.5 seconds
             Handler(Looper.getMainLooper()).postDelayed({
+                // --- THE FIX: Stop the sound first ---
+                mediaPlayer?.stop()
                 if (dialog.isShowing) dialog.dismiss()
-            }, 1500)
+            }, 2000)
         }
+    }
+
+    // --- CHANGE 4: Add the playSound function ---
+    private fun playSound(soundResId: Int) {
+        // Stop and release any previous media player
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        mediaPlayer = null
+
+        // Create and start a new media player
+        mediaPlayer = MediaPlayer.create(context, soundResId)
+        mediaPlayer?.start()
+        mediaPlayer?.setOnCompletionListener {
+            it.release()
+            mediaPlayer = null
+        }
+    }
+
+    // --- CHANGE 5: Add onStop to release the media player ---
+    override fun onStop() {
+        super.onStop()
+        // Release the media player when the fragment is not visible
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 }

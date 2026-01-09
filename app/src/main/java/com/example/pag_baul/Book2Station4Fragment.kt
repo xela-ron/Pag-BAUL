@@ -129,7 +129,7 @@ class Book2Station4Fragment : Fragment() {
                 if (dialog.isShowing) dialog.dismiss()
                 Toast.makeText(context, "Station Completed!", Toast.LENGTH_SHORT).show()
                 parentFragmentManager.popBackStack()
-            }, 2000)
+            }, 3000)
         } else {
             ivEmoji.setImageResource(R.drawable.sad)
             tvFeedback.text = "Subukan muli!"

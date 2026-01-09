@@ -1,7 +1,7 @@
 package com.example.pag_baul
 
 import android.app.AlertDialog
-import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,8 +14,10 @@ import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import android.graphics.Color as AndroidColor // Use an alias for android.graphics.Color
+import androidx.compose.ui.graphics.Color as ComposeColor // Optional: alias for compose color if needed elsewhere
+
 
 data class FishChallenge(
     val fishName: String,
@@ -33,6 +35,7 @@ class Book4Station1Fragment : Fragment() {
 
     private var currentChallenge: FishChallenge? = null
     private var selectedView: TextView? = null
+    private var mediaPlayer: MediaPlayer? = null
 
     // UPDATED: Corrected data for all challenges as per your instructions
     private val challenges = listOf(
@@ -92,16 +95,16 @@ class Book4Station1Fragment : Fragment() {
         challenges.forEach { challenge ->
             val button = Button(context)
             button.text = challenge.fishName
-            
+
             val params = GridLayout.LayoutParams()
             params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
-            params.width = 0 
+            params.width = 0
             params.height = GridLayout.LayoutParams.WRAP_CONTENT
             params.setMargins(12, 12, 12, 12)
-            
+
             button.layoutParams = params
-            button.background.setTint(Color.parseColor("#C19A6B"))
-            button.setTextColor(Color.WHITE)
+            button.background.setTint(AndroidColor.parseColor("#C19A6B")) // Use the alias
+            button.setTextColor(AndroidColor.WHITE) // Use the alias
             button.textSize = 14f
             button.setSingleLine(false)
             button.gravity = Gravity.CENTER
@@ -118,7 +121,7 @@ class Book4Station1Fragment : Fragment() {
 
         fishSelectionContainer.visibility = View.GONE
         gameContainer.visibility = View.VISIBLE
-        
+
         // Set the detailed instruction text for the game view
         tvInstruction.text = "Ayusin ang pagkakasunod-sunod: ${challenge.fishName}"
 
@@ -136,7 +139,7 @@ class Book4Station1Fragment : Fragment() {
         val textView = TextView(context)
         textView.text = text
         textView.textSize = 18f
-        textView.setTextColor(Color.BLACK)
+        textView.setTextColor(AndroidColor.BLACK) // Use the alias
         textView.setPadding(32, 24, 32, 24)
         textView.setBackgroundResource(R.drawable.draggable_item_background)
 
@@ -152,7 +155,7 @@ class Book4Station1Fragment : Fragment() {
     private fun handleItemClick(clickedView: TextView) {
         if (selectedView == null) {
             selectedView = clickedView
-            clickedView.setBackgroundColor(Color.LTGRAY)
+            clickedView.setBackgroundColor(AndroidColor.LTGRAY) // Use the alias
             // Removed pop up message on select
         } else {
             val firstView = selectedView!!
@@ -202,32 +205,56 @@ class Book4Station1Fragment : Fragment() {
         // Hide the button
         btnDialogNext.visibility = View.GONE
 
-        val dialog = AlertDialog.Builder(requireContext())
+        // Corrected: Using androidx.appcompat.app.AlertDialog for Fragments
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
             .setView(dialogView)
             .setCancelable(false)
             .create()
 
+        dialog.setOnDismissListener {
+            releaseMediaPlayer()
+        }
+
         if (isCorrect) {
             ivEmoji.setImageResource(R.drawable.happy)
             tvFeedback.text = "Magaling!"
-            
+            playSound(R.raw.clapping)
+
             dialog.show()
 
             // Auto-advance after 1.5 seconds
             Handler(Looper.getMainLooper()).postDelayed({
                 if (dialog.isShowing) dialog.dismiss()
                 showFishSelection() // Go back to selection menu on success
-            }, 1500)
+            }, 2000)
         } else {
             ivEmoji.setImageResource(R.drawable.sad)
             tvFeedback.text = "Subukan muli!"
-            
+            playSound(R.raw.awww)
+
             dialog.show()
 
             // Auto-dismiss after 1.5 seconds
             Handler(Looper.getMainLooper()).postDelayed({
                 if (dialog.isShowing) dialog.dismiss()
-            }, 1500)
+            }, 2000)
         }
+    }
+
+    private fun playSound(soundId: Int) {
+        releaseMediaPlayer() // Release any existing player
+        mediaPlayer = MediaPlayer.create(context, soundId)
+        mediaPlayer?.start()
+    }
+
+    private fun releaseMediaPlayer() {
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        mediaPlayer = null
+    }
+
+    override fun onStop() {
+        super.onStop()
+        releaseMediaPlayer() // Ensure sound stops when the fragment is not visible
     }
 }

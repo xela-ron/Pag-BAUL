@@ -1,6 +1,7 @@
 package com.example.pag_baul
 
 import android.app.AlertDialog
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -20,6 +21,7 @@ class Book5Station4Game1Fragment : Fragment() {
     private lateinit var tvQuestion: TextView
     private lateinit var btnDone: Button
 
+    private var mediaPlayer: MediaPlayer? = null
     private var currentLevel = 1
 
     override fun onCreateView(
@@ -36,10 +38,10 @@ class Book5Station4Game1Fragment : Fragment() {
         btnDone = view.findViewById(R.id.btnDone)
 
         btnBack.setOnClickListener { parentFragmentManager.popBackStack() }
-        
+
         // Open Game 2 when NEXT is clicked
-        btnDone.setOnClickListener { 
-             (activity as? MainActivity)?.loadFragment(Book5Station4Game2Fragment())
+        btnDone.setOnClickListener {
+            (activity as? MainActivity)?.loadFragment(Book5Station4Game2Fragment())
         }
 
         setupLevel(1)
@@ -49,7 +51,7 @@ class Book5Station4Game1Fragment : Fragment() {
 
     private fun setupLevel(level: Int) {
         currentLevel = level
-        
+
         // Clear click listeners first
         ivOption1.setOnClickListener(null)
         ivOption2.setOnClickListener(null)
@@ -64,7 +66,7 @@ class Book5Station4Game1Fragment : Fragment() {
                 ivOption1.setImageResource(R.drawable.g1_pic1_1) // Tiger
                 ivOption2.setImageResource(R.drawable.g1_pic1_2) // Cow
                 ivOption3.setImageResource(R.drawable.g1_pic1_3) // Horse/Lion (Correct)
-                
+
                 ivOption1.setOnClickListener { showFeedbackDialog(false) }
                 ivOption2.setOnClickListener { showFeedbackDialog(false) }
                 ivOption3.setOnClickListener { showFeedbackDialog(true) }
@@ -73,7 +75,7 @@ class Book5Station4Game1Fragment : Fragment() {
                 ivOption1.setImageResource(R.drawable.g1_pic2_1) // Jungle animals
                 ivOption2.setImageResource(R.drawable.g1_pic2_2) // Horse kicking lion (Correct)
                 ivOption3.setImageResource(R.drawable.g1_pic2_3) // Disney characters
-                
+
                 ivOption1.setOnClickListener { showFeedbackDialog(false) }
                 ivOption2.setOnClickListener { showFeedbackDialog(true) }
                 ivOption3.setOnClickListener { showFeedbackDialog(false) }
@@ -82,7 +84,7 @@ class Book5Station4Game1Fragment : Fragment() {
                 ivOption1.setImageResource(R.drawable.g1_pic3_1) // Cartoon animals
                 ivOption2.setImageResource(R.drawable.g1_pic3_2) // Horse and lion (Correct)
                 ivOption3.setImageResource(R.drawable.g1_pic3_3) // Tom and Jerry
-                
+
                 ivOption1.setOnClickListener { showFeedbackDialog(false) }
                 ivOption2.setOnClickListener { showFeedbackDialog(true) }
                 ivOption3.setOnClickListener { showFeedbackDialog(false) }
@@ -108,9 +110,21 @@ class Book5Station4Game1Fragment : Fragment() {
             .create()
 
         if (isCorrect) {
+            // Start playing the clapping sound
+            mediaPlayer?.release() // Release any existing player
+            mediaPlayer = MediaPlayer.create(context, R.raw.clapping)
+            mediaPlayer?.start()
+
             ivEmoji.setImageResource(R.drawable.happy)
             tvFeedback.text = "Magaling!"
-            
+
+            dialog.setOnDismissListener {
+                // Stop and release the media player when the dialog is dismissed
+                mediaPlayer?.stop()
+                mediaPlayer?.release()
+                mediaPlayer = null
+            }
+
             dialog.show()
 
             Handler(Looper.getMainLooper()).postDelayed({
@@ -120,16 +134,16 @@ class Book5Station4Game1Fragment : Fragment() {
                 } else {
                     showFinalScreen()
                 }
-            }, 1500)
+            }, 3000)
         } else {
             ivEmoji.setImageResource(R.drawable.sad)
             tvFeedback.text = "Subukan muli!"
-            
+
             dialog.show()
 
             Handler(Looper.getMainLooper()).postDelayed({
                 if (dialog.isShowing) dialog.dismiss()
-            }, 1500)
+            }, 3000)
         }
     }
 
@@ -143,8 +157,15 @@ class Book5Station4Game1Fragment : Fragment() {
         // Update the question text to the final question
         tvQuestion.text = "1: Paano kung hindi napansin ng kabayo ang plano ng leon?"
         tvQuestion.textSize = 24f // Make it a bit bigger for better readability
-        
+
         // Show the Done button
         btnDone.visibility = View.VISIBLE
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // Ensure media player is released when the fragment is stopped or paused
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 }

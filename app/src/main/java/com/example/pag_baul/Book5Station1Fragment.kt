@@ -2,6 +2,7 @@ package com.example.pag_baul
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,17 +15,17 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import kotlin.math.abs
 
 class Book5Station1Fragment : Fragment() {
 
     private lateinit var playerToken: ImageView
     private lateinit var mazeContainer: FrameLayout
     private lateinit var pathDrawingView: PathDrawingView
-    
+    private var mediaPlayer: MediaPlayer? = null
+
     private var dX = 0f
     private var dY = 0f
-    
+
     // Starting position relative to container
     private var startX = 0f
     private var startY = 0f
@@ -50,15 +51,15 @@ class Book5Station1Fragment : Fragment() {
             // Adjust these coordinates to place the circle right in front of the horse
             // Moving Y up significantly as previous 0.75 was too low (in the whitespace)
             // Moving X slightly left
-            startX = mazeContainer.width * 0.20f 
-            startY = mazeContainer.height * 0.60f 
-            
+            startX = mazeContainer.width * 0.20f
+            startY = mazeContainer.height * 0.60f
+
             resetPosition()
         }
 
         return view
     }
-    
+
     private fun resetPosition() {
         playerToken.x = startX
         playerToken.y = startY
@@ -73,20 +74,20 @@ class Book5Station1Fragment : Fragment() {
                 MotionEvent.ACTION_DOWN -> {
                     dX = view.x - event.rawX
                     dY = view.y - event.rawY
-                    
+
                     // Start drawing path from center of token
                     pathDrawingView.startPath(view.x + view.width / 2, view.y + view.height / 2)
                 }
                 MotionEvent.ACTION_MOVE -> {
                     val newX = event.rawX + dX
                     val newY = event.rawY + dY
-                    
+
                     val maxWidth = mazeContainer.width - view.width
                     val maxHeight = mazeContainer.height - view.height
 
                     view.x = newX.coerceIn(0f, maxWidth.toFloat())
                     view.y = newY.coerceIn(0f, maxHeight.toFloat())
-                    
+
                     // Update path trace
                     pathDrawingView.extendPath(view.x + view.width / 2, view.y + view.height / 2)
                 }
@@ -105,15 +106,20 @@ class Book5Station1Fragment : Fragment() {
         val finishYThreshold = mazeContainer.height * 0.40f // Top side
 
         // Check if finished (Cave area)
-        if (x > finishXThreshold && y < finishYThreshold) { 
-             showFeedbackDialog()
+        if (x > finishXThreshold && y < finishYThreshold) {
+            showFeedbackDialog()
         } else {
-             // If not finished, just reset silently as requested
-             resetPosition()
+            // If not finished, just reset silently as requested
+            resetPosition()
         }
     }
 
     private fun showFeedbackDialog() {
+        // Start playing the clapping sound
+        mediaPlayer?.release() // Release any existing player
+        mediaPlayer = MediaPlayer.create(context, R.raw.clapping)
+        mediaPlayer?.start()
+
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_feedback, null)
         val ivEmoji = dialogView.findViewById<ImageView>(R.id.ivEmoji)
         val tvFeedback = dialogView.findViewById<TextView>(R.id.tvFeedback)
@@ -128,12 +134,25 @@ class Book5Station1Fragment : Fragment() {
 
         ivEmoji.setImageResource(R.drawable.happy)
         tvFeedback.text = "Magaling! Nakaligtas ka!"
-        
+
         dialog.show()
 
         Handler(Looper.getMainLooper()).postDelayed({
-            if (dialog.isShowing) dialog.dismiss()
+            if (dialog.isShowing) {
+                dialog.dismiss()
+            }
+            // Stop and release the media player when the dialog is dismissed
+            mediaPlayer?.stop()
+            mediaPlayer?.release()
+            mediaPlayer = null
             parentFragmentManager.popBackStack()
-        }, 1500)
+        }, 3000)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // Ensure media player is released when the fragment is stopped
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 }

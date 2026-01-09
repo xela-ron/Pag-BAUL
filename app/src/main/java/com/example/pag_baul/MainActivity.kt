@@ -3,19 +3,24 @@ package com.example.pag_baul
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.pag_baul.databinding.ActivityMainBinding
 
+// No longer needs to implement MainActivityInterface
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // DEBUGGING: Temporarily disabled Fragment loading to check if Activity loads.
-        // If you see a GREEN screen with text, the Activity is working.
-        
         if (savedInstanceState == null) {
             loadFragment(HomeFragment())
         }
     }
+
+    // The getFab() function is no longer needed and can be deleted.
 
     fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
@@ -32,3 +37,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+    

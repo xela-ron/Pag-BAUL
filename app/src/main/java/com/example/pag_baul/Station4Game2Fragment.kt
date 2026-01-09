@@ -13,6 +13,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+// --- IMPORT THE BOOKFRAGMENT ---
+import com.example.pag_baul.BookFragment
 
 class Station4Game2Fragment : Fragment() {
 
@@ -20,8 +22,6 @@ class Station4Game2Fragment : Fragment() {
     private var mediaPlayer: MediaPlayer? = null
     // New flag to track if the game is successfully completed
     private var isGameCompleted = false
-
-    private val userAnswers = mutableMapOf<Int, Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,8 +66,10 @@ class Station4Game2Fragment : Fragment() {
         val btnReset = view.findViewById<Button>(R.id.btnReset)
         val btnBackIcon = view.findViewById<ImageView>(R.id.btnBackIcon)
 
+        // --- HIDE THE DONE BUTTON, as it is no longer needed for automatic navigation ---
+        btnDone.visibility = View.GONE
+
         val selectListener = View.OnClickListener { v ->
-            // If game is won, disable selecting new images.
             if (isGameCompleted) return@OnClickListener
 
             if (v.alpha < 1.0f) {
@@ -75,14 +77,13 @@ class Station4Game2Fragment : Fragment() {
                 return@OnClickListener
             }
             selectedView = v
-            draggableViews.forEach { if (it.alpha == 1.0f) it.alpha = 1.0f }
+            // This loop is redundant, we can remove it.
             v.alpha = 0.5f
         }
 
         draggableViews.forEach { it.setOnClickListener(selectListener) }
 
         val dropListener = View.OnClickListener { v ->
-            // If game is won, disable dropping images.
             if (isGameCompleted) return@OnClickListener
 
             val targetImageView = v as ImageView
@@ -93,6 +94,9 @@ class Station4Game2Fragment : Fragment() {
                 targetImageView.setTag(R.id.tag_image_res, selectedImageView.tag)
                 selectedImageView.alpha = 0.2f
                 selectedView = null
+                // Show the "Check Answer" button (which is btnDone) after placing an item.
+                btnDone.visibility = View.VISIBLE
+                btnDone.text = "CHECK ANSWER"
             } else {
                 Toast.makeText(context, "Tap an image first!", Toast.LENGTH_SHORT).show()
             }
@@ -100,23 +104,15 @@ class Station4Game2Fragment : Fragment() {
 
         dropTargets.forEach { it.setOnClickListener(dropListener) }
 
-        // --- CHANGE 1: The "DONE" button now has two functions ---
-        // --- CHANGE 1: The "DONE" button now has two functions ---
+        // --- The "Check Answer" button ---
         btnDone.setOnClickListener {
-            if (isGameCompleted) {
-                // If game is won, navigate back to the stations list.
-                parentFragmentManager.popBackStack() // <-- THIS IS THE LINE TO CHANGE
-            } else {
-                // If game is not won, check the answers.
-                checkAnswers(dropTargets)
-            }
+            // This button now only checks the answers. Navigation is handled in the dialog.
+            checkAnswers(dropTargets)
         }
 
-
         btnReset.setOnClickListener {
-            // Reset the game completion flag
             isGameCompleted = false
-            btnDone.isEnabled = true // Ensure the button is enabled again
+            btnDone.visibility = View.GONE // Hide button on reset
 
             val newShuffled = resources.shuffled()
             draggableViews.forEachIndexed { index, imageView ->
@@ -163,7 +159,6 @@ class Station4Game2Fragment : Fragment() {
         }
 
         if (allCorrect) {
-            // --- CHANGE 2: Set the flag to true when answers are correct ---
             isGameCompleted = true
             showFeedbackDialog(true)
         } else {
@@ -171,16 +166,26 @@ class Station4Game2Fragment : Fragment() {
         }
     }
 
-    private fun playSound(soundResId: Int) {
-        mediaPlayer?.stop()
-        mediaPlayer?.release()
-        mediaPlayer = null
+    private fun navigateToBook1Stations() {
+        val bookFragment = BookFragment()
+        val bundle = Bundle()
+        // Tell the BookFragment to load the data for Book 1
+        bundle.putInt("BOOK_ID", 1)
+        bookFragment.arguments = bundle
 
-        mediaPlayer = MediaPlayer.create(context, soundResId)
-        mediaPlayer?.start()
-        mediaPlayer?.setOnCompletionListener {
-            it.release()
-            mediaPlayer = null
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, bookFragment) // Use your main fragment container ID
+            .commit()
+    }
+
+    private fun playSound(soundResId: Int) {
+        mediaPlayer?.release()
+        mediaPlayer = MediaPlayer.create(context, soundResId)?.apply {
+            setOnCompletionListener { mp ->
+                mp.release()
+                mediaPlayer = null
+            }
+            start()
         }
     }
 
@@ -201,23 +206,24 @@ class Station4Game2Fragment : Fragment() {
             .setCancelable(false)
             .create()
 
+        dialog.setOnDismissListener {
+            mediaPlayer?.stop()
+        }
+
         if (isCorrect) {
             ivEmoji.setImageResource(R.drawable.happy)
             tvFeedback.text = "Magaling!"
             playSound(R.raw.clapping)
             dialog.show()
 
-            // This handler now ONLY dismisses the dialog and stops the sound.
+            // --- FIX: This is the key change for automatic navigation ---
             Handler(Looper.getMainLooper()).postDelayed({
-                // --- THE FIX ---
-                // Stop the sound before dismissing the dialog
-                mediaPlayer?.stop()
                 if (dialog.isShowing) {
                     dialog.dismiss()
-                    // Optional toast to guide the user
-                    Toast.makeText(context, "Click DONE to continue.", Toast.LENGTH_SHORT).show()
                 }
-            }, 3000) // Using 3 seconds to give the clap sound enough time
+                // Automatically navigate to Book 1's stations after the dialog closes.
+                navigateToBook1Stations()
+            }, 2000) // 2-second delay
 
         } else {
             ivEmoji.setImageResource(R.drawable.sad)
@@ -225,14 +231,9 @@ class Station4Game2Fragment : Fragment() {
             playSound(R.raw.awww)
             dialog.show()
 
-            // Auto-dismiss after 1.5 seconds for the "try again" case.
             Handler(Looper.getMainLooper()).postDelayed({
-                // --- THE FIX ---
-                // Stop the sound before dismissing the dialog
-                mediaPlayer?.stop()
                 if (dialog.isShowing) dialog.dismiss()
-            }, 1500)
+            }, 2000) // 2-second delay
         }
     }
-
 }

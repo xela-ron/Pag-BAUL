@@ -1,6 +1,7 @@
 package com.example.pag_baul
 
 import android.app.AlertDialog
+import android.media.MediaPlayer // 1. Import MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -28,6 +29,8 @@ class Book4Station4Game1Fragment : Fragment() {
     private lateinit var btnBack: ImageView
 
     private var currentQuestionIndex = 0
+    private var mediaPlayer: MediaPlayer? = null // 2. Add mediaPlayer variable
+
     private val questions = listOf(
         ImageQuestion("b4s41", listOf("Masayang pamumuhay ang lahat ng isda sa kaharian ng Tagadtala", "Nag-aaway araw-araw ang mga isda", "Si Lucia ay tamad at selosa", "Dumating ang Diyosa ng Karagatan"), "Masayang pamumuhay ang lahat ng isda sa kaharian ng Tagadtala"),
         ImageQuestion("b4s42", listOf("Masipag ang lahat ng isda", "Katamaran ni Lucia", "Ang Diyosa ay nagalit kay Lucia", "Naglalaro ang mga isda"), "Katamaran ni Lucia"),
@@ -96,7 +99,6 @@ class Book4Station4Game1Fragment : Fragment() {
         val tvFeedback = dialogView.findViewById<TextView>(R.id.tvFeedback)
         val btnDialogNext = dialogView.findViewById<Button>(R.id.btnDialogNext)
 
-        // Hide the button as requested
         btnDialogNext.visibility = View.GONE
 
         val dialog = AlertDialog.Builder(requireContext())
@@ -104,13 +106,18 @@ class Book4Station4Game1Fragment : Fragment() {
             .setCancelable(false)
             .create()
 
+        // 3. Set a listener to release the sound when the dialog is dismissed
+        dialog.setOnDismissListener {
+            releaseMediaPlayer()
+        }
+
         if (isCorrect) {
             ivEmoji.setImageResource(R.drawable.happy)
             tvFeedback.text = "Magaling!"
-            
+            playSound(R.raw.clapping) // 4. Play clapping sound
+
             dialog.show()
 
-            // Auto-advance after 1.5 seconds
             Handler(Looper.getMainLooper()).postDelayed({
                 if (dialog.isShowing) {
                     dialog.dismiss()
@@ -119,21 +126,42 @@ class Book4Station4Game1Fragment : Fragment() {
                 if (currentQuestionIndex < questions.size) {
                     loadQuestion(currentQuestionIndex)
                 } else {
+                    // Navigate to the next fragment when all questions are answered
                     (activity as? MainActivity)?.loadFragment(Book4Station4Game2Fragment())
                 }
-            }, 1500)
+            }, 3000)
         } else {
             ivEmoji.setImageResource(R.drawable.sad)
             tvFeedback.text = "Subukan muli!"
-            
+            playSound(R.raw.awww) // 5. Play "aww" sound
+
             dialog.show()
 
-            // Auto-dismiss after 1.5 seconds
             Handler(Looper.getMainLooper()).postDelayed({
                 if (dialog.isShowing) {
                     dialog.dismiss()
                 }
-            }, 1500)
+            }, 3000)
         }
+    }
+
+    // 6. Add the playSound function
+    private fun playSound(soundId: Int) {
+        releaseMediaPlayer() // Ensure any previous sound is stopped
+        mediaPlayer = MediaPlayer.create(context, soundId)
+        mediaPlayer?.start()
+    }
+
+    // 7. Add the releaseMediaPlayer function
+    private fun releaseMediaPlayer() {
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        mediaPlayer = null
+    }
+
+    // 8. Add onStop to handle lifecycle changes
+    override fun onStop() {
+        super.onStop()
+        releaseMediaPlayer() // Release player when the fragment is not visible
     }
 }
