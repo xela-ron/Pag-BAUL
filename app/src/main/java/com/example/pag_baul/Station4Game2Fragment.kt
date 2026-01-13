@@ -14,7 +14,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 // --- IMPORT THE BOOKFRAGMENT ---
-import com.example.pag_baul.BookFragment
 
 class Station4Game2Fragment : Fragment() {
 
@@ -35,10 +34,10 @@ class Station4Game2Fragment : Fragment() {
         val drag4 = view.findViewById<ImageView>(R.id.drag4)
 
         val resources = listOf(
-            R.drawable.b1s4game2_1,
-            R.drawable.b1s4game2_2,
-            R.drawable.b1s4game2_3,
-            R.drawable.b1s4game2_4
+            R.drawable.b1s4_game2_1,
+            R.drawable.b1s4_game2_2,
+            R.drawable.b1s4_game2_3,
+            R.drawable.b1s4_game2_4
         )
 
         val draggableViews = listOf(drag1, drag2, drag3, drag4)
@@ -56,10 +55,10 @@ class Station4Game2Fragment : Fragment() {
         val target3 = view.findViewById<ImageView>(R.id.target3)
         val target4 = view.findViewById<ImageView>(R.id.target4)
 
-        target1.tag = R.drawable.b1s4game2_1
-        target2.tag = R.drawable.b1s4game2_2
-        target3.tag = R.drawable.b1s4game2_3
-        target4.tag = R.drawable.b1s4game2_4
+        target1.tag = R.drawable.b1s4_game2_1
+        target2.tag = R.drawable.b1s4_game2_2
+        target3.tag = R.drawable.b1s4_game2_3
+        target4.tag = R.drawable.b1s4_game2_4
 
         val dropTargets = listOf(target1, target2, target3, target4)
         val btnDone = view.findViewById<Button>(R.id.btnDone)

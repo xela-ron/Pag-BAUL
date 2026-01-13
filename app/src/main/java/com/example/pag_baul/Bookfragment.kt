@@ -69,10 +69,7 @@ class BookFragment : Fragment() {
                     add(QuestionData("Sino ang magkapatid sa kuwento?", "Ana at Eba", "Juan at Pedro", "Willy at Arlyn", "Jose at Maria", "Willy at Arlyn"))
                     add(QuestionData("Ano ang pangunahing tema ng kuwento?", "Kasakiman at pag-iimbot", "Pagmamahal ng pamilya at sakripisyo", "Pakikipagsapalaran sa palengke", "Kahalagahan ng pera", "Pagmamahal ng pamilya at sakripisyo"))
                 }, "Station 3. Q&A")
-
-                // UPDATED: This now points to the flip-card game as requested.
                 4 -> openGenericFragment(Station4Game1Fragment(), "Station 4. \"FLIP CARDS\"")
-
                 5 -> openStation5WithQuestions(ArrayList<String>().apply {
                     add("1. Ano ang nararamdaman  ni Gng. Ferrer nang makitang nagkukusang naglilinis ang kaniyang mga anak?")
                     add("2. Ano ang nararamdaman  nila Arlyn at Willy habang sinasabi ng kanilang ina ang katagang “ Hindi sapat ang pera para sa itlog at prutas anak")
@@ -99,16 +96,16 @@ class BookFragment : Fragment() {
                     R.drawable.book2cover
                 )
                 3 -> openQuiz(ArrayList<QuestionData>().apply {
-                    add(QuestionData("Sino ang nagtagpo isang araw na parehong uhaw na uhaw?", "Aso at pusa", "Tagak at kalabaw", "Unggoy at pagong", "", "Tagak at kalabaw"))
-                    add(QuestionData("Ano ang sabi ni Tagak nang batiin siya ni Kalabaw?", "\"Heto, gutom na gutom.\"", "\"Heto, malakas pa.\"", "\"Heto, pagod na pagod.\"", "", "Heto, malakas pa."))
-                    add(QuestionData("Ano ang inaangkin ni Kalabaw?", "Ang buong kagubatan", "Ang ilog", "Ang mga isda", "", "Ang ilog"))
-                    add(QuestionData("Ano ang inaangkin naman ni Tagak?", "Ang mga puno sa paligid", "Ang mga ibon sa himpapawid", "Ang mga isda sa ilog", "", "Ang mga isda sa ilog"))
-                    add(QuestionData("Ano ang hamon ni Tagak kay Kalabaw?", "Lumangoy sa pinakamalalim na bahagi ng ilog", "Inumin lahat ng tubig sa ilog", "Makipagbuno sa putikan", "", "Inumin lahat ng tubig sa ilog"))
-                    add(QuestionData("Ano ang napala ni Kalabaw sa pag-inom ng maraming tubig?", "Sumakit ang tiyan", "Lumakas ang katawan", "Lumobo na tila buntis", "", "Lumobo na tila buntis"))
-                    add(QuestionData("Bakit madaling naubos ang tubig sa batis?", "Dahil tag-init", "Dahil nag-umpisa nang kumati ang tubig", "Dahil may tumulong sa pag-inom kay Tagak", "", "Dahil nag-umpisa nang kumati ang tubig"))
-                    add(QuestionData("Sino ang nanalo sa hamon?", "Kalabaw", "Tagak", "Walang nanalo", "", "Tagak"))
-                    add(QuestionData("Ano ang naging papel ni Tagak pagkatapos manalo?", "Naging alipin ni Kalabaw", "Naging hari at nakasakay sa likod ni Kalabaw", "Umalis at naghanap ng ibang ilog", "", "Naging hari at nakasakay sa likod ni Kalabaw"))
-                    add(QuestionData("Ano ang naging papel ni Kalabaw pagkatapos matalo?", "Naging hari", "Naging utusan ni Tagak", "Lumayas at nagtago sa gubat", "", "Naging utusan ni Tagak"))
+                    add(QuestionData("Sino ang nagtagpo isang araw na parehong uhaw na uhaw?", "Aso at pusa", "Tagak at kalabaw", "Unggoy at pagong", "Elepante at daga", "Tagak at kalabaw"))
+                    add(QuestionData("Ano ang sabi ni Tagak nang batiin siya ni Kalabaw?", "\"Heto, gutom na gutom.\"", "\"Heto, malakas pa.\"", "\"Heto, pagod na pagod.\"", "Heto, inaantok.", "Heto, malakas pa."))
+                    add(QuestionData("Ano ang inaangkin ni Kalabaw?", "Ang buong kagubatan", "Ang ilog", "Ang mga isda", "Ang langit", "Ang ilog"))
+                    add(QuestionData("Ano ang inaangkin naman ni Tagak?", "Ang mga puno sa paligid", "Ang mga ibon sa himpapawid", "Ang mga isda sa ilog", "Ang mga bulaklak", "Ang mga isda sa ilog"))
+                    add(QuestionData("Ano ang hamon ni Tagak kay Kalabaw?", "Lumangoy sa pinakamalalim na bahagi ng ilog", "Inumin lahat ng tubig sa ilog", "Makipagbuno sa putikan", "Tumakbo ng mabilis", "Inumin lahat ng tubig sa ilog"))
+                    add(QuestionData("Ano ang napala ni Kalabaw sa pag-inom ng maraming tubig?", "Sumakit ang tiyan", "Lumakas ang katawan", "Lumobo na tila buntis", "Naging masaya siya", "Lumobo na tila buntis"))
+                    add(QuestionData("Bakit madaling naubos ang tubig sa batis?", "Dahil tag-init", "Dahil nag-umpisa nang kumati ang tubig", "Dahil may tumulong sa pag-inom kay Tagak", "Dahil may butas ang ilog", "Dahil nag-umpisa nang kumati ang tubig"))
+                    add(QuestionData("Sino ang nanalo sa hamon?", "Kalabaw", "Tagak", "Walang nanalo", "Parehas silang nanalo", "Tagak"))
+                    add(QuestionData("Ano ang naging papel ni Tagak pagkatapos manalo?", "Naging alipin ni Kalabaw", "Naging hari at nakasakay sa likod ni Kalabaw", "Umalis at naghanap ng ibang ilog", "Naging kaibigan sila", "Naging hari at nakasakay sa likod ni Kalabaw"))
+                    add(QuestionData("Ano ang naging papel ni Kalabaw pagkatapos matalo?", "Naging hari", "Naging utusan ni Tagak", "Lumayas at nagtago sa gubat", "Naging masaya", "Naging utusan ni Tagak"))
                 }, "Station 3. Q&A")
                 4 -> openGenericFragment(Book2Station4Fragment(), "Station 4. \"4Pics 1 Word\"")
                 5 -> openStation5WithQuestions(ArrayList<String>().apply {
@@ -173,10 +170,7 @@ class BookFragment : Fragment() {
                     add(QuestionData("Ano ang ipinapakita ng ugali ni Lucia sa kuwento?\n", "Kasipagan ", "Kabaitan", "Katamaran at pagiging makasarili", "Katapatan", "Katamaran at pagiging makasarili"))
                     add(QuestionData("Ano ang aral na matututunan sa kuwento? \n", "Mas mabuting maging bida ", "Hindi mahalaga ang tungkulin", "Dapat gampanan ang responsibilidad kahit walang nakakakita", "Mas masaya ang pagiging tamad", "Dapat gampanan ang responsibilidad kahit walang nakakakita "))
                 }, "Station 3. Q&A")
-
-                // UPDATED: This now points to the first game for Book 4 as requested.
                 4 -> openGenericFragment(Book4Station4Game1Fragment(), "Station 4. Games")
-
                 5 -> openStation5WithQuestions(ArrayList<String>().apply {
                     add("1. Ano ang nararamdaman ni Lucia nang isumpa siya ng Diyosa?\n")
                     add("2. Ano ang nararamdaman ng mga janitor fish nang malaman na sila ang magiging anyo ni Lucia?\n")
@@ -209,10 +203,7 @@ class BookFragment : Fragment() {
                     add(QuestionData("Ano ang ginagawa ng kabayo noong nakita siya ni leon?", "Natutulog", "Kumakain", "Tumatawid", "Tumatakbo", "Tumatawid"))
                     add(QuestionData("Ano ang tema ng kwento?", "Pagkagulat o pagharap sa sorpresa", "Pagkakakibigan", "Pagtutulungan", "Pagkakasundo", "Pagkagulat o pagharap sa sorpresa"))
                 }, "Station 3. Q&A")
-
-
                 4 -> openGenericFragment(Book5Station4Game1Fragment(), "Station 4. \"GAMES\"")
-
                 5 -> openStation5WithQuestions(ArrayList<String>().apply {
                     add("1. Ano ang nararamdaman ng leon sa pagkatalo?")
                     add("2. Ano ang nararamdaman  ng kabayo sa pagligtas sa sarili?")
@@ -224,7 +215,6 @@ class BookFragment : Fragment() {
                 9 -> openEssay("Station 9. \"ESSAY\"", "Paano ipinakita sa kwento ang konsepto ng “maitim na balak?”")
                 10 -> openEssay("Station 10. \"ESSAY\"", "Nakatulong ba ang paggamit mo ng Pag-BAUL app upang mas maunawaan niyong mabuti ang kwento?\n\n\n")
                 else -> openGenericStation(stationNumber)
-
             }
         }
     }
@@ -233,12 +223,24 @@ class BookFragment : Fragment() {
     // Helper functions to open different fragments
     // ============================================================
 
+    // --- MODIFICATION START ---
+    // The only change is in the helper functions below.
+    // I am replacing `addToBackStack(null)` with a named transaction.
+    // This allows us to return to this "Station Map" screen from any game.
+
+    private fun openFragment(fragment: Fragment) {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack("STATION_MAP_TRANSACTION") // MODIFIED
+            .commit()
+    }
+
     private fun openGenericFragment(fragment: Fragment, title: String) {
         val bundle = Bundle().apply { putString("title", title) }
         fragment.arguments = bundle
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null)
+            .addToBackStack("STATION_MAP_TRANSACTION") // MODIFIED
             .commit()
     }
 
@@ -253,7 +255,7 @@ class BookFragment : Fragment() {
         fragment.arguments = bundle
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null)
+            .addToBackStack("STATION_MAP_TRANSACTION") // MODIFIED
             .commit()
     }
 
@@ -266,7 +268,7 @@ class BookFragment : Fragment() {
         fragment.arguments = bundle
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null)
+            .addToBackStack("STATION_MAP_TRANSACTION") // MODIFIED
             .commit()
     }
 
@@ -279,7 +281,7 @@ class BookFragment : Fragment() {
         fragment.arguments = bundle
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null)
+            .addToBackStack("STATION_MAP_TRANSACTION") // MODIFIED
             .commit()
     }
 
@@ -292,7 +294,7 @@ class BookFragment : Fragment() {
         fragment.arguments = bundle
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null)
+            .addToBackStack("STATION_MAP_TRANSACTION") // MODIFIED
             .commit()
     }
 
@@ -305,9 +307,11 @@ class BookFragment : Fragment() {
         fragment.arguments = bundle
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null)
+            .addToBackStack("STATION_MAP_TRANSACTION") // MODIFIED
             .commit()
     }
+
+    // --- MODIFICATION END ---
 
     private fun openGenericStation(stationNumber: Int) {
         Toast.makeText(context, "Station $stationNumber for Book $currentBookId is not yet implemented.", Toast.LENGTH_SHORT).show()

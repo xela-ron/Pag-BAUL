@@ -1,7 +1,7 @@
 package com.example.pag_baul
 
 import android.app.AlertDialog
-import android.media.MediaPlayer // 1. Import MediaPlayer
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.pag_baul.databinding.FragmentBook4Station4Game2Binding
 
 class Book4Station4Game2Fragment : Fragment() {
@@ -19,28 +20,59 @@ class Book4Station4Game2Fragment : Fragment() {
     private var _binding: FragmentBook4Station4Game2Binding? = null
     private val binding get() = _binding!!
 
-    private var questions: ArrayList<QuestionData> = ArrayList()
+    // UPDATED: Now uses the new, simpler data class
+    private var questions: List<TrueOrFalseQuestionData> = listOf()
     private var currentQuestionIndex = 0
-
-    // 2. Add a MediaPlayer variable
     private var mediaPlayer: MediaPlayer? = null
+
+    // Companion object to create a new instance of the fragment
+    companion object {
+        private const val ARG_TITLE = "title"
+        private const val ARG_QUESTIONS = "questions"
+
+        /**
+         * Creates a new instance of this fragment with the provided title and questions.
+         * This is the recommended way to create this fragment.
+         */
+        // UPDATED: The newInstance function now expects an ArrayList of the new data class
+        fun newInstance(title: String, questions: ArrayList<TrueOrFalseQuestionData>): Book4Station4Game2Fragment {
+            val fragment = Book4Station4Game2Fragment()
+            val args = Bundle().apply {
+                putString(ARG_TITLE, title)
+                putParcelableArrayList(ARG_QUESTIONS, questions)
+            }
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBook4Station4Game2Binding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        val gameTitle = arguments?.getString("title") ?: "Tama o Mali"
-        val receivedQuestions = arguments?.getParcelableArrayList<QuestionData>("questions")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Retrieve arguments using the constants from the companion object
+        val gameTitle = arguments?.getString(ARG_TITLE) ?: "Tama o Mali"
+        // UPDATED: Retrieves the new data class from the arguments
+        val receivedQuestions = arguments?.getParcelableArrayList<TrueOrFalseQuestionData>(ARG_QUESTIONS)
 
         binding.tvTitle.text = gameTitle
 
-        if (receivedQuestions != null && receivedQuestions.isNotEmpty()) {
+        if (!receivedQuestions.isNullOrEmpty()) {
             questions = receivedQuestions
+            binding.tvQuestionPlaceholder.setTypeface(null, android.graphics.Typeface.NORMAL)
             displayQuestion()
         } else {
             binding.tvQuestionPlaceholder.text = "Walang nahanap na tanong para sa estasyong ito."
+            // Disable buttons if there are no questions to prevent clicks
+            binding.ivCheck.isEnabled = false
+            binding.ivX.isEnabled = false
         }
 
         binding.ivCheck.setOnClickListener {
@@ -50,11 +82,13 @@ class Book4Station4Game2Fragment : Fragment() {
             checkAnswer("Mali")
         }
 
+        // --- MODIFICATION START ---
+        // This listener will now also navigate back to the station map directly.
         binding.btnBack.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            // This clears the back stack until the named transaction is found.
+            parentFragmentManager.popBackStack("STATION_MAP_TRANSACTION", FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
-
-        return binding.root
+        // --- MODIFICATION END ---
     }
 
     private fun displayQuestion() {
@@ -64,7 +98,7 @@ class Book4Station4Game2Fragment : Fragment() {
     }
 
     private fun checkAnswer(userAnswer: String) {
-        if (questions.isEmpty()) return
+        if (questions.isEmpty() || currentQuestionIndex >= questions.size) return
 
         val correctAnswer = questions[currentQuestionIndex].answer
         val isCorrect = userAnswer.equals(correctAnswer, ignoreCase = true)
@@ -73,13 +107,9 @@ class Book4Station4Game2Fragment : Fragment() {
     }
 
     private fun showFeedbackDialog(isCorrect: Boolean) {
-        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_feedback, null)
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_feedback, null)
         val ivEmoji = dialogView.findViewById<ImageView>(R.id.ivEmoji)
         val tvFeedback = dialogView.findViewById<TextView>(R.id.tvFeedback)
-
-        // --- FIX: REMOVED THE LINES THAT REFERENCE THE NON-EXISTENT BUTTON ---
-        // val btnDialogNext = dialogView.findViewById<Button>(R.id.btnDialogNext)
-        // btnDialogNext.visibility = View.GONE
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
@@ -89,12 +119,10 @@ class Book4Station4Game2Fragment : Fragment() {
         if (isCorrect) {
             ivEmoji.setImageResource(R.drawable.happy)
             tvFeedback.text = "Magaling!"
-            // 3. Play clapping sound
             playSound(R.raw.clapping)
         } else {
             ivEmoji.setImageResource(R.drawable.sad)
             tvFeedback.text = "Subukan muli!"
-            // 3. Play "aww" sound
             playSound(R.raw.awww)
         }
 
@@ -109,28 +137,24 @@ class Book4Station4Game2Fragment : Fragment() {
                 if (currentQuestionIndex < questions.size) {
                     displayQuestion()
                 } else {
-                    Toast.makeText(context, "Natapos mo na ang laro!", Toast.LENGTH_LONG).show()
-                    // This is a more standard way to pop back to the previous screen
-                    parentFragmentManager.popBackStack()
+                    // This logic is already correct for your requirement.
+                    Toast.makeText(context, "Natapos mo na ang istasyon!", Toast.LENGTH_LONG).show()
+                    parentFragmentManager.popBackStack("STATION_MAP_TRANSACTION", FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 }
             }
         }, 1500)
     }
 
-    // 4. Add the playSound function
     private fun playSound(soundId: Int) {
-        // Stop any previously playing sound
         mediaPlayer?.release()
-        mediaPlayer = null
-
-        // Create and start a new media player
-        mediaPlayer = MediaPlayer.create(context, soundId)
-        mediaPlayer?.start()
+        mediaPlayer = MediaPlayer.create(context, soundId)?.apply {
+            setOnCompletionListener { it.release() }
+            start()
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        // 5. Release media player resources to prevent memory leaks
         mediaPlayer?.release()
         mediaPlayer = null
         _binding = null

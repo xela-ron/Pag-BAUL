@@ -107,7 +107,7 @@
                             android:id="@+id/drag1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/b1s4game2_3"
+                            android:src="@drawable/b1s4_game2_3"
                             android:scaleType="fitCenter"
                             android:padding="4dp"/>
                     </FrameLayout>
@@ -139,7 +139,7 @@
                             android:id="@+id/drag2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/b1s4game2_1"
+                            android:src="@drawable/b1s4_game2_1"
                             android:scaleType="fitCenter"
                             android:padding="4dp"/>
                     </FrameLayout>
@@ -171,7 +171,7 @@
                             android:id="@+id/drag3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/b1s4game2_4"
+                            android:src="@drawable/b1s4_game2_1"
                             android:scaleType="fitCenter"
                             android:padding="4dp"/>
                     </FrameLayout>
@@ -203,7 +203,7 @@
                             android:id="@+id/drag4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/b1s4game2_2"
+                            android:src="@drawable/b1s4_game2_2"
                             android:scaleType="fitCenter"
                             android:padding="4dp"/>
                     </FrameLayout>

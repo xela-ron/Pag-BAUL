@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAD6A5">
+    android:background="#FAD6A5"
+    tools:context=".Book4Station4Game2Fragment">
 
     <!-- Header / LOGO -->
     <LinearLayout
@@ -12,7 +14,9 @@
         android:layout_height="60dp"
         android:background="#C19A6B"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -28,16 +32,16 @@
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="80dp"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -49,25 +53,31 @@
                 android:id="@+id/btnBack"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_arrow_back"
-                android:padding="8dp"
                 android:background="@drawable/rounded_border"
-                app:tint="@android:color/black"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                android:src="@drawable/ic_arrow_back"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@android:color/black" />
 
             <!-- Title -->
             <TextView
                 android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
                 android:text="Station 4: Tama o Mali"
+                android:textColor="#C19A6B"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="#C19A6B"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/btnBack"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@id/btnBack"
+                app:layout_constraintTop_toTopOf="@id/btnBack" />
 
             <!-- Instructions -->
             <TextView
@@ -88,69 +98,47 @@
                 android:id="@+id/tvQuestionPlaceholder"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:text="(Question will appear here)"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:textStyle="italic"
-                android:textColor="#333333"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                app:layout_constraintTop_toBottomOf="@id/tvInstructions"
-                app:layout_constraintBottom_toTopOf="@id/buttons_container"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Tama / Mali Buttons Container -->
-            <LinearLayout
-                android:id="@+id/buttons_container"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center"
+                android:textColor="#333333"
+                android:textSize="20sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toTopOf="@id/ivCheck"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvInstructions"
+                tools:text="Question will appear here. This is a longer text to see how it wraps within the given space." />
+
+            <!-- TAMA (Check Image) -->
+            <ImageView
+                android:id="@+id/ivCheck"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toTopOf="@id/btnDone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <!-- TAMA (Check Image) -->
-                <ImageView
-                    android:id="@+id/ivCheck"
-                    android:layout_width="0dp"
-                    android:layout_height="80dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/check"
-                    android:padding="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"/>
-
-                <!-- MALI (X Image) -->
-                <ImageView
-                    android:id="@+id/ivX"
-                    android:layout_width="0dp"
-                    android:layout_height="80dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/x"
-                    android:padding="8dp"
-                    android:layout_marginStart="16dp"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"/>
-            </LinearLayout>
-
-            <!-- Done Button -->
-            <Button
-                android:id="@+id/btnDone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="NEXT"
-                android:backgroundTint="#8D6E63"
-                android:textColor="#FFFFFF"
-                android:visibility="gone"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/tama"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toStartOf="@+id/ivX"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- MALI (X Image) -->
+            <ImageView
+                android:id="@+id/ivX"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/mali"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

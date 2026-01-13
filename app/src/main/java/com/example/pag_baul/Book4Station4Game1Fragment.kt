@@ -97,12 +97,10 @@ class Book4Station4Game1Fragment : Fragment() {
             .setCancelable(false)
             .create()
 
-        // --- MODIFIED CODE START ---
         // Add a listener that stops the sound when the dialog is dismissed
         dialog.setOnDismissListener {
             releaseMediaPlayer()
         }
-        // --- MODIFIED CODE END ---
 
         if (isCorrect) {
             ivEmoji.setImageResource(R.drawable.happy)
@@ -120,14 +118,30 @@ class Book4Station4Game1Fragment : Fragment() {
                 if (currentQuestionIndex < questions.size) {
                     loadQuestion(currentQuestionIndex)
                 } else {
-                    // Navigate to Game 2
-                    val game2Fragment = Book4Station4Game2Fragment()
+                    // --- CORRECTED CODE TO LAUNCH GAME 2 ---
+                    // 1. Define the questions for the "Tama o Mali" game
+                    val questionsForGame2 = ArrayList<TrueOrFalseQuestionData>().apply {
+                        add(TrueOrFalseQuestionData("Masipag at nagtutulungan ang lahat ng isda sa Tagadtala.", "Tama"))
+                        add(TrueOrFalseQuestionData("Si Lucia ay masipag at palaging tumutulong sa paglilinis.", "Mali"))
+                        add(TrueOrFalseQuestionData("Galit ang Diyosa sa panlilinlang ni Lucia.", "Tama"))
+                        add(TrueOrFalseQuestionData("Isinumpa si Lucia na maging pinakamagandang isda sa mundo.", "Mali"))
+                        add(TrueOrFalseQuestionData("Ang mga janitor fish ay kilala sa kanilang pagiging pangit at tamad.", "Tama"))
+                    }
+
+                    // 2. Create the fragment instance using the newInstance method
+                    val game2Fragment = Book4Station4Game2Fragment.newInstance(
+                        title = "Station 4: Tama o Mali",
+                        questions = questionsForGame2
+                    )
+
+                    // 3. Navigate to Game 2
                     parentFragmentManager.beginTransaction()
                         .replace(containerId, game2Fragment)
                         .addToBackStack(null)
                         .commit()
+                    // --- END OF CORRECTED CODE ---
                 }
-            }, 3000) // Changed back to 3000 for consistency
+            }, 3000)
         } else {
             ivEmoji.setImageResource(R.drawable.sad)
             tvFeedback.text = "Subukan muli!"
