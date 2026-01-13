@@ -16,36 +16,27 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.pag_baul.databinding.FragmentQuizDynamicBinding
 
 class QuizFragment : Fragment() {
 
-    // Default questions
+    private var _binding: FragmentQuizDynamicBinding? = null
+    private val binding get() = _binding!!
+
     private var questionList = ArrayList<QuestionData>()
-
-    // --- CHANGE 1: Add MediaPlayer variable ---
     private var mediaPlayer: MediaPlayer? = null
-
-    // UI Elements
-    private lateinit var tvQuestion: TextView
-    private lateinit var radioGroup: RadioGroup
-    private lateinit var btnCheck: Button
-    private lateinit var btnBack: ImageView
     private var currentQuestionIndex = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_quiz_dynamic, container, false)
+    ): View {
+        _binding = FragmentQuizDynamicBinding.inflate(inflater, container, false)
 
-        // Initialize UI
-        tvQuestion = view.findViewById(R.id.tvQuestion)
-        radioGroup = view.findViewById(R.id.radioGroup)
-        btnCheck = view.findViewById(R.id.btnCheck)
-        btnBack = view.findViewById(R.id.btnBackIcon)
+        val questionsArg = arguments?.getParcelableArrayList<QuestionData>("questions")
+        val stationTitle = arguments?.getString("title") ?: "Quiz"
 
-        // 1. Get Questions from Bundle
-        val questionsArg = arguments?.getParcelableArrayList<QuestionData>("QUESTIONS")
+        // binding.tvQuizTitle.text = stationTitle // Uncomment if you add a title TextView
 
         if (questionsArg != null && questionsArg.isNotEmpty()) {
             questionList = questionsArg
@@ -53,34 +44,31 @@ class QuizFragment : Fragment() {
             loadBook1Defaults()
         }
 
-        // 2. Load First Question
         loadQuestion()
 
-        // 3. Handle Submit Button
-        btnCheck.setOnClickListener {
+        binding.btnCheck.setOnClickListener {
             checkAnswer()
         }
 
-        btnBack.setOnClickListener {
+        binding.btnBackIcon.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
 
-        return view
+        return binding.root
     }
 
     private fun loadQuestion() {
-        if (questionList.isEmpty()) return
+        if (questionList.isEmpty()) {
+            binding.tvQuestion.text = "No questions found for this station."
+            return
+        }
 
         val q = questionList[currentQuestionIndex]
+        binding.tvQuestion.text = "${currentQuestionIndex + 1}. ${q.question}"
 
-        // Set Question Text
-        tvQuestion.text = "${currentQuestionIndex + 1}. ${q.question}"
+        binding.radioGroup.removeAllViews()
+        binding.radioGroup.clearCheck()
 
-        // Clear previous options
-        radioGroup.removeAllViews()
-        radioGroup.clearCheck()
-
-        // Add Options Dynamically
         val options = ArrayList<String>()
         if (q.option1.isNotEmpty()) options.add(q.option1)
         if (q.option2.isNotEmpty()) options.add(q.option2)
@@ -88,30 +76,34 @@ class QuizFragment : Fragment() {
         if (q.option4.isNotEmpty()) options.add(q.option4)
 
         for (option in options) {
-            val rb = RadioButton(context)
-            rb.text = option
-            rb.textSize = 16f
-            rb.setTextColor(Color.BLACK) // Set text color to BLACK
-            rb.setPadding(16, 16, 16, 16)
-            radioGroup.addView(rb)
+            val rb = RadioButton(context).apply {
+                text = option
+                textSize = 16f
+                setTextColor(Color.BLACK)
+                setPadding(16, 16, 16, 16)
+            }
+            binding.radioGroup.addView(rb)
         }
 
-        // Update Button Text
-        btnCheck.text = if (currentQuestionIndex == questionList.size - 1) "FINISH" else "NEXT"
+        binding.btnCheck.text = if (currentQuestionIndex == questionList.size - 1) "FINISH" else "NEXT"
     }
 
     private fun checkAnswer() {
-        val selectedId = radioGroup.checkedRadioButtonId
+        val selectedId = binding.radioGroup.checkedRadioButtonId
         if (selectedId == -1) {
             Toast.makeText(context, "Please select an answer", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val selectedRb = view?.findViewById<RadioButton>(selectedId)
+        val selectedRb = binding.radioGroup.findViewById<RadioButton>(selectedId)
         val selectedText = selectedRb?.text.toString()
-        val correctAnswer = questionList[currentQuestionIndex].answer
 
-        if (selectedText == correctAnswer) {
+        // --- START: CORRECTED CODE ---
+        // Use the confirmed property name 'answer' from your LATEST QuestionData.kt file
+        val correctAnswer = questionList[currentQuestionIndex].answer
+        // --- END: CORRECTED CODE ---
+
+        if (selectedText.equals(correctAnswer, ignoreCase = true)) {
             showFeedbackDialog(true)
         } else {
             showFeedbackDialog(false)
@@ -124,7 +116,6 @@ class QuizFragment : Fragment() {
         val tvFeedback = dialogView.findViewById<TextView>(R.id.tvFeedback)
         val btnDialogNext = dialogView.findViewById<Button>(R.id.btnDialogNext)
 
-        // Hide the button (same style as Book 4 Station 4 Game 2)
         btnDialogNext.visibility = View.GONE
 
         val dialog = AlertDialog.Builder(requireContext())
@@ -135,12 +126,10 @@ class QuizFragment : Fragment() {
         if (isCorrect) {
             ivEmoji.setImageResource(R.drawable.happy)
             tvFeedback.text = "Magaling!"
-            // --- CHANGE 2: Play clapping sound ---
             playSound(R.raw.clapping)
 
             dialog.show()
 
-            // Auto-advance after 1.5 seconds
             Handler(Looper.getMainLooper()).postDelayed({
                 mediaPlayer?.stop()
                 if (dialog.isShowing) dialog.dismiss()
@@ -156,12 +145,10 @@ class QuizFragment : Fragment() {
         } else {
             ivEmoji.setImageResource(R.drawable.sad)
             tvFeedback.text = "Subukan muli!"
-            // --- CHANGE 3: Play "aww" sound ---
             playSound(R.raw.awww)
 
             dialog.show()
 
-            // Auto-dismiss after 1.5 seconds
             Handler(Looper.getMainLooper()).postDelayed({
                 mediaPlayer?.stop()
                 if (dialog.isShowing) dialog.dismiss()
@@ -170,18 +157,16 @@ class QuizFragment : Fragment() {
     }
 
     private fun loadBook1Defaults() {
-        // Fallback dummy question
-        questionList.add(QuestionData("Sample Question?", "Yes", "No", "Maybe", "", "Yes"))
+        questionList.clear()
+        // Corrected to match the QuestionData structure (assuming 3 options, 1 empty, and the answer)
+        questionList.add(QuestionData("Sample Question: Is this a fallback?", "Yes", "No", "Maybe", "", "Yes"))
     }
 
-    // --- CHANGE 4: Add the playSound function ---
     private fun playSound(soundResId: Int) {
-        // Stop and release any previous media player
         mediaPlayer?.stop()
         mediaPlayer?.release()
         mediaPlayer = null
 
-        // Create and start a new media player
         mediaPlayer = MediaPlayer.create(context, soundResId)
         mediaPlayer?.start()
         mediaPlayer?.setOnCompletionListener {
@@ -190,11 +175,10 @@ class QuizFragment : Fragment() {
         }
     }
 
-    // --- CHANGE 5: Add onStop to release the media player ---
-    override fun onStop() {
-        super.onStop()
-        // Release the media player when the fragment is not visible
+    override fun onDestroyView() {
+        super.onDestroyView()
         mediaPlayer?.release()
         mediaPlayer = null
+        _binding = null
     }
 }

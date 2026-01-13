@@ -1,7 +1,7 @@
 package com.example.pag_baul
 
 import android.app.AlertDialog
-import android.media.MediaPlayer // 1. Import MediaPlayer
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,6 +14,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.pag_baul.databinding.FragmentBook4Station4Binding
 
 data class ImageQuestion(
     val imageName: String,
@@ -23,13 +24,12 @@ data class ImageQuestion(
 
 class Book4Station4Game1Fragment : Fragment() {
 
-    private lateinit var ivQuestionImage: ImageView
-    private lateinit var rgChoices: RadioGroup
-    private lateinit var btnNext: Button
-    private lateinit var btnBack: ImageView
+    private var _binding: FragmentBook4Station4Binding? = null
+    private val binding get() = _binding!!
 
+    private var containerId: Int = 0
     private var currentQuestionIndex = 0
-    private var mediaPlayer: MediaPlayer? = null // 2. Add mediaPlayer variable
+    private var mediaPlayer: MediaPlayer? = null
 
     private val questions = listOf(
         ImageQuestion("b4s41", listOf("Masayang pamumuhay ang lahat ng isda sa kaharian ng Tagadtala", "Nag-aaway araw-araw ang mga isda", "Si Lucia ay tamad at selosa", "Dumating ang Diyosa ng Karagatan"), "Masayang pamumuhay ang lahat ng isda sa kaharian ng Tagadtala"),
@@ -41,39 +41,36 @@ class Book4Station4Game1Fragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_book4_station4, container, false)
-
-        ivQuestionImage = view.findViewById(R.id.ivQuestionImage)
-        rgChoices = view.findViewById(R.id.rgChoices)
-        btnNext = view.findViewById(R.id.btnNext)
-        btnBack = view.findViewById(R.id.btnBack)
+    ): View {
+        _binding = FragmentBook4Station4Binding.inflate(inflater, container, false)
+        container?.let { containerId = it.id }
 
         loadQuestion(currentQuestionIndex)
 
-        btnBack.setOnClickListener { parentFragmentManager.popBackStack() }
-        btnNext.setOnClickListener { checkAnswer() }
+        binding.btnBack.setOnClickListener { parentFragmentManager.popBackStack() }
+        binding.btnNext.setOnClickListener { checkAnswer() }
 
-        return view
+        return binding.root
     }
 
     private fun loadQuestion(index: Int) {
         val question = questions[index]
         val imageId = resources.getIdentifier(question.imageName, "drawable", requireContext().packageName)
-        ivQuestionImage.setImageResource(imageId)
+        binding.ivQuestionImage.setImageResource(imageId)
 
-        rgChoices.removeAllViews()
-        rgChoices.clearCheck()
+        binding.rgChoices.removeAllViews()
+        binding.rgChoices.clearCheck()
         question.options.forEach { option ->
-            val radioButton = RadioButton(context)
-            radioButton.text = option
-            radioButton.textSize = 16f
-            rgChoices.addView(radioButton)
+            val radioButton = RadioButton(context).apply {
+                text = option
+                textSize = 16f
+            }
+            binding.rgChoices.addView(radioButton)
         }
     }
 
     private fun checkAnswer() {
-        val selectedRadioButtonId = rgChoices.checkedRadioButtonId
+        val selectedRadioButtonId = binding.rgChoices.checkedRadioButtonId
         if (selectedRadioButtonId == -1) {
             AlertDialog.Builder(requireContext())
                 .setMessage("Please choose an answer first.")
@@ -82,86 +79,87 @@ class Book4Station4Game1Fragment : Fragment() {
             return
         }
 
-        val selectedRadioButton = view?.findViewById<RadioButton>(selectedRadioButtonId)
+        val selectedRadioButton = binding.rgChoices.findViewById<RadioButton>(selectedRadioButtonId)
         val selectedAnswer = selectedRadioButton?.text.toString()
         val correctAnswer = questions[currentQuestionIndex].correctAnswer
 
-        if (selectedAnswer == correctAnswer) {
-            showFeedbackDialog(true)
-        } else {
-            showFeedbackDialog(false)
-        }
+        showFeedbackDialog(selectedAnswer == correctAnswer)
     }
 
     private fun showFeedbackDialog(isCorrect: Boolean) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_feedback, null)
         val ivEmoji = dialogView.findViewById<ImageView>(R.id.ivEmoji)
         val tvFeedback = dialogView.findViewById<TextView>(R.id.tvFeedback)
-        val btnDialogNext = dialogView.findViewById<Button>(R.id.btnDialogNext)
 
-        btnDialogNext.visibility = View.GONE
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
             .setCancelable(false)
             .create()
 
-        // 3. Set a listener to release the sound when the dialog is dismissed
+        // --- MODIFIED CODE START ---
+        // Add a listener that stops the sound when the dialog is dismissed
         dialog.setOnDismissListener {
             releaseMediaPlayer()
         }
+        // --- MODIFIED CODE END ---
 
         if (isCorrect) {
             ivEmoji.setImageResource(R.drawable.happy)
             tvFeedback.text = "Magaling!"
-            playSound(R.raw.clapping) // 4. Play clapping sound
+            playSound(R.raw.clapping) // Plays the clapping sound
 
             dialog.show()
 
+            // This handler will automatically dismiss the dialog after 3 seconds
             Handler(Looper.getMainLooper()).postDelayed({
                 if (dialog.isShowing) {
-                    dialog.dismiss()
+                    dialog.dismiss() // This will trigger the OnDismissListener
                 }
                 currentQuestionIndex++
                 if (currentQuestionIndex < questions.size) {
                     loadQuestion(currentQuestionIndex)
                 } else {
-                    // Navigate to the next fragment when all questions are answered
-                    (activity as? MainActivity)?.loadFragment(Book4Station4Game2Fragment())
+                    // Navigate to Game 2
+                    val game2Fragment = Book4Station4Game2Fragment()
+                    parentFragmentManager.beginTransaction()
+                        .replace(containerId, game2Fragment)
+                        .addToBackStack(null)
+                        .commit()
                 }
-            }, 3000)
+            }, 3000) // Changed back to 3000 for consistency
         } else {
             ivEmoji.setImageResource(R.drawable.sad)
             tvFeedback.text = "Subukan muli!"
-            playSound(R.raw.awww) // 5. Play "aww" sound
+            playSound(R.raw.awww) // Plays the "awww" sound
 
             dialog.show()
 
+            // This handler will automatically dismiss the dialog after 3 seconds
             Handler(Looper.getMainLooper()).postDelayed({
                 if (dialog.isShowing) {
-                    dialog.dismiss()
+                    dialog.dismiss() // This will trigger the OnDismissListener
                 }
             }, 3000)
         }
     }
 
-    // 6. Add the playSound function
     private fun playSound(soundId: Int) {
-        releaseMediaPlayer() // Ensure any previous sound is stopped
+        releaseMediaPlayer() // Stop any currently playing sound first
         mediaPlayer = MediaPlayer.create(context, soundId)
         mediaPlayer?.start()
     }
 
-    // 7. Add the releaseMediaPlayer function
     private fun releaseMediaPlayer() {
+        // Safely stop and release the media player
         mediaPlayer?.stop()
         mediaPlayer?.release()
         mediaPlayer = null
     }
 
-    // 8. Add onStop to handle lifecycle changes
-    override fun onStop() {
-        super.onStop()
-        releaseMediaPlayer() // Release player when the fragment is not visible
+    override fun onDestroyView() {
+        super.onDestroyView()
+        releaseMediaPlayer() // Important: release resources when the fragment is destroyed
+        _binding = null
     }
 }

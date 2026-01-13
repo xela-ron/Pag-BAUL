@@ -200,10 +200,10 @@ class Book4Station1Fragment : Fragment() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_feedback, null)
         val ivEmoji = dialogView.findViewById<ImageView>(R.id.ivEmoji)
         val tvFeedback = dialogView.findViewById<TextView>(R.id.tvFeedback)
-        val btnDialogNext = dialogView.findViewById<Button>(R.id.btnDialogNext)
+       // val btnDialogNext = dialogView.findViewById<Button>(R.id.btnDialogNext)
 
         // Hide the button
-        btnDialogNext.visibility = View.GONE
+        //btnDialogNext.visibility = View.GONE
 
         // Corrected: Using androidx.appcompat.app.AlertDialog for Fragments
         val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0E0C4"
+    tools:context=".Book3Station5GameFragment">
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Back"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#A5845C" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tv_station_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Responsable o Hindi?"
+        android:textColor="#A5845C"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_back" />
+
+    <!-- Instructions Text -->
+    <TextView
+        android:id="@+id/tv_instructions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:text="Basahin ang bawat sitwasyon. Piliin kung ito ay 'Responsable' o 'Hindi Responsable'."
+        android:textAlignment="center"
+        android:textColor="#C0A98E"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_back" />
+
+    <!-- Question Text -->
+    <TextView
+        android:id="@+id/tv_question_text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="24dp"
+        android:gravity="center"
+        android:text="Question text will appear here."
+        android:textColor="@android:color/black"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_responsable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_instructions" />
+
+    <!-- Responsable Button (Check) - CORRECTED FOR CHAIN -->
+    <ImageButton
+        android:id="@+id/btn_responsable"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/check"
+        android:contentDescription="Responsable"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_hindi_responsable"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Hindi Responsable Button (Cross) - CORRECTED FOR CHAIN -->
+    <ImageButton
+        android:id="@+id/btn_hindi_responsable"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="64dp"
+        android:background="@drawable/x"
+        android:contentDescription="Hindi Responsable"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_responsable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_responsable"
+        app:layout_constraintTop_toTopOf="@+id/btn_responsable" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

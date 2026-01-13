@@ -10,5 +10,5 @@ data class QuestionData(
     val option2: String,
     val option3: String,
     val option4: String, // Can be empty string "" if only 3 choices
-    val answer: String
+    val answer: String,
 ) : Parcelable

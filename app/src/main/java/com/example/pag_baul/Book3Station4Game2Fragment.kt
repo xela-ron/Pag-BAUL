@@ -24,10 +24,7 @@ class Book3Station4Game2Fragment : Fragment() {
     private var currentPassengerView: ImageView? = null
     private var correctAnswer: String? = null
     private var mediaPlayer: MediaPlayer? = null
-
-    // --- NEW: Flag to track if the user has already answered one correctly ---
     private var hasAnsweredCorrectly = false
-    // --------------------------------------------------------------------
 
     private val passengerViews by lazy {
         listOf(
@@ -62,9 +59,7 @@ class Book3Station4Game2Fragment : Fragment() {
     }
 
     private fun onPassengerClick(view: View) {
-        // --- UPDATE: Prevent clicks if one has already been answered correctly ---
         if (view !is ImageView || binding.gamePopup.isVisible || hasAnsweredCorrectly) return
-        // ----------------------------------------------------------------------
 
         currentPassengerView = view
         val tagData = view.tag.toString().split(',')
@@ -87,9 +82,7 @@ class Book3Station4Game2Fragment : Fragment() {
         val userAnswer = binding.etAnswer.text.toString().trim()
 
         if (userAnswer.equals(correctAnswer, ignoreCase = true)) {
-            // --- UPDATE: Set the flag to true on correct answer ---
-            hasAnsweredCorrectly = true
-            // ---------------------------------------------------
+            hasAnsweredCorrectly = true // Mark as answered
             showFeedbackDialog(true)
         } else {
             showFeedbackDialog(false)
@@ -100,9 +93,10 @@ class Book3Station4Game2Fragment : Fragment() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_feedback, null)
         val ivEmoji = dialogView.findViewById<ImageView>(R.id.ivEmoji)
         val tvFeedback = dialogView.findViewById<TextView>(R.id.tvFeedback)
-        val btnDialogNext = dialogView.findViewById<Button>(R.id.btnDialogNext)
 
-        btnDialogNext?.visibility = View.GONE
+        // --- FIX: REMOVED THE LINES THAT REFERENCE THE NON-EXISTENT BUTTON ---
+        // val btnDialogNext = dialogView.findViewById<Button>(R.id.btnDialogNext)
+        // btnDialogNext?.visibility = View.GONE
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
@@ -114,21 +108,14 @@ class Book3Station4Game2Fragment : Fragment() {
             ivEmoji.setImageResource(R.drawable.happy)
             tvFeedback.text = "Magaling!"
 
-            dialog.setOnDismissListener {
-                mediaPlayer?.stop()
-                mediaPlayer?.release()
-                mediaPlayer = null
-            }
-
             dialog.show()
 
             Handler(Looper.getMainLooper()).postDelayed({
                 if (dialog.isShowing) {
                     dialog.dismiss()
                 }
-                movePassengerToJeep()
-                closePopup()
-            }, 3000)
+                parentFragmentManager.popBackStack("book_map", 2)
+            }, 2000)
 
         } else {
             playSound(R.raw.awww)
@@ -141,10 +128,12 @@ class Book3Station4Game2Fragment : Fragment() {
                 if (dialog.isShowing) {
                     dialog.dismiss()
                 }
-            }, 3000)
+                closePopup()
+            }, 2000)
         }
     }
 
+    // This function is no longer called on correct answer with the new logic.
     private fun movePassengerToJeep() {
         currentPassengerView?.let { passenger ->
             (passenger.parent as? ViewGroup)?.removeView(passenger)
@@ -168,11 +157,7 @@ class Book3Station4Game2Fragment : Fragment() {
         binding.gamePopup.isVisible = false
         currentPassengerView = null
         correctAnswer = null
-        // --- UPDATE: Only re-enable clicks if the user hasn't answered correctly yet ---
-        if (!hasAnsweredCorrectly) {
-            setAllPassengersClickable(true)
-        }
-        // --------------------------------------------------------------------------
+        setAllPassengersClickable(true)
     }
 
     private fun setAllPassengersClickable(isClickable: Boolean) {

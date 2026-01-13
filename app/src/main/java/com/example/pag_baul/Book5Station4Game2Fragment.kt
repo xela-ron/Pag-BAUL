@@ -39,8 +39,7 @@ class Book5Station4Game2Fragment : Fragment() {
         }
 
         btnDone.setOnClickListener {
-            // Pop back stack twice to go back to the station list (skipping Game 1)
-            parentFragmentManager.popBackStack()
+            // Pop back stack to go back to the station list
             parentFragmentManager.popBackStack()
         }
 
@@ -51,13 +50,17 @@ class Book5Station4Game2Fragment : Fragment() {
         currentChallenge = challenge
         when (challenge) {
             1 -> {
-                tvQuestion.text = "Ano ang gagawin ng kabayo sa mga sangang nakaharang upang makalagpas siya sa kanyang dinadaanan ng maaliwalas?"
+                // ===========================================================================================================
+                // UPDATED PART: Added the new "panuto" to the first question text.
+                // ===========================================================================================================
+                tvQuestion.text = "Game2. Kabayo’s Adventure- Ikaw si kabayo at ang iyong layunin ay makatakas sa iba’t ibang mga hamon sa kagubatan.\n\nAno ang gagawin ng kabayo sa mga sangang nakaharang upang makalagpas siya sa kanyang dinadaanan ng maaliwalas?"
                 ivChallenge.setImageResource(R.drawable.firstchallenge)
                 btnNext.visibility = View.VISIBLE
                 btnDone.visibility = View.GONE
             }
             2 -> {
-                tvQuestion.text = "Ano ang gagawin ng kabayo upang hindi sya makagat ng ahas sa kanyang pagtawid?"
+                // We keep the subsequent questions shorter as the main instruction has been given.
+                tvQuestion.text = "Game2. Kabayo’s Adventure- Ikaw si kabayo at ang iyong layunin ay makatakas sa iba’t ibang mga hamon sa kagubatan.\n\nAno ang gagawin ng kabayo upang hindi sya makagat ng ahas sa kanyang pagtawid?"
                 ivChallenge.setImageResource(R.drawable.secondchallenge)
                 btnNext.visibility = View.GONE
                 btnDone.visibility = View.VISIBLE

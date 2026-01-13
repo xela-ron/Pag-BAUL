@@ -2,8 +2,10 @@ package com.example.pag_baul
 
 import android.app.AlertDialog
 import android.graphics.Paint
-import android.media.MediaPlayer // Import MediaPlayer
+import android.media.MediaPlayer
 import android.os.Bundle
+
+
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
@@ -22,8 +24,6 @@ class Book3Station1Fragment : Fragment() {
     private val wordToTextViewMap = mutableMapOf<String, TextView>()
     private lateinit var btnDone: Button
     private lateinit var btnBack: ImageView
-
-    // --- CHANGE 1: Add MediaPlayer variable ---
     private var mediaPlayer: MediaPlayer? = null
 
     override fun onCreateView(
@@ -39,28 +39,16 @@ class Book3Station1Fragment : Fragment() {
 
         btnBack.setOnClickListener { parentFragmentManager.popBackStack() }
 
-        // Done button listener
         btnDone.setOnClickListener {
             showFeedbackDialog(true)
         }
 
-        // Clear map to avoid duplicates if view is recreated
         wordToTextViewMap.clear()
 
-        // Grid matching the 12x12 screenshot exactly
         val grid = listOf(
-            "JEFFMABAITLK",
-            "APQRTYUIOPAS",
-            "SAROBARUMBAD",
-            "ASDFGHJKLZXC",
-            "HELIGTASWQER",
-            "EBATAMATANMN",
-            "OLICEKALSADA",
-            "SRESPONSABLE",
-            "JEEPBATASTRA",
-            "UMALINISQWER",
-            "MABUTINGJEEP",
-            "PASAHEROSYUI"
+            "JEFFMABAITLK", "APQRTYUIOPAS", "SAROBARUMBAD", "ASDFGHJKLZXC",
+            "HELIGTASWQER", "EBATAMATANMN", "OLICEKALSADA", "SRESPONSABLE",
+            "JEEPBATASTRA", "UMALINISQWER", "MABUTINGJEEP", "PASAHEROSYUI"
         )
 
         val wordsToFind = listOf(
@@ -68,7 +56,6 @@ class Book3Station1Fragment : Fragment() {
             "BATAS", "KALSADA", "JEEP", "SARO", "MALINIS"
         )
 
-        // Populate the "Words to Find" list
         wordsToFind.forEach { word ->
             val textView = TextView(requireContext()).apply {
                 text = "• $word"
@@ -100,7 +87,6 @@ class Book3Station1Fragment : Fragment() {
 
     private fun checkIfAllWordsFound(wordSearchView: WordSearchView) {
         if (wordToTextViewMap.keys.all { wordSearchView.foundWords.contains(it.uppercase()) }) {
-            // Disable back button and enable done button
             btnBack.isEnabled = false
             btnBack.alpha = 0.5f
             btnDone.visibility = View.VISIBLE
@@ -111,10 +97,10 @@ class Book3Station1Fragment : Fragment() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_feedback, null)
         val ivEmoji = dialogView.findViewById<ImageView>(R.id.ivEmoji)
         val tvFeedback = dialogView.findViewById<TextView>(R.id.tvFeedback)
-        val btnDialogNext = dialogView.findViewById<Button>(R.id.btnDialogNext)
 
-        // Hide the button (same style as Book 4 Station 4 Game 2)
-        btnDialogNext.visibility = View.GONE
+        // --- FIX: REMOVED THE LINES THAT REFERENCE THE NON-EXISTENT BUTTON ---
+        // val btnDialogNext = dialogView.findViewById<Button>(R.id.btnDialogNext)
+        // btnDialogNext.visibility = View.GONE
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
@@ -124,45 +110,30 @@ class Book3Station1Fragment : Fragment() {
         if (isCorrect) {
             ivEmoji.setImageResource(R.drawable.happy)
             tvFeedback.text = "Magaling!"
-            // --- CHANGE 2: Play clapping sound ---
             playSound(R.raw.clapping)
-
             dialog.show()
 
-            // Auto-advance/complete after 1.5 seconds
             Handler(Looper.getMainLooper()).postDelayed({
-                // --- THE FIX: Stop the sound first ---
                 mediaPlayer?.stop()
                 if (dialog.isShowing) dialog.dismiss()
                 Toast.makeText(context, "Station Completed!", Toast.LENGTH_SHORT).show()
                 parentFragmentManager.popBackStack()
             }, 2000)
         } else {
-            // Usually not reachable for Word Search "Done" button, but handled just in case
             ivEmoji.setImageResource(R.drawable.sad)
             tvFeedback.text = "Subukan muli!"
-            // --- CHANGE 3: Play "aww" sound ---
             playSound(R.raw.awww)
-
             dialog.show()
 
-            // Auto-dismiss after 1.5 seconds
             Handler(Looper.getMainLooper()).postDelayed({
-                // --- THE FIX: Stop the sound first ---
                 mediaPlayer?.stop()
                 if (dialog.isShowing) dialog.dismiss()
             }, 2000)
         }
     }
 
-    // --- CHANGE 4: Add the playSound function ---
     private fun playSound(soundResId: Int) {
-        // Stop and release any previous media player
-        mediaPlayer?.stop()
         mediaPlayer?.release()
-        mediaPlayer = null
-
-        // Create and start a new media player
         mediaPlayer = MediaPlayer.create(context, soundResId)
         mediaPlayer?.start()
         mediaPlayer?.setOnCompletionListener {
@@ -171,10 +142,8 @@ class Book3Station1Fragment : Fragment() {
         }
     }
 
-    // --- CHANGE 5: Add onStop to release the media player ---
     override fun onStop() {
         super.onStop()
-        // Release the media player when the fragment is not visible
         mediaPlayer?.release()
         mediaPlayer = null
     }

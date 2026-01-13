@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A6D9F1"> <!-- Matches the light blue water color -->
+    android:background="#A6D9F1">
 
-    <!-- 1. FULL SCREEN MAP IMAGE -->
-    <!-- UPDATED: scaleType="fitXY" forces the whole image to show on screen. -->
+    <!-- 1. FULL SCREEN MAP IMAGE (Drawn First) -->
+    <!-- CORRECTED: Removed android:clickable="false" -->
     <ImageView
         android:id="@+id/ivMapBackground"
         android:layout_width="match_parent"
@@ -18,7 +18,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- 2. BACK BUTTON (Correctly Positioned near Green Flag) -->
+    <!--
+    ALL STATIC/BACKGROUND VIEWS SHOULD GO HERE
+    -->
+
+
+    <!-- =================================================================== -->
+    <!-- 2. ALL INTERACTIVE BUTTONS (Drawn Last to ensure they are on top) -->
+    <!-- =================================================================== -->
+
+    <!-- Back Button -->
     <ImageView
         android:id="@+id/btnBackToBooks"
         android:layout_width="40dp"
@@ -33,14 +42,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- 3. STATION BUTTONS -->
-    <!--
-       NOTE: Because we changed the map scaling, we might need to slighty adjust
-       the biases again to match the new "uncramped" map positions.
-       I have tweaked them slightly below to better fit the full view.
-    -->
-
-    <!-- Station 1 (Green Flag) -->
+    <!-- Station 1 -->
     <Button
         android:id="@+id/btnStation1"
         android:layout_width="50dp"
@@ -58,7 +60,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- Station 2 (Forest Top) -->
+    <!-- Station 2 -->
     <Button
         android:id="@+id/btnStation2"
         android:layout_width="50dp"
@@ -76,7 +78,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- Station 3 (Lake) -->
+    <!-- Station 3 -->
     <Button
         android:id="@+id/btnStation3"
         android:layout_width="50dp"
@@ -94,7 +96,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- Station 4 (Forest Clearing) -->
+    <!-- Station 4 -->
     <Button
         android:id="@+id/btnStation4"
         android:layout_width="50dp"
@@ -112,7 +114,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- Station 5 (Mountains) -->
+    <!-- Station 5 -->
     <Button
         android:id="@+id/btnStation5"
         android:layout_width="50dp"
@@ -130,7 +132,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- Station 6 (Volcano) -->
+    <!-- Station 6 -->
     <Button
         android:id="@+id/btnStation6"
         android:layout_width="50dp"
@@ -148,7 +150,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- Station 7 (Middle Sea) -->
+    <!-- Station 7 -->
     <Button
         android:id="@+id/btnStation7"
         android:layout_width="50dp"
@@ -166,7 +168,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- Station 8 (Africa Left) -->
+    <!-- Station 8 -->
     <Button
         android:id="@+id/btnStation8"
         android:layout_width="50dp"
@@ -184,7 +186,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- Station 9 (Green Hill) -->
+    <!-- Station 9 -->
     <Button
         android:id="@+id/btnStation9"
         android:layout_width="50dp"
@@ -202,7 +204,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- Station 10 (Red Flag Finish) -->
+    <!-- Station 10 -->
     <Button
         android:id="@+id/btnStation10"
         android:layout_width="50dp"

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAD6A5"
+    tools:context=".Book3Station5GameFragment">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="#C19A6B"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pag-BAUL"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- White Card Container -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="24dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <!-- Back Icon -->
+            <ImageView
+                android:id="@+id/btnBackIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_border"
+                android:contentDescription="@string/back_button_description"
+                android:padding="8dp"
+                android:src="@drawable/ic_arrow_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@android:color/black" />
+
+            <!-- Title: Station 5: Responsable o Hindi? -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:gravity="center_vertical"
+                android:text="Station 5: Responsable o Hindi?"
+                android:textColor="#C19A6B"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/btnBackIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btnBackIcon"
+                app:layout_constraintTop_toTopOf="@id/btnBackIcon" />
+
+            <!-- Instructions Text -->
+            <TextView
+                android:id="@+id/tv_instructions"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="Basahin ang bawat sitwasyon. Piliin kung ito ay 'Responsable' o 'Hindi Responsable'."
+                android:textColor="#757575"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+            <!-- Question Text -->
+            <TextView
+                android:id="@+id/tv_question_text"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="20dp"
+                android:gravity="center"
+                android:text="Question text will appear here."
+                android:textColor="@android:color/black"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toTopOf="@+id/btn_responsable"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_instructions" />
+
+            <!-- Responsable Button (Check) -->
+            <ImageButton
+                android:id="@+id/btn_responsable"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/check"
+                android:contentDescription="Responsable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_hindi_responsable"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Hindi Responsable Button (Cross) -->
+            <ImageButton
+                android:id="@+id/btn_hindi_responsable"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="64dp"
+                android:background="@drawable/x"
+                android:contentDescription="Hindi Responsable"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_responsable"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_responsable"
+                app:layout_constraintTop_toTopOf="@+id/btn_responsable" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

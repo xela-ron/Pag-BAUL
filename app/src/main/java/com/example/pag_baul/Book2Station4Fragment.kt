@@ -104,11 +104,9 @@ class Book2Station4Fragment : Fragment() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_feedback, null)
         val ivEmoji = dialogView.findViewById<ImageView>(R.id.ivEmoji)
         val tvFeedback = dialogView.findViewById<TextView>(R.id.tvFeedback)
-        val btnDialogNext = dialogView.findViewById<Button>(R.id.btnDialogNext)
 
         // Hide the button
-        btnDialogNext.visibility = View.GONE
-
+      
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
             .setCancelable(false)

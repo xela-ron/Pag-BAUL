@@ -2,20 +2,18 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("kotlin-parcelize") // <--- ADD THIS LINE
+    id("kotlin-parcelize")
 }
 
 
 android {
     namespace = "com.example.pag_baul"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36 // <-- UPDATED FROM 34
 
     defaultConfig {
         applicationId = "com.example.pag_baul"
-        minSdk = 33
-        targetSdk = 36
+        minSdk = 24
+        targetSdk = 36 // <-- UPDATED FROM 34
         versionCode = 1
         versionName = "1.0"
 
@@ -32,20 +30,21 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "1.8"
     }
     buildFeatures {
         compose = true
-        viewBinding = true  // <--- ADD THIS LINE
+        viewBinding = true
     }
 
 }
 
 dependencies {
+    implementation("com.google.ar:core:1.41.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

@@ -4,45 +4,41 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.pag_baul.databinding.FragmentEssayBinding // Import the binding class
 
 class EssayFragment : Fragment() {
+
+    // Setup ViewBinding for safety and convenience
+    private var _binding: FragmentEssayBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout
-        val view = inflater.inflate(R.layout.fragment_essay, container, false)
+    ): View {
+        // Inflate the layout using ViewBinding
+        _binding = FragmentEssayBinding.inflate(inflater, container, false)
 
-        // 1. Get the data passed from BookFragment
-        val titleText = arguments?.getString("ESSAY_TITLE") ?: "Station"
-        val questionText = arguments?.getString("ESSAY_QUESTION") ?: "Question goes here."
+        // --- START: CORRECTED CODE ---
+        // 1. Get the data passed from BookFragment using the CORRECT keys.
+        val titleText = arguments?.getString("title") ?: "Station"
+        val questionText = arguments?.getString("question") ?: "Question goes here."
+        // --- END: CORRECTED CODE ---
 
-        // 2. Find Views (USING THE NEW IDs FROM XML)
-        val tvTitle = view.findViewById<TextView>(R.id.tvEssayTitle)       // Changed from tvTitle
-        val tvQuestion = view.findViewById<TextView>(R.id.tvEssayQuestion) // Changed from tvQuestion
-        val etAnswer = view.findViewById<EditText>(R.id.etEssayAnswer)     // Added EditText
-        val btnBackIcon = view.findViewById<ImageView>(R.id.btnBackIcon)
-        val btnDone = view.findViewById<Button>(R.id.btnSubmitEssay)       // Changed from btnDoneEssay
+        // 2. Set the text dynamically using the binding object.
+        binding.tvEssayTitle.text = titleText
+        binding.tvEssayQuestion.text = questionText
 
-        // 3. Set the text dynamically
-        tvTitle.text = titleText
-        tvQuestion.text = questionText
-
-        // 4. Back Button Logic
-        btnBackIcon.setOnClickListener {
+        // 3. Back Button Logic
+        binding.btnBackIcon.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
 
-        // 5. Submit/Done Button Logic
-        btnDone.setOnClickListener {
-            val answer = etAnswer.text.toString()
+        // 4. Submit/Done Button Logic
+        binding.btnSubmitEssay.setOnClickListener {
+            val answer = binding.etEssayAnswer.text.toString()
 
             if (answer.isNotBlank()) {
                 // In a real app, you would save the answer here
@@ -53,6 +49,12 @@ class EssayFragment : Fragment() {
             }
         }
 
-        return view
+        return binding.root
+    }
+
+    // This is a standard lifecycle method to prevent memory leaks with ViewBinding
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

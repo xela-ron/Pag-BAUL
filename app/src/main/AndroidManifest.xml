@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- This line tells the Android system that AR is OPTIONAL. -->
+    <!-- This fixes the "unsupported" error on devices without AR. -->
+    <uses-feature android:name="android.hardware.camera.ar" android:required="false" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -8,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PagBAUL">
+
+        <!-- This line ensures the Google AR Service is also treated as OPTIONAL. -->
+        <meta-data android:name="com.google.ar.core" android:value="OPTIONAL" />
 
         <!-- This is the ONLY Activity you need. It handles all navigation. -->
         <activity

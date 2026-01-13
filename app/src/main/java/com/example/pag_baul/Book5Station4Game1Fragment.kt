@@ -57,8 +57,10 @@ class Book5Station4Game1Fragment : Fragment() {
         ivOption2.setOnClickListener(null)
         ivOption3.setOnClickListener(null)
 
-        // Set generic instructions
-        tvQuestion.text = "Piliin ang tamang larawan."
+        // ====================================================================
+        // UPDATED PART: Set the new instruction text as requested.
+        // ====================================================================
+        tvQuestion.text = "Game 1. Larong larawan - Tignang mabuti ang mga larawan. Piliin ang mga larawan na may kaugnayan sa kwento."
         tvQuestion.textSize = 20f
 
         when (level) {

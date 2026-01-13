@@ -1,31 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- File: app/src/main/res/layout/dialog_feedback.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="24dp">
+    android:padding="24dp"
+    android:gravity="center">
 
     <ImageView
         android:id="@+id/ivEmoji"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/happy" /> <!-- Default drawable -->
+        android:src="@drawable/happy" /> <!-- Default or placeholder image -->
 
     <TextView
         android:id="@+id/tvFeedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Magaling!"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp"/>
+        android:layout_marginTop="16dp"
+        android:text="Feedback Text"
+        android:textSize="20sp"
+        android:textAlignment="center"/>
 
+    <!--
+      This is the button that was likely missing.
+      The id 'btnDialogNext' must match the one in your Kotlin code.
+    -->
     <Button
         android:id="@+id/btnDialogNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Next" />
+        android:layout_marginTop="20dp"
+        android:text="Next"
+        android:visibility="gone"/> <!-- It's initially hidden in your code -->
 
 </LinearLayout>

@@ -42,6 +42,17 @@ class StoryFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private var tts: TextToSpeech? = null
 
+    // ==========================================================================================
+    // UPDATED PART: Added the companion object to hold the keys for passing data.
+    // This fixes the "Unresolved reference" error in BookFragment.
+    // ==========================================================================================
+    companion object {
+        const val STORY_TEXT_KEY = "storyText"
+        const val STORY_TITLE_KEY = "title"
+        const val BG_RES_ID_KEY = "backgroundResId"
+        const val BOOK_ID_KEY = "bookId"
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,10 +62,11 @@ class StoryFragment : Fragment(), TextToSpeech.OnInitListener {
         // Initialize TextToSpeech
         tts = TextToSpeech(context, this)
 
-        // 1. Get Arguments
-        val storyText = arguments?.getString("STORY_PAGE1") ?: ""
-        val bookId = arguments?.getInt("BOOK_ID") ?: 1
-        val stationTitle = arguments?.getString("STATION_TITLE") ?: "Story"
+        // 1. Get Arguments using the keys from the companion object
+        val storyText = arguments?.getString(STORY_TEXT_KEY) ?: ""
+        val bookId = arguments?.getInt(BOOK_ID_KEY) ?: 1
+        val stationTitle = arguments?.getString(STORY_TITLE_KEY) ?: "Story"
+        val backgroundResId = arguments?.getInt(BG_RES_ID_KEY, 0)
 
         // 2. Setup UI Elements
         val tvStoryText = view.findViewById<TextView>(R.id.tvStoryText)
@@ -65,13 +77,10 @@ class StoryFragment : Fragment(), TextToSpeech.OnInitListener {
         val btnDone = view.findViewById<Button>(R.id.btnDone)
         val btnBack = view.findViewById<ImageView>(R.id.btnBackIcon)
         val ivBackground = view.findViewById<ImageView>(R.id.ivStoryBackground)
-        // btnReadAloud Removed from layout as per request, so removing logic here
-
-        // Find the Maze Container
         val mazeContainer = view.findViewById<FrameLayout>(R.id.mazeContainer)
 
         // Set Title if available
-        if (tvTitle != null) tvTitle.text = stationTitle
+        tvTitle.text = stationTitle
 
         ivBackground.scaleType = ImageView.ScaleType.CENTER_CROP
 
@@ -83,10 +92,10 @@ class StoryFragment : Fragment(), TextToSpeech.OnInitListener {
             // ============================================================
 
             // Hide standard story elements
-            if (scrollViewStory != null) scrollViewStory.visibility = View.GONE
-            if (btnNext != null) btnNext.visibility = View.GONE
-            if (btnDone != null) btnDone.visibility = View.GONE
-            
+            scrollViewStory.visibility = View.GONE
+            btnNext.visibility = View.GONE
+            btnDone.visibility = View.GONE
+
             // Hide the background image
             ivBackground.visibility = View.GONE
 
@@ -113,95 +122,96 @@ class StoryFragment : Fragment(), TextToSpeech.OnInitListener {
             )
 
             // Add the Maze View
-            if (mazeContainer != null) {
-                mazeContainer.visibility = View.VISIBLE
-                mazeContainer.removeAllViews() // Clean up any previous views
-                mazeContainer.addView(composeMazeView, layoutParams)
-            } else {
-                // Fallback: Add to root layout if container is missing
-                val rootLayout = view as ViewGroup
-                rootLayout.addView(composeMazeView, layoutParams)
-            }
+            mazeContainer.visibility = View.VISIBLE
+            mazeContainer.removeAllViews() // Clean up any previous views
+            mazeContainer.addView(composeMazeView, layoutParams)
 
         } else {
             // ============================================================
-            // STANDARD STORY MODE
-            // ============================================================
+// STANDARD STORY MODE
+// ============================================================
 
-            if (mazeContainer != null) {
-                mazeContainer.visibility = View.GONE
+            mazeContainer.visibility = View.GONE
+
+// Set Background Cover
+//
+// =======================================================================================
+// UPDATED PART: Safely handle the nullable 'backgroundResId' to fix the type mismatch.
+// Check if it's not null AND not the default value (0) before using it.
+// =======================================================================================
+            if (backgroundResId != null && backgroundResId != 0) {
+                ivBackground.setImageResource(backgroundResId)
+            } else {
+                // Fallback to old method if no ID is passed or if it's null
+                when (bookId) {
+                    1 -> ivBackground.setImageResource(R.drawable.book1cover)
+                    2 -> ivBackground.setImageResource(R.drawable.book2cover)
+                    3 -> ivBackground.setImageResource(R.drawable.book3cover)
+                    4 -> ivBackground.setImageResource(R.drawable.book4cover)
+                    5 -> ivBackground.setImageResource(R.drawable.book5cover)
+                    else -> ivBackground.setImageResource(R.drawable.book1cover) // Default fallback
+                }
             }
 
-            // Set Background Cover
-            when (bookId) {
-                1 -> ivBackground.setImageResource(R.drawable.book1cover)
-                2 -> ivBackground.setImageResource(R.drawable.book2cover)
-                3 -> ivBackground.setImageResource(R.drawable.book3cover)
-                4 -> ivBackground.setImageResource(R.drawable.book4cover)
-                5 -> ivBackground.setImageResource(R.drawable.book5cover)
-                else -> ivBackground.setImageResource(R.drawable.book1cover)
-            }
+
 
             ivBackground.visibility = View.VISIBLE
-            if (scrollViewStory != null) scrollViewStory.visibility = View.VISIBLE
+            scrollViewStory.visibility = View.VISIBLE
 
-            if (tvPageNumber != null) tvPageNumber.visibility = View.GONE
-            if (btnNext != null) btnNext.visibility = View.GONE
-            if (btnDone != null) btnDone.visibility = View.VISIBLE
+            tvPageNumber.visibility = View.GONE
+            btnNext.visibility = View.GONE
+            btnDone.visibility = View.VISIBLE
 
-            if (tvStoryText != null) {
-                // Only enable clickable dictionary words for Book 1, 2, 3, 4, and 5
-                if (bookId == 1 || bookId == 2 || bookId == 3 || bookId == 4 || bookId == 5) {
-                    val vocab = getVocabulary(bookId)
-                    val spannable = SpannableString(storyText)
-                    var foundAny = false
+            // Only enable clickable dictionary words for Book 1, 2, 3, 4, and 5
+            if (bookId == 1 || bookId == 2 || bookId == 3 || bookId == 4 || bookId == 5) {
+                val vocab = getVocabulary(bookId)
+                val spannable = SpannableString(storyText)
+                var foundAny = false
 
-                    for ((word, definition) in vocab) {
-                        // Match whole words, case-insensitive
-                        val pattern = Pattern.compile("\\b${Pattern.quote(word)}\\b", Pattern.CASE_INSENSITIVE)
-                        val matcher = pattern.matcher(storyText)
-                        while (matcher.find()) {
-                            foundAny = true
-                            val start = matcher.start()
-                            val end = matcher.end()
-                            // Capture word and definition for the closure
-                            val currentWord = word
-                            val currentDef = definition
+                for ((word, definition) in vocab) {
+                    // Match whole words, case-insensitive
+                    val pattern = Pattern.compile("\\b${Pattern.quote(word)}\\b", Pattern.CASE_INSENSITIVE)
+                    val matcher = pattern.matcher(storyText)
+                    while (matcher.find()) {
+                        foundAny = true
+                        val start = matcher.start()
+                        val end = matcher.end()
+                        // Capture word and definition for the closure
+                        val currentWord = matcher.group() // Get the actual matched word
+                        val currentDef = definition
 
-                            val clickableSpan = object : ClickableSpan() {
-                                override fun onClick(widget: View) {
-                                    // SPEAK OUT THE WORD IMMEDIATELY
-                                    speakOut(currentWord)
-                                    
-                                    AlertDialog.Builder(requireContext())
-                                        .setTitle(currentWord)
-                                        .setMessage(currentDef)
-                                        .setPositiveButton("OK", null)
-                                        .show()
-                                }
+                        val clickableSpan = object : ClickableSpan() {
+                            override fun onClick(widget: View) {
+                                // SPEAK OUT THE WORD IMMEDIATELY
+                                speakOut(currentWord)
 
-                                override fun updateDrawState(ds: TextPaint) {
-                                    // Make it look like normal text
-                                    ds.isUnderlineText = false
-                                    // We do not change color or bold, so it inherits the TextView's style
-                                }
+                                AlertDialog.Builder(requireContext())
+                                    .setTitle(currentWord)
+                                    .setMessage(currentDef)
+                                    .setPositiveButton("OK", null)
+                                    .show()
                             }
-                            spannable.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                        }
-                    }
 
-                    tvStoryText.text = spannable
-                    if (foundAny) {
-                        tvStoryText.movementMethod = LinkMovementMethod.getInstance()
+                            override fun updateDrawState(ds: TextPaint) {
+                                // Make it look like normal text
+                                ds.isUnderlineText = false
+                            }
+                        }
+                        spannable.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                     }
-                } else {
-                    tvStoryText.text = storyText
                 }
+
+                tvStoryText.text = spannable
+                if (foundAny) {
+                    tvStoryText.movementMethod = LinkMovementMethod.getInstance()
+                }
+            } else {
+                tvStoryText.text = storyText
             }
         }
 
         // 4. Button Listeners
-        btnDone?.setOnClickListener {
+        btnDone.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
 
@@ -216,7 +226,7 @@ class StoryFragment : Fragment(), TextToSpeech.OnInitListener {
         if (status == TextToSpeech.SUCCESS) {
             // Set Language to Filipino, fallback to default if not available
             val result = tts?.setLanguage(Locale("fil", "PH"))
-            
+
             // Set Speech Rate to 0.6f (slower) for better clarity
             tts?.setSpeechRate(0.6f)
 
